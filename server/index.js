@@ -7,18 +7,23 @@ const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser')
 const axios = require('axios')
 
+const dev = process.env.NODE_ENV !== 'production'
+const app = next({ dev })
+const handle = app.getRequestHandler()
+const PORT = process.env.PORT ? process.env.PORT : dev ? 3000 : 8080
+const JWT_SECRET = process.env.JWT_SECRET
+const GOOGLE_TOKEN_URL = `https://www.googleapis.com/oauth2/v4/token`
+const GOOGLE_USER_URL = `https://www.googleapis.com/oauth2/v1/userinfo?alt=json`
+const GOOGLE_GRANT_TYPE = `authorization_code`
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+const OAUTH_REDIRECT_URL = process.env.OAUTH_REDIRECT_URL
+
 const verifyJWT = token => {
   return new Promise(resolve => {
     resolve(jwt.verify(token, JWT_SECRET))
   })
 }
-
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
-const handle = app.getRequestHandler()
-const PORT = process.env.PORT ? process.env.PORT : dev ? 3000 : 8080
-const AUTH_URL = dev ? '' : ''
-const JWT_SECRET = 'secret account key'
 
 const noLoginRequired = async (req, res, next) => {
   next()
@@ -27,10 +32,11 @@ const noLoginRequired = async (req, res, next) => {
 
 const verifyLoggedIn = async (req, res, next) => {
   try {
-    let token = req.cookies['accessToken']
+    let token = req.cookies['metalToken']
+    console.log('token', token)
     if (!token) throw new Error('No auth token')
     let decoded = await verifyJWT(token)
-    // console.log('decoded', decoded)
+    console.log('decoded', decoded)
     next()
     return
   } catch (err) {
@@ -38,6 +44,7 @@ const verifyLoggedIn = async (req, res, next) => {
     return res.redirect('/')
   }
 }
+
 
 app
   .prepare()
@@ -48,38 +55,52 @@ app
     server.use(bodyParser())
 
     /**
-     * API
+     * Login
+     * Takes Google's short lived token and creates a refresh token
      */
     server.post('/api/auth/login', async (req, res, next) => {
       try {
-        const { login, password } = req.body
-        let url = `${AUTH_URL}/api/login`
-        let payload = {
-          user: {
-            login: login,
-            password: password,
-          },
+        const { code } = req.body
+
+        console.log('GOOGLE_USER_URL', GOOGLE_USER_URL)
+        console.log('GOOGLE_TOKEN_URL', GOOGLE_TOKEN_URL)
+
+        // Get a "refresh" token
+        let { data: googleToken } = await axios.post(GOOGLE_TOKEN_URL, {
+          code: code,
+          client_id: GOOGLE_CLIENT_ID,
+          client_secret: GOOGLE_CLIENT_SECRET,
+          redirect_uri: OAUTH_REDIRECT_URL,
+          grant_type: GOOGLE_GRANT_TYPE,
+        })
+        console.log('googleToken', googleToken)
+        // Also get the user info
+        let { data: user } = await axios.get(GOOGLE_USER_URL, {
+          headers: { Authorization: `Bearer ${googleToken.access_token}` },
+        })
+        console.log('user', user)
+        // Create a mutable token
+        let token = {
+          ...googleToken,
+          expiry_date: new Date().getTime() + googleToken.expires_in * 1000,
         }
-        let { data: validUser } = await axios.post(url, payload)
-        delete validUser.accounts
-        delete validUser.subscriptions
-        const accessToken = jwt.sign(validUser, JWT_SECRET)
-        return res.json({ accessToken })
+        delete token.expires_in
+        const metalToken = jwt.sign({ token, user }, JWT_SECRET)
+        return res.json({ metalToken })
       } catch (error) {
         console.log('error', error)
-        console.log('Error data', error.response.data)
-        return res.status(422).json({ message: 'Invalid username or password' })
+        return res.status(422).json({ message: 'Login error' })
       }
     })
 
-    server.get('/api/me', async (req, res, next) => {
+    server.get('/api/auth/me', async (req, res, next) => {
       try {
-        let token = req.cookies['accessToken']
+        let token = req.cookies['metalToken']
         if (!token) throw new Error('No auth token')
         let decoded = await verifyJWT(token)
-        return res.json({ user: decoded })
+        return res.json({ ...decoded.user })
       } catch (err) {
-        console.log('err', err)
+        console.log('/api/auth/me', err.toString())
         return res.status(422).json({ message: 'Not logged in' })
       }
     })

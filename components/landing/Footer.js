@@ -15,7 +15,7 @@ export default class NavBar extends React.PureComponent {
               <h5 className="heading">Credits</h5>
 
               <p>
-                Various images from <a href="https://icons8.com/ouch/style/eastwood-1">Icons8</a>
+                Various images from <a href="https://icons8.com">Icons8</a>
               </p>
               <p>
                 Icons from <a href="#">Font awesome</a>

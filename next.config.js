@@ -1,20 +1,24 @@
 // next.config.js
+require('dotenv').config()
 
-const { PHASE_PRODUCTION_SERVER } =
-  process.env.NODE_ENV === 'development'
-    ? {}
-    : !process.env.NOW_REGION
-    ? require('next/constants')
-    : require('next-server/constants')
+const withSass = require('@zeit/next-sass')
+const path = require('path')
+const Dotenv = require('dotenv-webpack')
 
-module.exports = (phase, { defaultConfig }) => {
-  if (phase === PHASE_PRODUCTION_SERVER) {
-    // Config used to run in production.
-    return {}
+module.exports = withSass({
+  webpack: config => {
+    config.plugins = config.plugins || []
+
+    config.plugins = [
+      ...config.plugins,
+
+      // Read the .env file
+      new Dotenv({
+        path: path.join(__dirname, '.env'),
+        systemvars: true
+      })
+    ]
+
+    return config
   }
-
-  const withSass = require('@zeit/next-sass')
-  module.exports = withSass()
-
-  return withSass()
-}
+})
