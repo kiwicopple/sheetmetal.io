@@ -1,0 +1,136 @@
+@charset "utf-8";
+
+@import url(https://use.fontawesome.com/releases/v5.6.3/css/all.css);
+// @import url(https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css);
+
+@font-face {
+  font-family: 'Circular Std Book';
+  src: url('/static/fonts/circular/CircularStd-BookItalic.woff2') format('woff2'),
+    url('/static/fonts/circular/CircularStd-BookItalic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Circular Std';
+  src: url('/static/fonts/circular/CircularStd-MediumItalic.woff2') format('woff2'),
+    url('/static/fonts/circular/CircularStd-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Circular Std Book';
+  src: url('/static/fonts/circular/CircularStd-Book.woff2') format('woff2'),
+    url('/static/fonts/circular/CircularStd-Book.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Circular Std';
+  src: url('/static/fonts/circular/CircularStd-Medium.woff2') format('woff2'),
+    url('/static/fonts/circular/CircularStd-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Circular Std';
+  src: url('/static/fonts/circular/CircularStd-BlackItalic.woff2') format('woff2'),
+    url('/static/fonts/circular/CircularStd-BlackItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Circular Std';
+  src: url('/static/fonts/circular/CircularStd-Bold.woff2') format('woff2'),
+    url('/static/fonts/circular/CircularStd-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Circular Std';
+  src: url('/static/fonts/circular/CircularStd-Black.woff2') format('woff2'),
+    url('/static/fonts/circular/CircularStd-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Circular Std';
+  src: url('/static/fonts/circular/CircularStd-BoldItalic.woff2') format('woff2'),
+    url('/static/fonts/circular/CircularStd-BoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+}
+
+/// BULMA
+
+// Set your brand colors
+$blue: #0d6eac;
+$grey-900: #202833;
+$grey-800: #404b5a;
+$grey-700: #6e7a8a;
+$grey-600: #929fb1;
+$grey-500: #adbdcc;
+$grey-400: #ccd4db;
+$grey-300: #d5dde5;
+$grey-200: #e1e7ec;
+$grey-100: #f8f9fa;
+$border-color-grey: $grey-300;
+
+// Update Bulma's global variables
+$family-sans-serif: 'Circular', 'Circular Std', BlinkMacSystemFont, -apple-system, 'Segoe UI',
+  'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  'Helvetica', 'Arial', sans-serif;
+$primary: $blue;
+$body-size: 14px;
+
+// Import only what you need from Bulma
+@import '../../node_modules/bulma/bulma.sass';
+
+// SPACING CSS - see usage: https://github.com/jgthms/bulma/issues/451#issuecomment-331758839
+$sizeUnit: rem;
+$marginKey: 'm';
+$paddingKey: 'p';
+$separator: '-';
+$sizes: (
+  ('none', 0),
+  ('xxs', 0.125),
+  ('xs', 0.25),
+  ('sm', 0.5),
+  ('md', 1),
+  ('lg', 2),
+  ('xl', 4),
+  ('xxl', 8)
+);
+$positions: (('t', 'top'), ('r', 'right'), ('b', 'bottom'), ('l', 'left'));
+
+@function sizeValue($key, $value) {
+  @return if($key == 'none', 0, $value + $sizeUnit);
+}
+
+@each $size in $sizes {
+  $sizeKey: nth($size, 1);
+  $sizeValue: nth($size, 2);
+  .#{$marginKey}#{$separator}#{$sizeKey} {
+    margin: sizeValue($sizeKey, $sizeValue) !important;
+  }
+  .#{$paddingKey}#{$separator}#{$sizeKey} {
+    padding: sizeValue($sizeKey, $sizeValue) !important;
+  }
+  @each $position in $positions {
+    $posKey: nth($position, 1);
+    $posValue: nth($position, 2);
+    .#{$marginKey}#{$separator}#{$posKey}#{$separator}#{$sizeKey} {
+      margin-#{$posValue}: sizeValue($sizeKey, $sizeValue) !important;
+    }
+    .#{$paddingKey}#{$separator}#{$posKey}#{$separator}#{$sizeKey} {
+      padding-#{$posValue}: sizeValue($sizeKey, $sizeValue) !important;
+    }
+  }
+}
+// end spacing
