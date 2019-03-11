@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import Router from 'next/router'
+import { logout } from '~/lib/Auth'
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -6,6 +8,12 @@ export default class NavBar extends React.Component {
     this.state = {
       isMobileActive: false,
     }
+    this.logoutAndRedirect = this.logoutAndRedirect.bind(this)
+  }
+
+  logoutAndRedirect() {
+    logout()
+    Router.push('/')
   }
 
   render() {
@@ -43,9 +51,7 @@ export default class NavBar extends React.Component {
                 <Link href="/app/">
                   <a className="navbar-item">Settings</a>
                 </Link>
-                <Link href="/app/">
-                  <a className="navbar-item">Logout</a>
-                </Link>
+                <a className="navbar-item" onClick={() => this.logoutAndRedirect()}>Logout</a>
               </div>
             </div>
 

@@ -7,7 +7,7 @@
     "build": "next build",
     "deploy": "next build && gcloud app deploy --quiet",
     "dev": "node server",
-    "migrate": "node-pg-migrate -m ./db/migrations -f ./db/config.json",
+    "migrate": "node-pg-migrate -m ./db/migrations -f ./db/config.js",
     "pretty": "prettier --write \"./**/*.{js,json,yml,md,vue,css,scss}\"",
     "start": "NODE_ENV=production node server"
   },

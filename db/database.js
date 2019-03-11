@@ -12,12 +12,12 @@ exports.uuidv4 = () => {
 }
 
 /**
- * Get tokens/metal-keys for a user
+ * Get API keys for a user
  */
-exports.getTokens = async userId => {
+exports.getKeys = async userId => {
   // eslint-disable-line
   try {
-    const { rows } = await pg.query('SELECT * FROM tokens WHERE user_id = $1', [
+    const { rows } = await pg.query('SELECT * FROM keys WHERE user_id = $1', [
       userId,
     ])
     return rows
@@ -46,7 +46,7 @@ exports.getUserForKey = async (key, userId) => {
   // eslint-disable-line
   try {
     const { rows } = await pg.query(
-      'SELECT * FROM user_tokens WHERE token_key = $1 AND user_id = $2',
+      'SELECT * FROM user_keys WHERE key = $1 AND user_id = $2',
       [key, userId]
     )
     return rows[0]
@@ -56,12 +56,12 @@ exports.getUserForKey = async (key, userId) => {
 }
 
 /**
- * Save a new token/metal-key (this is different from the google oath token)
+ * Save a new API Key 
  */
-exports.saveToken = async (key, userId) => {
+exports.saveKey = async (key, userId) => {
   // eslint-disable-line
   try {
-    const text = 'INSERT INTO tokens(key, user_id) VALUES($1, $2) RETURNING *'
+    const text = 'INSERT INTO keys(key, user_id) VALUES($1, $2) RETURNING *'
     const values = [key, userId]
     const res = await pg.query(text, values)
     return res.rows[0]

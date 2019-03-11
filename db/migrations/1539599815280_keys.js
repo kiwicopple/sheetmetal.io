@@ -1,11 +1,16 @@
 exports.shorthands = undefined
 
 exports.up = pgm => {
-  pgm.createTable('tokens', {
+  pgm.createTable('keys', {
     id: 'id',
     key: {
       type: 'UUID',
       default: pgm.func('md5(random()::text || clock_timestamp()::text)::uuid'),
+    },
+    description: {
+      type: 'varchar(255)',
+      notNull: true,
+      primaryKey: true,
     },
     user_id: {
       type: 'varchar(50)',
@@ -19,8 +24,19 @@ exports.up = pgm => {
       notNull: true,
       default: pgm.func('current_timestamp'),
     },
+    update_at: {
+      type: 'timestamp',
+      notNull: true,
+      default: pgm.func('current_timestamp'),
+    },
+    last_update_by: {
+      type: 'varchar(50)',
+      notNull: true,
+      references: '"users"',
+      onDelete: 'cascade',
+    },
   })
-  pgm.createIndex('tokens', 'key', { unique: true })
+  pgm.createIndex('keys', 'key', { unique: true })
 }
 
 exports.down = pgm => {}

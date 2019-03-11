@@ -25,6 +25,7 @@ Database
 
 ```bash
 # Create the Database
+sudo -u postgres psql -c 'drop database sheet_metal;'
 sudo -u postgres psql -c 'create database sheet_metal;'
 sudo -u postgres psql -c 'grant all privileges on database sheet_metal to postgres;' 
 

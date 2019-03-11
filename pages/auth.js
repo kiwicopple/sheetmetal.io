@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Page from '~/components/layouts/Landing'
-import Router from 'next/router'
 import Link from 'next/link'
 import Cookies from 'js-cookie'
 import { login } from '~/lib/Auth'
@@ -20,8 +19,8 @@ class Auth extends Component {
         let protocol = req.secure ? 'https:' : 'http:'
         let url = `${protocol}//${host}/api/auth/login`
         let { data } = await axios.post(url, { code })
-        login({ metalToken: data.metalToken })
-        return { isLoggedIn: true }
+        console.log('data', data)
+        return { metalToken: data.metalToken, isLoggedIn: true }
       }
     } catch (error) {
       console.error('Auth: getInitialProps', error.toString())
@@ -34,9 +33,14 @@ class Auth extends Component {
 
   constructor(props) {
     super(props)
+    
+    // set the cookie
+    if (props.metalToken) login({ metalToken: props.metalToken })
+    console.log('props.metalToken', props.metalToken)
+
     this.state = {
       isLoading: false,
-      loggedIn: props.isLoggedIn
+      loggedIn: props.isLoggedIn,
     }
   }
 

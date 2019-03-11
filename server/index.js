@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser')
 const axios = require('axios')
+const Database = require('../db/database')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -85,6 +86,7 @@ app
           expiry_date: new Date().getTime() + googleToken.expires_in * 1000,
         }
         delete token.expires_in
+        Database.upsertUser(user, token)
         const metalToken = jwt.sign({ token, user }, JWT_SECRET)
         return res.json({ metalToken })
       } catch (error) {
