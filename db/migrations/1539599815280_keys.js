@@ -9,8 +9,6 @@ exports.up = pgm => {
     },
     description: {
       type: 'varchar(255)',
-      notNull: true,
-      primaryKey: true,
     },
     user_id: {
       type: 'varchar(50)',
@@ -24,12 +22,12 @@ exports.up = pgm => {
       notNull: true,
       default: pgm.func('current_timestamp'),
     },
-    update_at: {
+    updated_at: {
       type: 'timestamp',
       notNull: true,
       default: pgm.func('current_timestamp'),
     },
-    last_update_by: {
+    updated_by: {
       type: 'varchar(50)',
       notNull: true,
       references: '"users"',

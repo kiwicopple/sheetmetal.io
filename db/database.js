@@ -61,7 +61,7 @@ exports.getUserForKey = async (key, userId) => {
 exports.saveKey = async (key, userId) => {
   // eslint-disable-line
   try {
-    const text = 'INSERT INTO keys(key, user_id) VALUES($1, $2) RETURNING *'
+    const text = 'INSERT INTO keys(key, user_id, updated_by) VALUES($1, $2, $2) RETURNING *'
     const values = [key, userId]
     const res = await pg.query(text, values)
     return res.rows[0]
@@ -78,9 +78,9 @@ exports.upsertUser = async (user, oauthToken) => {
   console.log('oauthToken', oauthToken)
   try {
     const text = `
-      INSERT INTO users(id, profile, oauth_token) values ($1, $2, $3)
+      INSERT INTO users(id, profile, oauth_token, updated_by) values ($1, $2, $3, $1)
       ON CONFLICT (id)
-      DO UPDATE SET profile = $2, oauth_token = $3
+      DO UPDATE SET profile = $2, oauth_token = $3, updated_by = $1
       RETURNING *;
     `
     const values = [user.id, user, oauthToken]

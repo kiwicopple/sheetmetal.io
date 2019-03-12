@@ -12,7 +12,6 @@ export default class NavBar extends React.Component {
 
   async componentDidMount() {
     try {
-      console.log('NavBar: componentDidMount')
       let loggedInUser = await profile()
       if (loggedInUser) this.setState({ loggedInUser })
     } catch (error) {

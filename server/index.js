@@ -34,10 +34,9 @@ const noLoginRequired = async (req, res, next) => {
 const verifyLoggedIn = async (req, res, next) => {
   try {
     let token = req.cookies['metalToken']
-    console.log('token', token)
     if (!token) throw new Error('No auth token')
     let decoded = await verifyJWT(token)
-    console.log('decoded', decoded)
+    // console.log('decoded', decoded)
     next()
     return
   } catch (err) {
@@ -62,10 +61,6 @@ app
     server.post('/api/auth/login', async (req, res, next) => {
       try {
         const { code } = req.body
-
-        console.log('GOOGLE_USER_URL', GOOGLE_USER_URL)
-        console.log('GOOGLE_TOKEN_URL', GOOGLE_TOKEN_URL)
-
         // Get a "refresh" token
         let { data: googleToken } = await axios.post(GOOGLE_TOKEN_URL, {
           code: code,
@@ -74,12 +69,12 @@ app
           redirect_uri: OAUTH_REDIRECT_URL,
           grant_type: GOOGLE_GRANT_TYPE,
         })
-        console.log('googleToken', googleToken)
+        
         // Also get the user info
         let { data: user } = await axios.get(GOOGLE_USER_URL, {
           headers: { Authorization: `Bearer ${googleToken.access_token}` },
         })
-        console.log('user', user)
+        
         // Create a mutable token
         let token = {
           ...googleToken,
@@ -104,6 +99,32 @@ app
       } catch (err) {
         console.log('/api/auth/me', err.toString())
         return res.status(422).json({ message: 'Not logged in' })
+      }
+    })
+
+    // Get all metal keys for this user
+    server.get('/api/auth/keys/', verifyLoggedIn, async function(req, res) {
+      try {
+        let token = req.cookies['metalToken']
+        let { user } = await verifyJWT(token)
+        let tokens = await Database.getKeys(user.id)
+        return res.json(tokens)
+      } catch (error) {
+        console.log('error', error)
+        return res.error(error)
+      }
+    })
+
+    // Save a metal key
+    server.post('/api/auth/keys/', verifyLoggedIn, async function(req, res) {
+      try {
+        let token = req.cookies['metalToken']
+        let {user} = await verifyJWT(token)
+        let id = await Database.saveKey(Database.uuidv4(), user.id)
+        return res.json(id)
+      } catch (error) {
+        console.log('error', error)
+        return res.error(error)
       }
     })
 

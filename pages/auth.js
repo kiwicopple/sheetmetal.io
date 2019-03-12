@@ -2,24 +2,19 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Page from '~/components/layouts/Landing'
 import Link from 'next/link'
-import Cookies from 'js-cookie'
 import { login } from '~/lib/Auth'
+import { baseUrl } from '~/lib/Helpers'
 
 class Auth extends Component {
   static async getInitialProps({ req }) {
     try {
       let { error, code } = req.query
-      let { host } = req.headers
-
       if (error) {
         // no token :( the user probably didn't authorise,
         // or the app isn't set up correctly on Google console
         throw new Error(error)
       } else {
-        let protocol = req.secure ? 'https:' : 'http:'
-        let url = `${protocol}//${host}/api/auth/login`
-        let { data } = await axios.post(url, { code })
-        console.log('data', data)
+        let { data } = await axios.post(`${baseUrl(req)}/api/auth/login`, { code })
         return { metalToken: data.metalToken, isLoggedIn: true }
       }
     } catch (error) {
@@ -33,23 +28,17 @@ class Auth extends Component {
 
   constructor(props) {
     super(props)
-    
     // set the cookie
     if (props.metalToken) login({ metalToken: props.metalToken })
-    console.log('props.metalToken', props.metalToken)
-
-    this.state = {
-      isLoading: false,
-      loggedIn: props.isLoggedIn,
-    }
+    this.state = { isLoading: false, loggedIn: props.isLoggedIn && props.metalToken }
   }
 
   render() {
-    let { isLoading, loggedIn } = this.state
+    let { loggedIn } = this.state
     return (
       <Page id="Auth" classNames="">
         <div className="section container">
-          {!!loggedIn ? (
+          {!loggedIn ? (
             <div className="columns is-centered">
               <div className="column is-8 has-text-centered">
                 <h3 className="title is-3">ERROR</h3>
