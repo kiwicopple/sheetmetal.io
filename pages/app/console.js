@@ -11,44 +11,57 @@ class Console extends Component {
   static async getInitialProps({ req }) {
     try {
       let user = await profile(req)
-      let apiKeys = await keys(req)
-      return { profile: user, apiKeys }
+      return { profile: user }
     } catch (error) {
       console.error('Auth: getInitialProps', error.toString())
       return {
-        apiKeys: [],
         serverError: true,
       }
     }
   }
-
   constructor(props) {
     super(props)
     this.state = {
       profile: props.profile,
-      apiKeys: props.apiKeys,
+      apiKeys: [],
       showNewModal: false,
       newKeyDescription: '',
     }
     this.userIdInput = React.createRef()
     this.createKey = this.createKey.bind(this)
     this.onCreateKeyConfirm = this.onCreateKeyConfirm.bind(this)
+    this.getKeys = this.getKeys.bind(this)
   }
-  createKey() {
+  componentDidMount() {
+    this.getKeys()
+  }
+  onCreateKeyConfirm() {
     this.setState({ showNewModal: true })
   }
-  createKey() {
-    this.setState({ showNewModal: true })
+  async getKeys() {
+    let apiKeys = await keys()
+    console.log('apiKeys', apiKeys)
+    this.setState({ apiKeys })
   }
-  async onCreateKeyConfirm(props) {
-    // try {
-    //   let { data: key } = await axios.post('/api/auth/keys')
-    //   console.log('key', key)
-    // } catch (error) {
-    //   console.error('error', error)
-    // }
-    console.log('props', props)
-    this.setState({ showNewModal: false })
+  async createKey() {
+    try {
+      let { newKeyDescription } = this.state
+      let { data: key } = await axios.post('/api/auth/keys', {
+        description: newKeyDescription,
+      })
+      console.log('key', key)
+      let apiKeys = [key, ...this.state.apiKeys]
+      this.setState({
+        apiKeys,
+        showNewModal: false,
+        newKeyDescription: '',
+      })
+    } catch (error) {
+      console.error('error', error)
+      toast(`There was an error creating your new key :(`, {
+        type: toast.TYPE.ERROR,
+      })
+    }
   }
   render() {
     let { apiKeys, profile, showNewModal, newKeyDescription } = this.state
@@ -62,7 +75,7 @@ class Console extends Component {
             onSecondaryClick={() => this.setState({ showNewModal: false })}
             primaryButtonClass="is-primary"
             primaryButtonText="Create"
-            onPrimaryClick={props => this.onCreateKeyConfirm(props)}
+            onPrimaryClick={() => this.createKey()}
             icon="fa-plus"
             title={'Create key'}
             textInput={newKeyDescription}
@@ -90,12 +103,14 @@ class Console extends Component {
                     onClick={() =>
                       copyInputValue(
                         this.userIdInput.current,
-                        () => toast('Copied', {
-                          type: toast.TYPE.INFO,
-                        }),
-                        () => toast(`Couldn't access your clipboard`, {
-                          type: toast.TYPE.ERROR,
-                        })
+                        () =>
+                          toast('Copied', {
+                            type: toast.TYPE.INFO,
+                          }),
+                        () =>
+                          toast(`Couldn't access your clipboard`, {
+                            type: toast.TYPE.ERROR,
+                          })
                       )
                     }
                   >
@@ -120,7 +135,7 @@ class Console extends Component {
                 </div>
 
                 <div className="level-right">
-                  <a className="button is-primary" onClick={() => this.createKey()}>
+                  <a className="button is-primary" onClick={() => this.onCreateKeyConfirm()}>
                     <span>New</span>
                     <span className="icon">
                       <i className="fas fa-plus" />
@@ -130,7 +145,7 @@ class Console extends Component {
               </nav>
               <div>
                 {apiKeys.map(apiKey => (
-                  <KeyCard apiKey={apiKey} key={apiKey.id} />
+                  <KeyCard apiKey={apiKey} key={apiKey.id} onDelete={() => this.getKeys()} />
                 ))}
               </div>
             </div>

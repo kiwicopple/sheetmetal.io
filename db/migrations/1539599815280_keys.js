@@ -9,6 +9,7 @@ exports.up = pgm => {
     },
     description: {
       type: 'varchar(255)',
+      notNull: true,
     },
     user_id: {
       type: 'varchar(50)',

@@ -28,13 +28,13 @@ const constructModal = props => {
         <div className="modal-background" />
         <div className="modal-card">
           <header className="modal-card-head has-text-centered">
-            {!!title && <p className="modal-card-title">{title}</p>}
+            <p className="modal-card-title">{title || ''}</p>
             <button className="delete" onClick={() => emitOnCancel()} />
           </header>
           <section className="modal-card-body has-text-centered">
             <p className="animated headShake is-size-5 has-text-weight-semibold">{message}</p>
             <p className="">{submessage}</p>
-            {typeof textInput != null && (
+            {textInput != null && (
               <div className="field">
                 <p className="control is-expanded has-icons-left">
                   <input
@@ -62,7 +62,7 @@ const constructModal = props => {
               </button>
               <button
                 className={`button ${primaryButtonClass || ''}`}
-                onClick={() => emitOnPrimaryClick({ text })}
+                onClick={() => emitOnPrimaryClick()}
               >
                 <span>{primaryButtonText}</span>
                 <span className="icon">

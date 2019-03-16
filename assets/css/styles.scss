@@ -70,7 +70,9 @@
 /// BULMA
 
 // Set your brand colors
+$green: #45D092;
 $blue: #0d6eac;
+$grey: #1f1f1f;
 $grey-900: #202833;
 $grey-800: #404b5a;
 $grey-700: #6e7a8a;
@@ -82,12 +84,20 @@ $grey-200: #e1e7ec;
 $grey-100: #f8f9fa;
 $border-color-grey: $grey-300;
 
-// Update Bulma's global variables
+// Global variables
 $family-sans-serif: 'Circular', 'Circular Std', BlinkMacSystemFont, -apple-system, 'Segoe UI',
   'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   'Helvetica', 'Arial', sans-serif;
-$primary: $blue;
+$primary: $green;
+$link: $green;
 $body-size: 14px;
+
+// Navbar
+$navbar-background-color: #000;
+$navbar-item-color: #fff;
+$navbar-item-hover-color: $primary;
+$navbar-item-hover-background-color: $grey;
+$navbar-dropdown-background-color: $grey-900;
 
 // Import only what you need from Bulma
 @import '../../node_modules/bulma/bulma.sass';
@@ -134,6 +144,10 @@ $positions: (('t', 'top'), ('r', 'right'), ('b', 'bottom'), ('l', 'left'));
   }
 }
 // end spacing
+
+html, body {
+  background: $grey;
+}
 
 #Modal {
   .modal-card-head,

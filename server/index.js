@@ -45,7 +45,6 @@ const verifyLoggedIn = async (req, res, next) => {
   }
 }
 
-
 app
   .prepare()
   .then(() => {
@@ -69,12 +68,12 @@ app
           redirect_uri: OAUTH_REDIRECT_URL,
           grant_type: GOOGLE_GRANT_TYPE,
         })
-        
+
         // Also get the user info
         let { data: user } = await axios.get(GOOGLE_USER_URL, {
           headers: { Authorization: `Bearer ${googleToken.access_token}` },
         })
-        
+
         // Create a mutable token
         let token = {
           ...googleToken,
@@ -119,9 +118,42 @@ app
     server.post('/api/auth/keys/', verifyLoggedIn, async function(req, res) {
       try {
         let token = req.cookies['metalToken']
-        let {user} = await verifyJWT(token)
-        let id = await Database.saveKey(Database.uuidv4(), user.id)
+        let { user } = await verifyJWT(token)
+        const { description } = req.body
+        let id = await Database.saveKey(Database.uuidv4(), user.id, description)
         return res.json(id)
+      } catch (error) {
+        console.log('error', error)
+        return res.error(error)
+      }
+    })
+
+    // Update a metal key
+    server.patch('/api/auth/keys/:id', verifyLoggedIn, async function(req, res) {
+      try {
+        let token = req.cookies['metalToken']
+        const { user } = await verifyJWT(token)
+        const { id } = req.params
+        const { payload } = req.body
+        if (!id) return res.error('ID is required')
+        if (!payload) return res.error('Payload is required')
+        let response = await Database.updateTable('keys', id, user.id, payload)
+        return res.json(response)
+      } catch (error) {
+        console.log('error', error)
+        return res.error(error)
+      }
+    })
+
+    // Delete a metal key
+    server.delete('/api/auth/keys/:id', verifyLoggedIn, async function(req, res) {
+      try {
+        const { id } = req.params
+        if (!id) return res.error('ID is required')
+        let token = req.cookies['metalToken']
+        let { user } = await verifyJWT(token)
+        let response = await Database.deleteKey(id, user.id)
+        return res.json(response)
       } catch (error) {
         console.log('error', error)
         return res.error(error)
