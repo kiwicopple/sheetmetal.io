@@ -58,7 +58,7 @@ export default class NavBar extends React.Component {
                 </span>
               </a>
             ) : (
-              <Link href="/app/">
+              <Link href="/app/console">
                 <span className="navbar-item">
                   <span className="button">Console</span>
                 </span>

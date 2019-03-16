@@ -134,3 +134,20 @@ $positions: (('t', 'top'), ('r', 'right'), ('b', 'bottom'), ('l', 'left'));
   }
 }
 // end spacing
+
+#Modal {
+  .modal-card-head,
+  .modal-card-foot {
+    background: #fff;
+    border: none;
+  }
+  .modal-card-title {
+    text-align: left;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+  }
+  .modal-card-foot {
+    justify-content: flex-end;
+  }
+}

@@ -13,36 +13,56 @@ const constructModal = props => {
     primaryButtonText,
     onPrimaryClick,
     icon,
+    title,
+    textInput,
+    onTextInputChanged,
   } = props
   let emitOnCancel = onCancel || (() => {})
   let emitOnSecondaryClick = onSecondaryClick || (() => {})
   let emitOnPrimaryClick = onPrimaryClick || (() => {})
+  let emitOnTextInputChanged = onTextInputChanged || (() => {})
 
-  console.log('ModalConfirm', primaryButtonText)
   return (
-    <div id="ModalConfirm">
+    <div id="Modal">
       <div className="modal is-active">
         <div className="modal-background" />
         <div className="modal-card">
           <header className="modal-card-head has-text-centered">
-            <p className="modal-card-title" />
+            {!!title && <p className="modal-card-title">{title}</p>}
             <button className="delete" onClick={() => emitOnCancel()} />
           </header>
           <section className="modal-card-body has-text-centered">
             <p className="animated headShake is-size-5 has-text-weight-semibold">{message}</p>
             <p className="">{submessage}</p>
+            {typeof textInput != null && (
+              <div className="field">
+                <p className="control is-expanded has-icons-left">
+                  <input
+                    className="input"
+                    value={textInput}
+                    onChange={e => {
+                      emitOnTextInputChanged(e.target.value)
+                    }}
+                    placeholder="Create a description to identify where you are using this key"
+                  />
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-align-left" />
+                  </span>
+                </p>
+              </div>
+            )}
           </section>
           <footer className="modal-card-foot">
             <div className="buttons">
               <button
-                className={`button is-rounded is-outlined ${secondaryButtonClass || ''}`}
+                className={`button is-outlined ${secondaryButtonClass || ''}`}
                 onClick={() => emitOnSecondaryClick()}
               >
                 {secondaryButtonText}
               </button>
               <button
-                className={`super-button button is-medium is-rounded ${primaryButtonClass || ''}`}
-                onClick={() => emitOnPrimaryClick()}
+                className={`button ${primaryButtonClass || ''}`}
+                onClick={() => emitOnPrimaryClick({ text })}
               >
                 <span>{primaryButtonText}</span>
                 <span className="icon">

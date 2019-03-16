@@ -36,7 +36,7 @@ const verifyLoggedIn = async (req, res, next) => {
     let token = req.cookies['metalToken']
     if (!token) throw new Error('No auth token')
     let decoded = await verifyJWT(token)
-    // console.log('decoded', decoded)
+    console.log('decoded', decoded)
     next()
     return
   } catch (err) {
