@@ -21,14 +21,24 @@ export default class NavBar extends React.Component {
 
   render() {
     let { isMobileActive, loggedInUser } = this.state
-    return <nav className="navbar" role="navigation" aria-label="main navigation">
+    return (
+      <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
-            <img src="/static/img/sheet-metal-logo.png" alt="Sheet Metal"  />
+            <img src="/static/img/sheet-metal-logo.png" alt="Sheet Metal" />
           </a>
-          <a onClick={() => this.setState({
+          <a
+            onClick={() =>
+              this.setState({
                 isMobileActive: !isMobileActive,
-              })} role="button" className="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+              })
+            }
+            role="button"
+            className="navbar-burger"
+            data-target="navMenu"
+            aria-label="menu"
+            aria-expanded="false"
+          >
             <span aria-hidden="true" />
             <span aria-hidden="true" />
             <span aria-hidden="true" />
@@ -45,13 +55,18 @@ export default class NavBar extends React.Component {
               <a className="navbar-item">Documentation</a>
             </Link>
 
-            {!loggedInUser ? <a href={authUrl()} className="navbar-item">
-                Log in
-              </a> : <Link href="/app/console" className="navbar-item">
-                Console
-              </Link>}
+            {!loggedInUser ? (
+              <a href={authUrl()}>
+                <span className="navbar-item">Log in</span>
+              </a>
+            ) : (
+              <Link href="/app/console">
+                <a className="navbar-item">Console</a>
+              </Link>
+            )}
           </div>
         </div>
       </nav>
+    )
   }
 }

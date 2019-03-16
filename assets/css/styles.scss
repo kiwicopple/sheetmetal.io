@@ -128,6 +128,13 @@ $box-background-color: $grey-800;
 $box-color: #fff;
 $box-shadow: $shadow-shallow;
 
+// Modal
+$modal-card-body-background-color: $background;
+$modal-card-title-color: $text;
+.modal-card-head, .modal-card-foot {
+  background: $background !important;
+}
+
 // Import only what you need from Bulma
 @import '../../node_modules/bulma/bulma.sass';
 
@@ -188,15 +195,26 @@ body {
 .footer {
   box-shadow: inset 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
 }
+.has-shadow {
+  box-shadow: $shadow;
+}
 .button {
   text-transform: uppercase;
   font-size: 0.8em;
-  &.is-primary.has-shadow {
-    box-shadow: 1px 1px 5px 5px rgba($primary, 0.0);
-    transition: box-shadow 0.2s ease-in-out;
-    &:hover {
-      box-shadow: 1px 1px 5px 5px  rgba($primary, 0.1);
+  &.is-primary {
+    color: $background;
+    &.has-shadow {
+      box-shadow: 1px 1px 5px 5px rgba($primary, 0);
+      transition: box-shadow 0.2s ease-in-out;
+      &:hover {
+        color: $background;
+        box-shadow: 1px 1px 5px 5px rgba($primary, 0.1);
+      }
     }
+  }
+  &.is-dark {
+    color: $grey-200 !important;
+    border-color: $grey-200;
   }
 }
 #Modal {
@@ -214,4 +232,13 @@ body {
   .modal-card-foot {
     justify-content: flex-end;
   }
+}
+#Teaser {
+  margin-bottom: 250px;
+}
+#Video {
+  height: 400px;
+  background: $grey-300;
+  margin-bottom: -250px;
+  border-radius: 5px;
 }

@@ -95,6 +95,7 @@ export default class KeyCard extends React.Component {
 
           {!!isEditing && (
             <React.Fragment>
+              <h5 className="title is-6 m-b-sm">Editing...</h5>
               <div className="field">
                 <p className="control is-expanded has-icons-left">
                   <input
@@ -109,8 +110,11 @@ export default class KeyCard extends React.Component {
                 </p>
               </div>
               <div className="buttons is-right">
+                <button className="button is-outlined" onClick={() => this.cancel()}>
+                  Cancel
+                </button>
                 <button
-                  className="button is-outlined"
+                  className="button is-outlined is-danger"
                   onClick={() =>
                     this.setState({
                       showDeleteModal: true,
@@ -119,10 +123,7 @@ export default class KeyCard extends React.Component {
                 >
                   Delete
                 </button>
-                <button className="button is-outlined" onClick={() => this.cancel()}>
-                  Cancel
-                </button>
-                <button className="button is-outlined" onClick={() => this.save()}>
+                <button className="button is-outlined is-primary" onClick={() => this.save()}>
                   Save
                 </button>
               </div>

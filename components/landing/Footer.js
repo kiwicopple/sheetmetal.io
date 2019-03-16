@@ -2,18 +2,23 @@ import Link from 'next/link'
 
 export default class NavBar extends React.PureComponent {
   render() {
-    return (
-      <footer className="footer">
+    return <footer className="footer">
         <div className="container">
           <div className="columns">
             <div className="column">
-              <img src="/static/img/sheet-metal-logo.png" alt="Sheet Metal" style={{width: '80%'}} />
+              <img src="/static/img/sheet-metal-logo.png" alt="Sheet Metal" style={{ width: '80%' }} />
             </div>
             <div className="column has-text">
               <h5 className="heading">About</h5>
-              <p><a href="#">Pricing</a></p>
-              <p><a href="#">Github</a></p>
-              <p><a href="/static/humans.txt">Humans</a></p>
+              <p>
+                <a href="#">Pricing</a>
+              </p>
+              <p>
+                <a href="https://github.com/kiwicopple/sheetmetal.io">Github</a>
+              </p>
+              <p>
+                <a href="/static/humans.txt">Humans</a>
+              </p>
             </div>
             <div className="column">
               <h5 className="heading">Credits</h5>
@@ -28,6 +33,5 @@ export default class NavBar extends React.PureComponent {
           </div>
         </div>
       </footer>
-    )
   }
 }
