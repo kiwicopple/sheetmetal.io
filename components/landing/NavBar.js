@@ -21,20 +21,14 @@ export default class NavBar extends React.Component {
 
   render() {
     let { isMobileActive, loggedInUser } = this.state
-    return (
-      <nav className="navbar" role="navigation" aria-label="main navigation">
+    return <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
-            <h3 className="title is-4">SM</h3>
+            <img src="/static/img/sheet-metal-logo.png" alt="Sheet Metal"  />
           </a>
-          <a
-            onClick={() => this.setState({ isMobileActive: !isMobileActive })}
-            role="button"
-            className="navbar-burger"
-            data-target="navMenu"
-            aria-label="menu"
-            aria-expanded="false"
-          >
+          <a onClick={() => this.setState({
+                isMobileActive: !isMobileActive,
+              })} role="button" className="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
             <span aria-hidden="true" />
             <span aria-hidden="true" />
             <span aria-hidden="true" />
@@ -43,7 +37,7 @@ export default class NavBar extends React.Component {
 
         <div className={`navbar-menu ${isMobileActive ? 'is-active' : ''}`}>
           <div className="navbar-start" />
-          <div className="navbar-end">
+          <div className="navbar-end p-r-sm">
             <Link href="/#pricing">
               <a className="navbar-item">Pricing</a>
             </Link>
@@ -51,22 +45,13 @@ export default class NavBar extends React.Component {
               <a className="navbar-item">Documentation</a>
             </Link>
 
-            {!loggedInUser ? (
-              <a href={authUrl()}>
-                <span className="navbar-item">
-                  <span className="button">Log in</span>
-                </span>
-              </a>
-            ) : (
-              <Link href="/app/console">
-                <span className="navbar-item">
-                  <span className="button">Console</span>
-                </span>
-              </Link>
-            )}
+            {!loggedInUser ? <a href={authUrl()} className="navbar-item">
+                Log in
+              </a> : <Link href="/app/console" className="navbar-item">
+                Console
+              </Link>}
           </div>
         </div>
       </nav>
-    )
   }
 }

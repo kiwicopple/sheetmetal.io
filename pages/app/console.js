@@ -90,36 +90,35 @@ class Console extends Component {
                 You can use your User ID with an API Key to access data from any Google Sheet.
               </p>
 
-              <div className="field has-addons">
+              <div className="field">
                 <p className="control is-expanded has-icons-left">
                   <span className="icon is-small is-left">
                     <i className="fas fa-user-lock" />
                   </span>
                   <input className="input" ref={this.userIdInput} value={profile.id} readOnly />
                 </p>
-                <p className="control">
-                  <a
-                    className="button"
-                    onClick={() =>
-                      copyInputValue(
-                        this.userIdInput.current,
-                        () =>
-                          toast('Copied', {
-                            type: toast.TYPE.INFO,
-                          }),
-                        () =>
-                          toast(`Couldn't access your clipboard`, {
-                            type: toast.TYPE.ERROR,
-                          })
-                      )
-                    }
-                  >
-                    <span className="icon is-small">
-                      <i className="fas fa-copy" />
-                    </span>
-                  </a>
-                </p>
               </div>
+
+              <p className="buttons is-right">
+                <button
+                  className="button"
+                  onClick={() =>
+                    copyInputValue(
+                      this.userIdInput.current,
+                      () =>
+                        toast('Copied', {
+                          type: toast.TYPE.INFO,
+                        }),
+                      () =>
+                        toast(`Couldn't access your clipboard`, {
+                          type: toast.TYPE.ERROR,
+                        })
+                    )
+                  }
+                >
+                  Copy
+                </button>
+              </p>
             </div>
           </div>
         </div>
@@ -135,7 +134,7 @@ class Console extends Component {
                 </div>
 
                 <div className="level-right">
-                  <a className="button is-primary" onClick={() => this.onCreateKeyConfirm()}>
+                  <a className="button is-primary has-shadow" onClick={() => this.onCreateKeyConfirm()}>
                     <span>New</span>
                     <span className="icon">
                       <i className="fas fa-plus" />

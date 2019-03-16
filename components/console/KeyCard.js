@@ -52,37 +52,36 @@ export default class KeyCard extends React.Component {
           {!isEditing && (
             <React.Fragment>
               <h5 className="title is-6 m-b-sm">{apiKey.description}</h5>
-              <div className="field has-addons">
+              <div className="field">
                 <p className="control is-expanded has-icons-left">
                   <input className="input" ref={this.keyInput} value={apiKey.key} readOnly />
                   <span className="icon is-small is-left">
                     <i className="fas fa-key" />
                   </span>
                 </p>
-                <p className="control">
-                  <a
-                    className="button"
-                    onClick={() =>
-                      copyInputValue(
-                        this.keyInput.current,
-                        () =>
-                          toast('Copied', {
-                            type: toast.TYPE.INFO,
-                          }),
-                        () =>
-                          toast(`Couldn't access your clipboard`, {
-                            type: toast.TYPE.ERROR,
-                          })
-                      )
-                    }
-                  >
-                    Copy
-                  </a>
-                </p>
               </div>
               <div className="buttons is-right">
                 <button className="button" onClick={() => this.setState({ isEditing: true })}>
                   Edit
+                </button>
+
+                <button
+                  className="button"
+                  onClick={() =>
+                    copyInputValue(
+                      this.keyInput.current,
+                      () =>
+                        toast('Copied', {
+                          type: toast.TYPE.INFO,
+                        }),
+                      () =>
+                        toast(`Couldn't access your clipboard`, {
+                          type: toast.TYPE.ERROR,
+                        })
+                    )
+                  }
+                >
+                  Copy
                 </button>
                 <button className="button">
                   <span>Docs</span>
@@ -112,7 +111,11 @@ export default class KeyCard extends React.Component {
               <div className="buttons is-right">
                 <button
                   className="button is-outlined"
-                  onClick={() => this.setState({ showDeleteModal: true })}
+                  onClick={() =>
+                    this.setState({
+                      showDeleteModal: true,
+                    })
+                  }
                 >
                   Delete
                 </button>
@@ -129,7 +132,11 @@ export default class KeyCard extends React.Component {
 
         {!!showDeleteModal && (
           <Modal
-            onCancel={() => this.setState({ showDeleteModal: false })}
+            onCancel={() =>
+              this.setState({
+                showDeleteModal: false,
+              })
+            }
             message="This action is permanent"
             submessage="Are you sure you want to delete your key?"
             secondaryButtonClass="is-danger is-outlined"

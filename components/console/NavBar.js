@@ -22,7 +22,7 @@ export default class NavBar extends React.Component {
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
-            <h3 className="title is-4">SM</h3>
+            <img src="/static/img/sheet-metal-logo.png" alt="Sheet Metal" />
           </a>
           <a
             onClick={() => this.setState({ isMobileActive: !isMobileActive })}
@@ -40,20 +40,18 @@ export default class NavBar extends React.Component {
 
         <div className={`navbar-menu ${isMobileActive ? 'is-active' : ''}`}>
           <div className="navbar-start" />
-          <div className="navbar-end">
+          <div className="navbar-end p-r-sm">
             <Link href="/docs">
               <a className="navbar-item">Documentation</a>
             </Link>
+            <Link href="/app/console">
+              <a className="navbar-item">Console</a>
+            </Link>
+            <Link href="/app/console">
+              <a className="navbar-item">Account</a>
+            </Link>
 
-            <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link">Account</a>
-              <div className="navbar-dropdown is-right">
-                <Link href="/app/">
-                  <a className="navbar-item">Settings</a>
-                </Link>
-                <a className="navbar-item" onClick={() => this.logoutAndRedirect()}>Logout</a>
-              </div>
-            </div>
+            {/* <a className="navbar-item" onClick={() => this.logoutAndRedirect()}>Logout</a> */}
 
 
           </div>

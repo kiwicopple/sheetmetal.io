@@ -70,34 +70,63 @@
 /// BULMA
 
 // Set your brand colors
-$green: #45D092;
+$green: #45d092;
 $blue: #0d6eac;
-$grey: #1f1f1f;
-$grey-900: #202833;
-$grey-800: #404b5a;
-$grey-700: #6e7a8a;
-$grey-600: #929fb1;
-$grey-500: #adbdcc;
-$grey-400: #ccd4db;
-$grey-300: #d5dde5;
-$grey-200: #e1e7ec;
-$grey-100: #f8f9fa;
-$border-color-grey: $grey-300;
+$grey-900: #1f1f1f;
+$grey-800: #2a2a2a;
+$grey-700: #3b3b3b;
+$grey-600: #4c4c4c;
+$grey-500: #5e5e5e;
+$grey-400: #6f6f6f;
+$grey-300: #7f7f7f;
+$grey-200: #8f8f8f;
+$grey-100: #eeeeee;
+$background: $grey-900;
+$border-color: $grey-400;
+$primary: $green;
+$link: $green;
 
-// Global variables
+$shadow: 0 0 5px 5px rgba(0, 0, 0, 0.3);
+$shadow-shallow: 0 0 3px 3px rgba(0, 0, 0, 0.2);
+
+// Typography
+$body-size: 14px;
+$text: $grey-100;
+$title-color: $text;
+$subtitle-color: $text;
+$text-invert: $grey-900;
+$link-invert: $grey-100;
+$link-hover: $grey-100;
 $family-sans-serif: 'Circular', 'Circular Std', BlinkMacSystemFont, -apple-system, 'Segoe UI',
   'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   'Helvetica', 'Arial', sans-serif;
-$primary: $green;
-$link: $green;
-$body-size: 14px;
 
 // Navbar
-$navbar-background-color: #000;
+$navbar-background-color: $background;
 $navbar-item-color: #fff;
 $navbar-item-hover-color: $primary;
-$navbar-item-hover-background-color: $grey;
-$navbar-dropdown-background-color: $grey-900;
+$navbar-item-hover-background-color: $background;
+$navbar-dropdown-background-color: $background;
+
+// Footer
+$footer-background-color: $background;
+
+// Forms
+$input-background-color: $background;
+$input-color: $text;
+$input-border-color: $border-color;
+
+// Buttons
+$button-color: $text;
+$button-background-color: $background;
+$button-border-color: $border-color;
+$button-hover-color: $text;
+$button-padding-vertical: calc(0.6em - 1px);
+
+// Box
+$box-background-color: $grey-800;
+$box-color: #fff;
+$box-shadow: $shadow-shallow;
 
 // Import only what you need from Bulma
 @import '../../node_modules/bulma/bulma.sass';
@@ -145,10 +174,31 @@ $positions: (('t', 'top'), ('r', 'right'), ('b', 'bottom'), ('l', 'left'));
 }
 // end spacing
 
-html, body {
-  background: $grey;
+//
+// Custom CSS
+//
+html,
+body {
+  background: $background;
+  color: $text;
 }
-
+.navbar {
+  box-shadow: $shadow;
+}
+.footer {
+  box-shadow: inset 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+}
+.button {
+  text-transform: uppercase;
+  font-size: 0.8em;
+  &.is-primary.has-shadow {
+    box-shadow: 1px 1px 5px 5px rgba($primary, 0.0);
+    transition: box-shadow 0.2s ease-in-out;
+    &:hover {
+      box-shadow: 1px 1px 5px 5px  rgba($primary, 0.1);
+    }
+  }
+}
 #Modal {
   .modal-card-head,
   .modal-card-foot {

@@ -1,0 +1,20 @@
+Humans
+
+_______________________________
+
+TEAM
+
+Paul Copplestone - https://github.com/kiwicopple
+
+_______________________________________________________________________________
+
+TECHNOLOGY
+
+NextJS - https://github.com/zeit/next.js
+Bulma - https://bulma.io
+
+_______________________________________________________________________________
+
+IDEAS
+
+If you have some suggestions send an email to copple@madebykade.com (or create an issue directly on Github).
