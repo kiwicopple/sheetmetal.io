@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser')
 const axios = require('axios')
 const Database = require('../db/database')
+const GoogleHelpers = require('./Google')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -19,6 +20,15 @@ const GOOGLE_GRANT_TYPE = `authorization_code`
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
 const OAUTH_REDIRECT_URL = process.env.OAUTH_REDIRECT_URL
+
+const TOKEN_ERROR = `
+  Missing or invalid metal-token. 
+  Make sure the you have 'metal-key' in your headers or 'key' in your query params. Also make sure the key is correct!
+`
+const USER_PARAM_ERROR = `
+  Missing user param. 
+  Make sure you pass your user ID as a header or query param 'user'.
+`
 
 const verifyJWT = token => {
   return new Promise(resolve => {
@@ -158,6 +168,59 @@ app
         console.log('error', error)
         return res.error(error)
       }
+    })
+
+    /**
+     * Sheets API
+     */
+
+    /* GET a sheet. */
+    server.get('/api/v1/sheets/:id', async function(req, res) {
+      const userId = req.headers.user || req.query.user
+      if (!userId) return res.status(422).send(USER_PARAM_ERROR)
+      console.log('userId', userId)
+
+      const { id } = req.params
+      const auth = await GoogleHelpers.getAuthFromHeaders(req.headers, req.query, userId)
+      console.log('auth', auth)
+      if (!auth) return res.status(401).send(TOKEN_ERROR)
+
+      const sheets = GoogleHelpers.authorisedClient(auth)
+      sheets.spreadsheets.get(
+        {
+          spreadsheetId: id,
+        },
+        (err, response) => {
+          if (err) return GoogleHelpers.handleGoogleError(err, req, res)
+          let data = response.data
+          return res.send(data)
+        }
+      )
+    })
+
+    /* GET a range of values. */
+    server.get('/api//v1/sheets/:id/:range', async function(req, res) {
+      const userId = req.headers.user || req.query.user
+      if (!userId) return res.status(422).send(USER_PARAM_ERROR)
+      console.log('userId', userId)
+
+      const { id, range } = req.params
+      const { format } = req.query
+      const auth = await GoogleHelpers.getAuthFromHeaders(req.headers, req.query, userId)
+      console.log('auth', auth)
+      if (!auth) return res.status(401).send(TOKEN_ERROR)
+      const sheets = _authorisedClient(auth)
+      sheets.spreadsheets.values.get({ spreadsheetId: id, range: range }, (err, response) => {
+        GoogleHelpers.handlePotentiallyNewOauth(auth, sheets, userId)
+        // console.log('possibly new credentials', sheets['_options'].auth.credentials)
+        if (err) return GoogleHelpers.handleGoogleError(err, req, res)
+        else if (format && format.toUpperCase() === 'RAW') return res.send(response.data)
+        else {
+          let data = response.data
+          let formatted = GoogleHelpers.valuesToJson(data.values)
+          return res.send({ ...data, values: formatted })
+        }
+      })
     })
 
     /**

@@ -21,6 +21,5 @@ export default ({ id, children, classNames, title }) => (
         <div id="modal" />
       </div>
     </div>
-    <Footer />
   </React.Fragment>
 )

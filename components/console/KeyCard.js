@@ -46,9 +46,11 @@ export default class KeyCard extends React.Component {
   }
   render() {
     let { apiKey, isEditing, showDeleteModal } = this.state
+    let { onDocsClicked, isSelected } = this.props
+    let emitOnDocsClicked = onDocsClicked || (() => {})
     return (
       <div className="m-b-md">
-        <div className="KeyCard box">
+        <div className={`KeyCard box`}>
           {!isEditing && (
             <React.Fragment>
               <h5 className="title is-6 m-b-sm">{apiKey.description}</h5>
@@ -61,12 +63,11 @@ export default class KeyCard extends React.Component {
                 </p>
               </div>
               <div className="buttons is-right">
-                <button className="button" onClick={() => this.setState({ isEditing: true })}>
+                <button className="button is-dark" onClick={() => this.setState({ isEditing: true })}>
                   Edit
                 </button>
-
                 <button
-                  className="button"
+                  className="button is-dark"
                   onClick={() =>
                     copyInputValue(
                       this.keyInput.current,
@@ -83,7 +84,7 @@ export default class KeyCard extends React.Component {
                 >
                   Copy
                 </button>
-                <button className="button">
+                <button className={`button is-dark ${isSelected && 'has-border-primary'}`} onClick={() => emitOnDocsClicked()}>
                   <span>Docs</span>
                   <span className="icon">
                     <i className="fas fa-arrow-right" />
@@ -110,11 +111,11 @@ export default class KeyCard extends React.Component {
                 </p>
               </div>
               <div className="buttons is-right">
-                <button className="button is-outlined" onClick={() => this.cancel()}>
+                <button className="button is-dark" onClick={() => this.cancel()}>
                   Cancel
                 </button>
                 <button
-                  className="button is-outlined is-danger"
+                  className="button is-dark"
                   onClick={() =>
                     this.setState({
                       showDeleteModal: true,
@@ -138,7 +139,7 @@ export default class KeyCard extends React.Component {
                 showDeleteModal: false,
               })
             }
-            message="This action is permanent"
+            message="This action is permanent."
             submessage="Are you sure you want to delete your key?"
             secondaryButtonClass="is-danger is-outlined"
             secondaryButtonText="Delete"
