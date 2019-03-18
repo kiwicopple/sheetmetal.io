@@ -46,7 +46,7 @@ const verifyLoggedIn = async (req, res, next) => {
     let token = req.cookies['metalToken']
     if (!token) throw new Error('No auth token')
     let decoded = await verifyJWT(token)
-    console.log('decoded', decoded)
+    // console.log('decoded', decoded)
     next()
     return
   } catch (err) {
@@ -116,10 +116,10 @@ app
       try {
         let token = req.cookies['metalToken']
         let { user } = await verifyJWT(token)
-        let tokens = await Database.getKeys(user.id)
-        return res.json(tokens)
+        let keys = await Database.getKeys(user.id)
+        return res.json(keys)
       } catch (error) {
-        console.log('error', error)
+        console.log('Error: /api/auth/keys/', error)
         return res.error(error)
       }
     })
@@ -129,8 +129,8 @@ app
       try {
         let token = req.cookies['metalToken']
         let { user } = await verifyJWT(token)
-        const { description } = req.body
-        let id = await Database.saveKey(Database.uuidv4(), user.id, description)
+        const { description, sheetId, data } = req.body
+        let id = await Database.saveKey(Database.uuidv4(), user.id, description, sheetId, data)
         return res.json(id)
       } catch (error) {
         console.log('error', error)
@@ -170,11 +170,36 @@ app
       }
     })
 
+    // Gets the details of a Google Sheet for a logged in user
+    server.get('/api/auth/fetch-sheet/:id', verifyLoggedIn, async (req, res, next) => {
+      try {
+        let token = req.cookies['metalToken']
+        let { user } = await verifyJWT(token)
+        let { oauth_token } = await Database.getUser(user.id)
+        const { id } = req.params
+        const sheets = GoogleHelpers.authorisedClient(oauth_token)
+        console.log('id', id)
+        sheets.spreadsheets.get(
+          {
+            spreadsheetId: id,
+          },
+          (err, response) => {
+            if (err) return GoogleHelpers.handleGoogleError(err, req, res)
+            console.log('response', response)
+            let data = response.data
+            return res.send(data)
+          }
+        )
+      } catch (err) {
+        console.log('/api/auth/fetch-sheet', err.toString())
+        return res.status(422).json({ message: err.toString() })
+      }
+    })
+
     /**
      * Sheets API
      */
 
-    /* GET a sheet. */
     server.get('/api/v1/sheets/:id', async function(req, res) {
       const userId = req.headers.user || req.query.user
       if (!userId) return res.status(422).send(USER_PARAM_ERROR)

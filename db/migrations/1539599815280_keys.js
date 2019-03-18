@@ -7,6 +7,10 @@ exports.up = pgm => {
       type: 'UUID',
       default: pgm.func('md5(random()::text || clock_timestamp()::text)::uuid'),
     },
+    sheet_id: {
+      type: 'varchar(255)',
+      notNull: true,
+    },
     description: {
       type: 'varchar(255)',
       notNull: true,

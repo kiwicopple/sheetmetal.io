@@ -14,7 +14,7 @@ class Console extends Component {
       let user = await profile(req)
       return { profile: user }
     } catch (error) {
-      console.error('Auth: getInitialProps', error.toString())
+      console.error('Auth: getInitialProps', error)
       return {
         serverError: true,
       }
@@ -67,133 +67,114 @@ class Console extends Component {
     this.setState({ apiKeys })
   }
   showDocs(apiKey) {
-    this.setState({ selectedKey: apiKey})
+    this.setState({ selectedKey: apiKey })
   }
   /**
    * Render
    */
   render() {
-    let {
-      apiKeys,
-      profile,
-      showNewModal,
-      newKeyDescription,
-      selectedKey,
-    } = this.state
+    let { apiKeys, profile, showNewModal, newKeyDescription, selectedKey } = this.state
 
-    return (
-      <Page id="Console">
-        {!!showNewModal && (
-          <NewSheetModal
-            onCancel={() =>
-              this.setState({
+    return <Page id="Console">
+        {!!showNewModal && <NewSheetModal onCancel={() => this.setState({
                 showNewModal: false,
-              })
-            }
-            onCreate={payload => this.createKey(payload)}
-          />
-        )}
+              })} onCreate={payload => this.createKey(payload)} profile={profile} />}
 
         <div className="columns is-centered m-none is-gapless">
           <div className={`column ${selectedKey ? 'is-6 fullpage-with-navbar' : 'is-8'}`}>
             <div className="p-lg">
-              <h3 className="title is-3">Welcome {profile.name}</h3>
-              {/* <p className="subtitle is-size-6">
-                You can use your User ID with an API Key to access data from any Google Sheet.
-              </p> */}
+              {!apiKeys.length ? <div className="has-text-centered">
+                  <nav className="level m-t-lg">
+                    <div className="level-left">
+                      <h3 className="title is-5">No sheets connected ... yet</h3>
+                    </div>
 
-              <div className="field">
-                <label class="label">User ID</label>
-                <p className="control is-expanded has-icons-left">
-                  <span className="icon is-small is-left">
-                    <i className="fas fa-user-lock" />
-                  </span>
-                  <input className="input" ref={this.userIdInput} value={profile.id} readOnly />
-                </p>
-              </div>
+                    <div className="level-right">
+                      <a className="button is-primary has-shadow" onClick={() => this.onCreateKeyConfirm()}>
+                        <span>Connect a sheet</span>
+                        <span className="icon">
+                          <i className="fas fa-arrow-right" />
+                        </span>
+                      </a>
+                    </div>
+                  </nav>
+                  <img src="/static/img/empty-list.png" />
+                </div> : <React.Fragment>
+                  <h3 className="title is-3">Welcome {profile.name}</h3>
 
-              <p className="buttons is-right">
-                <button
-                  className="button is-dark"
-                  onClick={() =>
-                    copyInputValue(
-                      this.userIdInput.current,
-                      () =>
-                        toast('Copied', {
-                          type: toast.TYPE.INFO,
-                        }),
-                      () =>
-                        toast(`Couldn't access your clipboard`, {
-                          type: toast.TYPE.ERROR,
-                        })
-                    )
-                  }
-                >
-                  Copy
-                </button>
-              </p>
-
-              <nav className="level">
-                <div className="level-left">
-                  <div>
-                    <h3 className="title is-3">API Keys</h3>
+                  <div className="field">
+                    <label className="label">User ID</label>
+                    <p className="control is-expanded has-icons-left">
+                      <span className="icon is-small is-left">
+                        <i className="fas fa-user-lock" />
+                      </span>
+                      <input className="input" ref={this.userIdInput} value={profile.id} readOnly />
+                    </p>
                   </div>
-                </div>
 
-                <div className="level-right">
-                  <a
-                    className="button is-primary has-shadow"
-                    onClick={() => this.onCreateKeyConfirm()}
-                  >
-                    <span>New</span>
-                    <span className="icon">
-                      <i className="fas fa-plus" />
-                    </span>
-                  </a>
-                </div>
-              </nav>
-              <div>
-                {apiKeys.map(apiKey => (
-                  <KeyCard
-                    apiKey={apiKey}
-                    key={apiKey.id}
-                    isSelected={selectedKey && apiKey.id === selectedKey.id}
-                    onDelete={() => this.getKeys()}
-                    onDocsClicked={() => this.showDocs(apiKey)}
-                  />
-                ))}
-              </div>
+                  <p className="buttons is-right">
+                    <button className="button is-dark" onClick={() => copyInputValue(this.userIdInput.current, () => toast(
+                              'Copied',
+                              {
+                                type: toast.TYPE.INFO,
+                              }
+                            ), () => toast(`Couldn't access your clipboard`, {
+                              type: toast.TYPE.ERROR,
+                            }))}>
+                      Copy
+                    </button>
+                  </p>
+                  <nav className="level">
+                    <div className="level-left">
+                      <div>
+                        <h3 className="title is-3">API Keys</h3>
+                      </div>
+                    </div>
+
+                    <div className="level-right">
+                      <a className="button is-primary has-shadow" onClick={() => this.onCreateKeyConfirm()}>
+                        <span>New</span>
+                        <span className="icon">
+                          <i className="fas fa-plus" />
+                        </span>
+                      </a>
+                    </div>
+                  </nav>
+                  <div>
+                    {apiKeys.map(apiKey => (
+                      <KeyCard
+                        apiKey={apiKey}
+                        key={apiKey.id}
+                        isSelected={selectedKey && apiKey.id === selectedKey.id}
+                        onDelete={() => this.getKeys()}
+                        onDocsClicked={() => this.showDocs(apiKey)}
+                      />
+                    ))}
+                  </div>
+                </React.Fragment>}
             </div>
           </div>
 
-          {!!selectedKey && (
-            <div id="DocsPanel" className="column is-6 has-background-black fullpage-with-navbar">
-              <a
-                className="delete"
-                onClick={() =>
-                  this.setState({
-                    selectedKey: null,
-                  })
-                }
-              />
+          {!!selectedKey && <div id="DocsPanel" className="column is-6 has-background-black fullpage-with-navbar">
+              <a className="delete" onClick={() => this.setState({ selectedKey: null })} />
               <div className="p-lg">
                 <h3 className="title is-3">Docs</h3>
                 {/* <p className="subtitle is-size-6">Todo</p> */}
 
                 <div className="field">
-                  <label class="label">Sheet ID</label>
+                  <label className="label">Sheet ID</label>
                   <p className="control is-expanded ">
                     <input className="input" placeholder="Enter your Sheet ID prefill the docs" />
                   </p>
                 </div>
                 <div className="field">
-                  <label class="label">Tab</label>
+                  <label className="label">Tab</label>
                   <p className="control is-expanded ">
                     <input className="input" placeholder="Select the tab" />
                   </p>
                 </div>
                 <div className="field">
-                  <label class="label">Range</label>
+                  <label className="label">Range</label>
                   <p className="control is-expanded ">
                     <input className="input" placeholder="eg: A:Z or A0:Z100" />
                   </p>
@@ -203,11 +184,7 @@ class Console extends Component {
                   <div className="buttons is-right">
                     <div className="dropdown is-right is-hoverable">
                       <div className="dropdown-trigger">
-                        <button
-                          className="button"
-                          aria-haspopup="true"
-                          aria-controls="dropdown-menu"
-                        >
+                        <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
                           <span>CURL</span>
                           <span className="icon is-small">
                             <i className="fas fa-angle-down" />
@@ -238,11 +215,9 @@ class Console extends Component {
                   <Curl.getRecords />
                 </div>
               </div>
-            </div>
-          )}
+            </div>}
         </div>
       </Page>
-    )
   }
 }
 

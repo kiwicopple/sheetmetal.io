@@ -23,7 +23,7 @@ const constructModal = props => {
   let emitOnTextInputChanged = onTextInputChanged || (() => {})
 
   return (
-    <div id="Modal">
+    <div className="custom-modal" id="Modal">
       <div className="modal is-active">
         <div className="modal-background" />
         <div className="modal-card">

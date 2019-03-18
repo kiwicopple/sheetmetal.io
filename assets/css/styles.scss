@@ -122,7 +122,6 @@ $button-color: $text;
 $button-background-color: $background;
 $button-border-color: $border-color;
 $button-hover-color: $text;
-$button-padding-vertical: calc(0.6em - 1px);
 
 // Box
 $box-background-color: $grey-800;
@@ -132,7 +131,8 @@ $box-shadow: $shadow-shallow;
 // Modal
 $modal-card-body-background-color: $background;
 $modal-card-title-color: $text;
-.modal-card-head, .modal-card-foot {
+.modal-card-head,
+.modal-card-foot {
   background: $background !important;
 }
 
@@ -196,6 +196,9 @@ body {
   background: $background;
   color: $text;
 }
+hr {
+  border: 1px solid $primary;
+}
 .navbar {
   box-shadow: $shadow;
 }
@@ -232,7 +235,14 @@ body {
     border: 1px solid transparent;
   }
 }
-#Modal {
+.field.has-addons {
+  .button {
+    padding-top: 14.5px;
+    padding-bottom: 15px;
+    border: 1px solid $border-color;
+  }
+}
+.custom-modal {
   .modal-card-head,
   .modal-card-foot {
     background: #fff;
@@ -249,13 +259,20 @@ body {
   }
 }
 #Teaser {
-  margin-bottom: 250px;
+  margin-bottom: 350px;
+  background: $primary;
+  color: #000 !important;
+  h3 {
+    color: #000 !important;
+  }
+  max-height: 250px;
 }
 #Video {
   height: 400px;
   background: $grey-300;
   margin-bottom: -250px;
   border-radius: 5px;
+  box-shadow: $shadow-shallow;
 }
 .code-snippet {
   .button {
@@ -264,7 +281,7 @@ body {
     right: 0;
     float: right;
     border: none;
-    border-radius: 0  4px  0 4px;
+    border-radius: 0 4px 0 4px;
   }
   pre {
     background: $grey-800;
@@ -283,5 +300,19 @@ body {
     position: absolute;
     top: 60px;
     right: 20px;
+  }
+}
+#NewSheetModal {
+  img {
+    width: 50%;
+    margin: auto;
+    display: block;
+    max-height: 0;
+    transition: max-height 0.15s ease-out;
+    overflow: hidden;
+  }
+  img.is-visible {
+    max-height: 500px;
+    transition: max-height 0.25s ease-in;
   }
 }

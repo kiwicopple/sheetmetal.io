@@ -53,7 +53,7 @@ class Auth extends Component {
               <div className="column is-8 has-text-centered">
                 <h3 className="title is-3">Success!</h3>
                 <p>
-                  <Link href="/app/">
+                  <Link href="/app/console">
                     <span className="button is-primary">Go to console</span>
                   </Link>
                 </p>

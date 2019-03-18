@@ -19,7 +19,7 @@ exports.getKeys = async userId => {
     const { rows } = await pg.query('SELECT * FROM keys WHERE user_id = $1', [userId])
     return rows
   } catch (error) {
-    console.log('error', error)
+    console.log('Error: Database.getKeys', error)
   }
 }
 
@@ -30,7 +30,6 @@ exports.getUser = async id => {
   return new Promise(async (resolve, reject) => {
     try {
       const { rows } = await pg.query('SELECT * FROM users WHERE id = $1', [id])
-      return rows[0]
       return resolve(rows[0])
     } catch (error) {
       console.log('error', error)
@@ -60,11 +59,12 @@ exports.getUserForKey = (key, userId) => {
 /**
  * Save a new API Key
  */
-exports.saveKey = (key, userId, description) => {
+exports.saveKey = (key, userId, description, sheetId, data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const text = 'INSERT INTO keys(key, user_id, description, updated_by) VALUES($1, $2, $3, $2) RETURNING *'
-      const values = [key, userId, description]
+      let text = 'INSERT INTO keys(key, user_id, description, sheet_id, data, updated_by) '
+      text += 'VALUES($1, $2, $3, $4, $5, $2) RETURNING *'
+      const values = [key, userId, description, sheetId, data]
       const { rows } = await pg.query(text, values)
       return resolve(rows[0])
     } catch (error) {

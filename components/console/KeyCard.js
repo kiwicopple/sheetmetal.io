@@ -48,12 +48,15 @@ export default class KeyCard extends React.Component {
     let { apiKey, isEditing, showDeleteModal } = this.state
     let { onDocsClicked, isSelected } = this.props
     let emitOnDocsClicked = onDocsClicked || (() => {})
+    let sheetTitle = apiKey.data.properties.title || ''
     return (
       <div className="m-b-md">
         <div className={`KeyCard box`}>
           {!isEditing && (
             <React.Fragment>
-              <h5 className="title is-6 m-b-sm">{apiKey.description}</h5>
+              <h5 className="title is-6 m-b-sm">
+                {apiKey.description} {!!sheetTitle && `(Sheet title: ${sheetTitle})`}
+              </h5>
               <div className="field">
                 <p className="control is-expanded has-icons-left">
                   <input className="input" ref={this.keyInput} value={apiKey.key} readOnly />
@@ -63,7 +66,10 @@ export default class KeyCard extends React.Component {
                 </p>
               </div>
               <div className="buttons is-right">
-                <button className="button is-dark" onClick={() => this.setState({ isEditing: true })}>
+                <button
+                  className="button is-dark"
+                  onClick={() => this.setState({ isEditing: true })}
+                >
                   Edit
                 </button>
                 <button
@@ -84,7 +90,10 @@ export default class KeyCard extends React.Component {
                 >
                   Copy
                 </button>
-                <button className={`button is-dark ${isSelected && 'has-border-primary'}`} onClick={() => emitOnDocsClicked()}>
+                <button
+                  className={`button is-dark ${isSelected && 'has-border-primary'}`}
+                  onClick={() => emitOnDocsClicked()}
+                >
                   <span>Docs</span>
                   <span className="icon">
                     <i className="fas fa-arrow-right" />

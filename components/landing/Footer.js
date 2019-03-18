@@ -27,6 +27,9 @@ export default class NavBar extends React.PureComponent {
                 Various images from <a href="https://icons8.com">Icons8</a>
               </p>
               <p>
+              Opensource <a href="https://rsms.me/inter/">Inter</a> font
+              </p>
+              <p>
                 Icons from <a href="#">Font Awesome</a>
               </p>
             </div>

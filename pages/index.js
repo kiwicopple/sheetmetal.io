@@ -8,7 +8,7 @@ class Home extends PureComponent {
           <div className="container">
             <div className="columns is-centered">
               <div className="column is-8 has-text-centered">
-                <h3 className="title is-3 m-b-sm">Use a Google Sheet as a database.</h3>
+                <h3 className="title is-3 m-b-sm">Use a Google Sheet as your database.</h3>
                 <p className="is-size-5 m-b-lg">
                   SheetMetal lets you interact with any Google spreadsheet via a RESTful API.
                 </p>
@@ -23,7 +23,32 @@ class Home extends PureComponent {
 
         {/* How it works */}
         <div className="section container">
-          <h5 className="title is-3 has-text-centered">How it works.</h5>
+          <h5 className="title is-3">Use Cases</h5>
+          <hr className="m-t-none" style={{ maxWidth: '100px' }} />
+          <div className="columns">
+            <div className="column">
+              <div className="">img</div>
+              <p>Some description here</p>
+            </div>
+            <div className="column">
+              <div className="">img</div>
+              <p>Some description here</p>
+            </div>
+            <div className="column">
+              <div className="">img</div>
+              <p>Some description here</p>
+            </div>
+            <div className="column">
+              <div className="">img</div>
+              <p>Some description here</p>
+            </div>
+          </div>
+        </div>
+
+        {/* How it works */}
+        <div className="section container is-medium">
+          <h5 className="title is-3">How it Works</h5>
+          <hr className="m-t-none" style={{ maxWidth: '100px' }} />
           <div className="columns">
             <div className="column">
               <div className="title is-1 has-text-primary">1.</div>
@@ -51,11 +76,12 @@ class Home extends PureComponent {
           </div>
         </div>
 
-        <div className="section container">Code demo</div>
+        <div className="section container">Code Demo</div>
 
-        <div className="section container has-text-centered">
-          <h5 className="title is-3 ">Pricing.</h5>
-          <div className="columns">
+      <div className="section container is-medium">
+          <h5 className="title is-3 ">Pricing</h5>
+          <hr className="m-t-none" style={{ maxWidth: '100px' }} />
+          <div className="columns has-text-centered">
             <div className="column">
               <a className="box">
                 <div className="title is-3">Self hosted</div>
@@ -89,8 +115,8 @@ class Home extends PureComponent {
         <div className="section has-background-dark">
           <div className="container ">
             <div className="columns is-mobile">
-            <div className="column" style={{ display: 'flex', alignItems: 'center', justifyContent: 'end' }}>
-              <strong className="is-size-4 has-text-white m-r-md">Try free for 7 days</strong>
+              <div className="column" style={{ display: 'flex', alignItems: 'center', justifyContent: 'end' }}>
+                <strong className="is-size-4 has-text-white m-r-md">Try SheetMetal for free</strong>
                 <button className="button is-medium is-primary">
                   <span>Go</span>
                   <span className="icon">

@@ -35,7 +35,7 @@ exports.authorisedClient = googleAuth => {
 }
 
 exports.handleGoogleError = (error, req, res) => {
-  let err = error.response.data
+  let err = error.response ? error.response.data : error
   console.log('error', err)
   return res.status(500).send(err)
 }
