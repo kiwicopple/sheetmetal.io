@@ -237,7 +237,6 @@ app
         sheets.spreadsheets.values.get(
           { spreadsheetId: apiKey.sheet_id, range: range },
           (err, response) => {
-            console.log('sheets', sheets)
             GoogleHelpers.handlePotentiallyNewOauth(user.oauth_token, sheets, user.id)
             // console.log('possibly new credentials', sheets['_options'].auth.credentials)
             if (err) return GoogleHelpers.handleGoogleError(err, req, res)
