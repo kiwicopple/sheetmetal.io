@@ -200,52 +200,59 @@ app
      * Sheets API
      */
 
-    server.get('/api/v1/sheets/:id', async function(req, res) {
-      const userId = req.headers.user || req.query.user
-      if (!userId) return res.status(422).send(USER_PARAM_ERROR)
-      console.log('userId', userId)
-
-      const { id } = req.params
-      const auth = await GoogleHelpers.getAuthFromHeaders(req.headers, req.query, userId)
-      console.log('auth', auth)
-      if (!auth) return res.status(401).send(TOKEN_ERROR)
-
-      const sheets = GoogleHelpers.authorisedClient(auth)
-      sheets.spreadsheets.get(
-        {
-          spreadsheetId: id,
-        },
-        (err, response) => {
-          if (err) return GoogleHelpers.handleGoogleError(err, req, res)
-          let data = response.data
-          return res.send(data)
-        }
-      )
+    server.get('/api/v1/sheets/:key', async function(req, res) {
+      try {
+        const { key } = req.params
+        let apiKey = await Database.getKey(key)
+        if (!apiKey) return res.error(`Can't find a matching key.`)
+        let user = await Database.getUser(apiKey.user_id)
+        const sheets = GoogleHelpers.authorisedClient(user.oauth_token)
+        sheets.spreadsheets.get(
+          {
+            spreadsheetId: apiKey.sheet_id,
+          },
+          (err, response) => {
+            if (err) return GoogleHelpers.handleGoogleError(err, req, res)
+            let data = response.data
+            return res.send(data)
+          }
+        )
+      } catch (err) {
+        console.log('/api/auth/fetch-sheet', err.toString())
+        return res.status(422).json({ message: err.toString() })
+      }
     })
 
     /* GET a range of values. */
-    server.get('/api//v1/sheets/:id/:range', async function(req, res) {
-      const userId = req.headers.user || req.query.user
-      if (!userId) return res.status(422).send(USER_PARAM_ERROR)
-      console.log('userId', userId)
+    server.get('/api/v1/sheets/:key/:range', async function (req, res) {
+      try {
+        const { key, range } = req.params
+        const { format } = req.query
 
-      const { id, range } = req.params
-      const { format } = req.query
-      const auth = await GoogleHelpers.getAuthFromHeaders(req.headers, req.query, userId)
-      console.log('auth', auth)
-      if (!auth) return res.status(401).send(TOKEN_ERROR)
-      const sheets = _authorisedClient(auth)
-      sheets.spreadsheets.values.get({ spreadsheetId: id, range: range }, (err, response) => {
-        GoogleHelpers.handlePotentiallyNewOauth(auth, sheets, userId)
-        // console.log('possibly new credentials', sheets['_options'].auth.credentials)
-        if (err) return GoogleHelpers.handleGoogleError(err, req, res)
-        else if (format && format.toUpperCase() === 'RAW') return res.send(response.data)
-        else {
-          let data = response.data
-          let formatted = GoogleHelpers.valuesToJson(data.values)
-          return res.send({ ...data, values: formatted })
-        }
-      })
+        let apiKey = await Database.getKey(key)
+        if (!apiKey) return res.error(`Can't find a matching key.`)
+
+        let user = await Database.getUser(apiKey.user_id)
+        const sheets = GoogleHelpers.authorisedClient(user.oauth_token)
+        sheets.spreadsheets.values.get(
+          { spreadsheetId: apiKey.sheet_id, range: range },
+          (err, response) => {
+            console.log('sheets', sheets)
+            GoogleHelpers.handlePotentiallyNewOauth(user.oauth_token, sheets, user.id)
+            // console.log('possibly new credentials', sheets['_options'].auth.credentials)
+            if (err) return GoogleHelpers.handleGoogleError(err, req, res)
+            else if (format && format.toUpperCase() === 'RAW') return res.send(response.data)
+            else {
+              let data = response.data
+              let formatted = GoogleHelpers.valuesToJson(data.values)
+              return res.send({ ...data, values: formatted })
+            }
+          }
+        )
+      } catch (err) {
+        console.log('/api/auth/fetch-sheet', err.toString())
+        return res.status(422).json({ message: err.toString() })
+      }
     })
 
     /**

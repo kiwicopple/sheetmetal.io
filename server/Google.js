@@ -17,10 +17,15 @@ const OAUTH_REDIRECT_URL = process.env.OAUTH_REDIRECT_URL
  * Save the token so that it's faster next time (and we don't hit account limits on refreshes)
  */
 exports.handlePotentiallyNewOauth = (oldOauth, googleLib, userId) => {
-  let responseToken = googleLib['_options'].auth.credentials
-  if (oldOauth.access_token !== responseToken.access_token) {
-    console.log('newToken needs refreshing', responseToken)
-    Database.updateOathForUser(userId, responseToken)
+  try {
+    let responseToken = googleLib['_options'].auth.credentials
+    if (oldOauth.access_token !== responseToken.access_token) {
+      console.log('newToken needs refreshing', responseToken)
+      Database.updateOathForUser(userId, responseToken)
+    }
+  } catch (error) {
+    // fail silently
+    console.log('error', error)
   }
 }
 
@@ -42,16 +47,11 @@ exports.handleGoogleError = (error, req, res) => {
 
 exports.getAuthFromHeaders = async (headers, query, userId) => {
   try {
-    const key = query ? query.key : null
-    const googleToken = headers['google-token'] ? JSON.parse(headers['google-token']) : null
-    const metalKey = headers['metal-key'] || null
-    if (googleToken) {
-      // no need to look up the token, just use the one provided
-      return googleToken
-    } else if (metalKey || key) {
-      // API is being called externally, they should be passing a 'metal-key'
-      let apiKey = metalKey || key
-      let user = (await Database.getUserForKey(apiKey, userId)) || null
+    const queryUserId = query ? query.user : null
+    const headersUserId = headers['user'] || null
+    if (queryUserId || headersUserId) {
+      let userId = headersUserId || queryUserId
+      let user = (await Database.getUser(userId)) || null
       return user && user['oauth_token'] ? user['oauth_token'] : null
     } else {
       console.log('no auth')

@@ -24,6 +24,21 @@ exports.getKeys = async userId => {
 }
 
 /**
+ * Get a single API key
+ */
+exports.getKey = async key => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { rows } = await pg.query('SELECT * FROM keys WHERE key = $1', [key])
+      return resolve(rows[0])
+    } catch (error) {
+      console.log('Error: Database.getKey', error)
+      return reject(true)
+    }
+  })
+}
+
+/**
  * Get a user by their ID
  */
 exports.getUser = async id => {
