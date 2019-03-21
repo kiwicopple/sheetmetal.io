@@ -3,7 +3,8 @@ import Page from '~/components/layouts/Landing'
 
 class Home extends PureComponent {
   render() {
-    return <Page id="Home">
+    return (
+      <Page id="Home">
         <div id="Teaser" className="section has-shadow">
           <div className="container">
             <div className="columns is-centered">
@@ -26,21 +27,26 @@ class Home extends PureComponent {
           <h5 className="title is-3">Use Cases</h5>
           <hr className="m-t-none" style={{ maxWidth: '100px' }} />
           <div className="columns">
-            <div className="column">
-              <div className="">img</div>
-              <p>Some description here</p>
+            <div className="column has-text-centered">
+            <div className="box">
+                <div className="">img</div>
+                <h5 className="title is-5 m-b-sm">Prototyping</h5>
+                <p>Use a Google Sheet as a quick and dirty prototyping database.</p>
             </div>
-            <div className="column">
-              <div className="">img</div>
-              <p>Some description here</p>
             </div>
-            <div className="column">
-              <div className="">img</div>
-              <p>Some description here</p>
+            <div className="column has-text-centered">
+            <div className="box">
+                <div className="">img</div>
+                <h5 className="title is-5 m-b-sm">CRM</h5>
+                <p>Put a custom form on your website and collect leads and responses.</p>
             </div>
-            <div className="column">
-              <div className="">img</div>
-              <p>Some description here</p>
+            </div>
+            <div className="column has-text-centered">
+            <div className="box">
+                <div className="">img</div>
+                <h5 className="title is-5 m-b-sm">Mobile development</h5>
+                <p>Develop a mobile app without deploying any other infrastructure.</p>
+            </div>
             </div>
           </div>
         </div>
@@ -54,16 +60,14 @@ class Home extends PureComponent {
               <div className="title is-1 has-text-primary">1.</div>
               <h5 className="title is-5 m-b-sm">Create a Google Sheet</h5>
               <p>
-                Create a Google Sheet which you can use as a database. Every tab within the
-                sheet can represent a database table.
+                Create a Google Sheet which you can use as a database. Every tab within the sheet
+                can represent a database table.
               </p>
             </div>
             <div className="column">
               <div className="title is-1 has-text-primary">2.</div>
               <h5 className="title is-5 m-b-sm">Connect to Google Sheets</h5>
-              <p>
-                Sign up for SheetMetal in just 2 clicks to allow access to your Google Sheets.
-              </p>
+              <p>Sign up for SheetMetal in just 2 clicks to allow access to your Google Sheets.</p>
             </div>
             <div className="column">
               <div className="title is-1 has-text-primary">3.</div>
@@ -78,7 +82,7 @@ class Home extends PureComponent {
 
         <div className="section container">Code Demo</div>
 
-      <div className="section container is-medium">
+        <div className="section container is-medium">
           <h5 className="title is-3 ">Pricing</h5>
           <hr className="m-t-none" style={{ maxWidth: '100px' }} />
           <div className="columns has-text-centered">
@@ -115,7 +119,10 @@ class Home extends PureComponent {
         <div className="section has-background-dark">
           <div className="container ">
             <div className="columns is-mobile">
-              <div className="column" style={{ display: 'flex', alignItems: 'center', justifyContent: 'end' }}>
+              <div
+                className="column"
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'end' }}
+              >
                 <strong className="is-size-4 has-text-white m-r-md">Try SheetMetal for free</strong>
                 <button className="button is-medium is-primary">
                   <span>Go</span>
@@ -128,6 +135,7 @@ class Home extends PureComponent {
           </div>
         </div>
       </Page>
+    )
   }
 }
 

@@ -6,9 +6,9 @@ import { copyInputValue } from '~/lib/Helpers'
 import { profile, keys } from '~/lib/Auth'
 import { toast } from 'react-toastify'
 import NewSheetModal from '~/components/console/NewSheetModal'
-import * as Curl from '~/components/docs/Curl'
+import * as Snippets from '~/components/docs/Snippets'
 
-class Console extends Component {
+export default class Console extends Component {
   static async getInitialProps({ req }) {
     try {
       let user = await profile(req)
@@ -75,22 +75,35 @@ class Console extends Component {
   render() {
     let { apiKeys, profile, showNewModal, newKeyDescription, selectedKey } = this.state
 
-    return <Page id="Console">
-        {!!showNewModal && <NewSheetModal onCancel={() => this.setState({
+    return (
+      <Page id="Console">
+        {!!showNewModal && (
+          <NewSheetModal
+            onCancel={() =>
+              this.setState({
                 showNewModal: false,
-              })} onCreate={payload => this.createKey(payload)} profile={profile} />}
+              })
+            }
+            onCreate={payload => this.createKey(payload)}
+            profile={profile}
+          />
+        )}
 
         <div className="columns is-centered m-none is-gapless">
-          <div className={`column ${selectedKey ? 'is-6 fullpage-with-navbar' : 'is-8'}`}>
+          <div className={`column is-8`}>
             <div className="p-lg">
-              {!apiKeys.length ? <div className="has-text-centered">
+              {!apiKeys.length ? (
+                <div className="has-text-centered">
                   <nav className="level m-t-lg">
                     <div className="level-left">
                       <h3 className="title is-5">No sheets connected ... yet</h3>
                     </div>
 
                     <div className="level-right">
-                      <a className="button is-primary has-shadow" onClick={() => this.onCreateKeyConfirm()}>
+                      <a
+                        className="button is-primary has-shadow"
+                        onClick={() => this.onCreateKeyConfirm()}
+                      >
                         <span>Connect a sheet</span>
                         <span className="icon">
                           <i className="fas fa-arrow-right" />
@@ -99,7 +112,9 @@ class Console extends Component {
                     </div>
                   </nav>
                   <img src="/static/img/empty-list.png" />
-                </div> : <React.Fragment>
+                </div>
+              ) : (
+                <React.Fragment>
                   <h3 className="title is-3">Welcome {profile.name}</h3>
 
                   <div className="field">
@@ -113,14 +128,22 @@ class Console extends Component {
                   </div>
 
                   <p className="buttons is-right">
-                    <button className="button is-dark" onClick={() => copyInputValue(this.userIdInput.current, () => toast(
-                              'Copied',
-                              {
-                                type: toast.TYPE.INFO,
-                              }
-                            ), () => toast(`Couldn't access your clipboard`, {
+                    <button
+                      className="button is-dark"
+                      onClick={() =>
+                        copyInputValue(
+                          this.userIdInput.current,
+                          () =>
+                            toast('Copied', {
+                              type: toast.TYPE.INFO,
+                            }),
+                          () =>
+                            toast(`Couldn't access your clipboard`, {
                               type: toast.TYPE.ERROR,
-                            }))}>
+                            })
+                        )
+                      }
+                    >
                       Copy
                     </button>
                   </p>
@@ -132,7 +155,10 @@ class Console extends Component {
                     </div>
 
                     <div className="level-right">
-                      <a className="button is-primary has-shadow" onClick={() => this.onCreateKeyConfirm()}>
+                      <a
+                        className="button is-primary has-shadow"
+                        onClick={() => this.onCreateKeyConfirm()}
+                      >
                         <span>New</span>
                         <span className="icon">
                           <i className="fas fa-plus" />
@@ -151,74 +177,131 @@ class Console extends Component {
                       />
                     ))}
                   </div>
-                </React.Fragment>}
+                </React.Fragment>
+              )}
             </div>
           </div>
 
-          {!!selectedKey && <div id="DocsPanel" className="column is-6 has-background-black fullpage-with-navbar">
-              <a className="delete" onClick={() => this.setState({ selectedKey: null })} />
-              <div className="p-lg">
-                <h3 className="title is-3">Docs</h3>
-                {/* <p className="subtitle is-size-6">Todo</p> */}
-
-                <div className="field">
-                  <label className="label">Sheet ID</label>
-                  <p className="control is-expanded ">
-                    <input className="input" placeholder="Enter your Sheet ID prefill the docs" />
-                  </p>
-                </div>
-                <div className="field">
-                  <label className="label">Tab</label>
-                  <p className="control is-expanded ">
-                    <input className="input" placeholder="Select the tab" />
-                  </p>
-                </div>
-                <div className="field">
-                  <label className="label">Range</label>
-                  <p className="control is-expanded ">
-                    <input className="input" placeholder="eg: A:Z or A0:Z100" />
-                  </p>
-                </div>
-
-                <div>
-                  <div className="buttons is-right">
-                    <div className="dropdown is-right is-hoverable">
-                      <div className="dropdown-trigger">
-                        <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                          <span>CURL</span>
-                          <span className="icon is-small">
-                            <i className="fas fa-angle-down" />
-                          </span>
-                        </button>
-                      </div>
-                      <div className="dropdown-menu">
-                        <div className="dropdown-content ">
-                          <a href="#" className="dropdown-item is-active">
-                            CURL
-                          </a>
-                          <hr className="dropdown-divider" />
-                          <a href="#" className="dropdown-item">
-                            Javascript
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <h5 className="title is-5">Create new row</h5>
-                  <Curl.getRecords />
-                  <h5 className="title is-5">Retrieve data</h5>
-                  <Curl.getRecords />
-                  <h5 className="title is-5">Update a row</h5>
-                  <Curl.getRecords />
-                  <h5 className="title is-5">Delete a row</h5>
-                  <Curl.getRecords />
-                </div>
-              </div>
-            </div>}
+          {!!selectedKey && (
+            <DocsPanel
+              sheetKey={selectedKey.key}
+              onClose={() => this.setState({ selectedKey: null })}
+            />
+          )}
         </div>
       </Page>
+    )
   }
 }
 
-export default Console
+class DocsPanel extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      tabName: '',
+      range: '',
+    }
+    this.emitOnClose = this.props.onClose || (() => {})
+  }
+  render() {
+    let { tabName, range } = this.state
+    let { sheetKey } = this.props
+    return (
+      <div id="quickviewDefault" className="quickview has-background-grey-darker is-active is-large">
+        <header className="quickview-header">
+          <p className="title">
+            <div className="dropdown is-hoverable">
+              <div className="dropdown-trigger">
+                <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                  <span>CURL</span>
+                  <span className="icon is-small">
+                    <i className="fas fa-angle-down" />
+                  </span>
+                </button>
+              </div>
+              <div className="dropdown-menu">
+                <div className="dropdown-content ">
+                  <a href="#" className="dropdown-item is-active">
+                    CURL
+                  </a>
+                  <hr className="dropdown-divider" />
+                  <a href="#" className="dropdown-item">
+                    Javascript
+                  </a>
+                </div>
+              </div>
+            </div>
+          </p>
+          <span className="delete" onClick={() => this.emitOnClose()} />
+        </header>
+        <div className="has-overflow-scroll">
+          <div className="p-lg">
+            <div className="m-b-md">
+              <p>Use these fields to prefill the docs. Makes it easier to copy and paste!</p>
+            </div>
+            <div className="field">
+              <label className="label">Tab</label>
+              <p className="control is-expanded ">
+                <input
+                  className="input"
+                  placeholder="Enter the name of the tab within your sheet"
+                  value={tabName}
+                  onChange={e => this.setState({ tabName: e.target.value })}
+                />
+              </p>
+            </div>
+            <div className="field">
+              <label className="label">Range</label>
+              <p className="control is-expanded ">
+                <input
+                  className="input"
+                  placeholder="eg: A:Z or A0:Z100"
+                  value={range}
+                  onChange={e => this.setState({ range: e.target.value })}
+                />
+              </p>
+            </div>
+
+            <hr />
+            <div>
+              <h5 className="title is-5">Get Sheet info</h5>
+              <Snippets.getSheet language="CURL" sheetKey={sheetKey} tab={tabName} range={range} />
+
+              <h5 className="title is-5">Create new row</h5>
+              <Snippets.createRecord
+                language="CURL"
+                sheetKey={sheetKey}
+                tab={tabName}
+                range={range}
+              />
+
+              <h5 className="title is-5">Retrieve data</h5>
+              <Snippets.retrieveRecords
+                language="CURL"
+                sheetKey={sheetKey}
+                tab={tabName}
+                range={range}
+              />
+
+              <h5 className="title is-5">Update a row</h5>
+              <Snippets.updateRecord
+                language="CURL"
+                sheetKey={sheetKey}
+                tab={tabName}
+                range={range}
+              />
+
+              <h5 className="title is-5">Delete a row</h5>
+              <Snippets.deleteRecords
+                language="CURL"
+                sheetKey={sheetKey}
+                tab={tabName}
+                range={range}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
