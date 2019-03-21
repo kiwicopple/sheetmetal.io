@@ -141,6 +141,10 @@ $dropdown-item-color: $text;
 $dropdown-item-hover-color: $text;
 $dropdown-item-active-color: $background;
 
+// Menu
+$menu-item-hover-color: $primary;
+$menu-item-active-color: $text-invert;
+
 // Import only what you need from Bulma
 @import '../../node_modules/bulma/bulma.sass';
 @import '../../node_modules/bulma-extensions/bulma-quickview/dist/css/bulma-quickview.sass';

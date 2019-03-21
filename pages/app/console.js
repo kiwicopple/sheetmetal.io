@@ -235,7 +235,7 @@ class DocsPanel extends Component {
           <span className="delete" onClick={() => this.emitOnClose()} />
         </header>
         <div className="has-overflow-scroll">
-          <div className="p-lg">
+          <div className="p-md">
             <div className="m-b-md">
               <p>Use these fields to prefill the docs. Makes it easier to copy and paste!</p>
             </div>

@@ -17,4 +17,4 @@ _______________________________________________________________________________
 
 IDEAS
 
-If you have some suggestions send an email to copple@madebykade.com (or create an issue directly on Github).
+If you have some suggestions send an email to copple@madebykade.com (or create an issue directly on Github: https://github.com/kiwicopple/sheetmetal.io/issues/new).
