@@ -118,7 +118,10 @@ export default class Console extends Component {
                 <React.Fragment>
                   <h3 className="title is-3">Welcome {profile.name}</h3>
 
-                  <div className="field">
+                  <p>Each API key is connected to an individual Google Sheet.</p>
+
+                  {/* We don't actually need this part for the new API */}
+                  {/* <div className="field">
                     <label className="label">User ID</label>
                     <p className="control is-expanded has-icons-left">
                       <span className="icon is-small is-left">
@@ -147,11 +150,11 @@ export default class Console extends Component {
                     >
                       Copy
                     </button>
-                  </p>
-                  <nav className="level">
+                  </p> */}
+                  <nav className="level m-t-lg">
                     <div className="level-left">
                       <div>
-                        <h3 className="title is-3">API Keys</h3>
+                        <h3 className="title is-5">API Keys</h3>
                       </div>
                     </div>
 
@@ -215,6 +218,7 @@ class DocsPanel extends Component {
         <header className="quickview-header">
           <p className="title">
             <LanguageSelector
+              selectedLanguage={selectedLanguage}
               onLanguageUpdated={selectedLanguage => this.setState({ selectedLanguage })}
             />
           </p>
