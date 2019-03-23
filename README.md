@@ -1,35 +1,14 @@
-# Sheet Metal
+# SheetMetal
 
-About
+SheetMetal connects to any Google Sheet via OAuth and provides an easy-to-use Restful API. This is useful if you want to use google sheets as a drop-in replacement for a database, without having to deploy your own server to communicate with it. 
 
-* Landing page
-* Documentation
-* Demo
+* Landing page - https://sheetmetal.io
+* Documentation - https://sheetmetal.io/docs
 
 ## Motivation
 
-Motivation
+In the past I have used [Sheetsu](https://sheetsu.com/pricing) and I am a big fan. However they significantly increased their prices and have started adding a lot of functionality which I just don't need. I respect that they are trying to build am enterprise around their product, but for the sake of the small amount of functionality I use I just cannot justify paying $33/month. So I have developed SheetMetal to provide the same functionality and I pledge to keep the following promises (as far as I humanly can):
 
-## Getting Started
-
-SheetMetal has a hosted solution. Documentation found on the site @TODO
-
-## Self hosting and Contributing 
-
-#### Installation
-
-@TODO
-
-
-Database
-
-```bash
-# Create the Database
-sudo -u postgres psql -c 'drop database sheet_metal;'
-sudo -u postgres psql -c 'create database sheet_metal;'
-sudo -u postgres psql -c 'grant all privileges on database sheet_metal to postgres;' 
-
-# Commands
-npm run migrate create file_name # create migration file
-npm run migrate up # run migrations
-```
+- it will always be opensource so you can self-host
+- after I have built a robust number of feature I will stop. No additional bloat, just the core functionality that is useful
+- I will not raise the price above $5/month (unless I find that the hosting/API costs are costing more)
