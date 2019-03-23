@@ -30,8 +30,8 @@ export default ({ id, children, classNames, title, activeLink }) => (
                     </Link>
                   </li>
                   <li>
-                    <Link href="/docs/deployment">
-                      <a className={`${activeLink === 'DEPLOYMENT' && 'is-active'}`}>Deployment</a>
+                    <Link href="/docs/hosting">
+                      <a className={`${activeLink === 'HOSTING' && 'is-active'}`}>Self Hosting</a>
                     </Link>
                   </li>
                 </ul>
