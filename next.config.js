@@ -1,8 +1,12 @@
 // next.config.js
-require('dotenv').config()
-
-const withSass = require('@zeit/next-sass')
 const path = require('path')
+const DOT_ENV_FILE =
+  process.env.NODE_ENV === 'production'
+    ? path.join(__dirname, '.env.prod')
+    : path.join(__dirname, '.env')
+
+require('dotenv').config({ path: DOT_ENV_FILE })
+const withSass = require('@zeit/next-sass')
 const Dotenv = require('dotenv-webpack')
 
 module.exports = withSass({
@@ -14,11 +18,11 @@ module.exports = withSass({
 
       // Read the .env file
       new Dotenv({
-        path: path.join(__dirname, '.env'),
-        systemvars: true
-      })
+        path: DOT_ENV_FILE,
+        systemvars: true,
+      }),
     ]
 
     return config
-  }
+  },
 })

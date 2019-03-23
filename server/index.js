@@ -253,6 +253,36 @@ app
       }
     })
 
+    // /* POST create new values. */
+    // server.post('/api/v1/sheets/:key/:sheet/', async function(req, res) {
+    //   try {
+    //     const { key, sheet, range } = req.params
+    //     const { formatted } = req.query
+    //     let fullRangeString = range ? `${sheet}!${range}` : sheet
+
+    //     let apiKey = await Database.getKey(key)
+    //     if (!apiKey) return res.error(`Can't find a matching key.`)
+
+    //     let user = await Database.getUser(apiKey.user_id)
+    //     const sheets = GoogleHelpers.authorisedClient(user.oauth_token)
+    //     sheets.spreadsheets.values.get(
+    //       { spreadsheetId: apiKey.sheet_id, range: fullRangeString },
+    //       (err, response) => {
+    //         GoogleHelpers.handlePotentiallyNewOauth(user.oauth_token, sheets, user.id)
+    //         if (err) return GoogleHelpers.handleGoogleError(err, req, res)
+    //         else if (!!formatted) {
+    //           let data = response.data
+    //           let formattedValues = GoogleHelpers.valuesToJson(data.values)
+    //           return res.send({ ...data, values: formattedValues })
+    //         } else return res.send(response.data)
+    //       }
+    //     )
+    //   } catch (err) {
+    //     console.log('/api/auth/fetch-sheet', err.toString())
+    //     return res.status(422).json({ message: err.toString() })
+    //   }
+    // })
+
     /**
      * Secured
      */
