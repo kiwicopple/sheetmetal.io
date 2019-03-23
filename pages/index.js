@@ -22,7 +22,7 @@ class Home extends PureComponent {
           </div>
         </div>
 
-        <div className="has-text-centered">
+        <div className="has-text-centered section">
           <a href="" className="button is-primary is-medium has-text-weight-bold is-rounded has-shadow">
             <span>Start now</span>
             <span className="icon">
@@ -115,8 +115,8 @@ class Home extends PureComponent {
               <a className="box">
                 <div className="title is-3">Free</div>
                 <ul>
+                  <li>One connected Sheet</li>
                   <li>30 API calls per day</li>
-                  <li>One API key</li>
                 </ul>
               </a>
             </div>
@@ -124,8 +124,8 @@ class Home extends PureComponent {
               <a className="box">
                 <div className="title is-3">$5/month</div>
                 <ul>
+                  <li>Unlimited connected Sheets</li>
                   <li>Unlimited API calls</li>
-                  <li>Unlimited API keys</li>
                 </ul>
               </a>
             </div>
