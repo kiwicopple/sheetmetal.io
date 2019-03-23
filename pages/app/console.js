@@ -210,6 +210,7 @@ class DocsPanel extends Component {
   render() {
     let { selectedLanguage } = this.state
     let { sheetKey } = this.props
+    
     return (
       <div
         id="quickviewDefault"
@@ -226,7 +227,7 @@ class DocsPanel extends Component {
         </header>
         <div className="has-overflow-scroll">
           <div className="p-md">
-            <ApiDocs language={selectedLanguage} sheetKey={sheetKey.key} />
+            <ApiDocs language={selectedLanguage} sheetKey={sheetKey} />
           </div>
         </div>
       </div>

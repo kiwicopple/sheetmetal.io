@@ -1,29 +1,31 @@
+const BASE_URL = 'https://sheetmetal.io/api/v1/sheets'
+
 export const getSheet = key => String.raw`
 curl -i \
 -H "Accept: application/json" \
--X GET https://sheetmetal.io/api/sheets/${key || 'METAL_KEY'}
+-X GET ${BASE_URL}/${key || 'METAL_KEY'}
 `
 
 export const createRecord = (key, tab, payload) => String.raw`
 curl -i \
 -H "Accept: application/json" \
--X PUT https://sheetmetal.io/api/sheets/${key || 'METAL_KEY'}/${tab || 'TAB'}
+-X PUT ${BASE_URL}/${key || 'METAL_KEY'}/${tab || 'TAB'}
 `
 
 export const retrieveRecords = (key, tab, range) => String.raw`
 curl -i \
 -H "Accept: application/json" \
--X GET https://sheetmetal.io/api/sheets/${key || 'METAL_KEY'}/${tab || 'TAB'}/${range || 'RANGE'}
+-X GET ${BASE_URL}/${key || 'METAL_KEY'}/${tab || 'TAB'}/${range || 'RANGE'}
 `
 
 export const updateRecord = (key, tab, range, payload) => String.raw`
 curl -i \
 -H "Accept: application/json" \
--X POST https://sheetmetal.io/api/sheets/${key || 'METAL_KEY'}/${tab || 'TAB'}/${range || 'RANGE'}
+-X POST ${BASE_URL}/${key || 'METAL_KEY'}/${tab || 'TAB'}/${range || 'RANGE'}
 `
 
 export const deleteRecords = (key, tab, range) =>  String.raw`
 curl -i \
 -H "Accept: application/json" \
--X DELETE https://sheetmetal.io/api/sheets/${key || 'METAL_KEY'}/${tab || 'TAB'}/${range || 'RANGE'}
+-X DELETE ${BASE_URL}/${key || 'METAL_KEY'}/${tab || 'TAB'}/${range || 'RANGE'}
 `
