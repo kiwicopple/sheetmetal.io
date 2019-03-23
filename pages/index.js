@@ -17,15 +17,18 @@ class Home extends PureComponent {
                 <div id="Video">
                   <p>Video here</p>
                 </div>
-
               </div>
-
             </div>
           </div>
         </div>
 
         <div className="has-text-centered">
-        <a href="" className="button is-primary is-medium has-text-weight-bold">Start now</a>
+          <a href="" className="button is-primary is-medium has-text-weight-bold is-rounded has-shadow">
+            <span>Start now</span>
+            <span className="icon">
+              <i className="fas fa-arrow-right" />
+            </span>
+          </a>
         </div>
         {/* How it works */}
         <div className="section container m-b-lg">
@@ -33,31 +36,31 @@ class Home extends PureComponent {
           <hr className="m-t-none" style={{ maxWidth: '100px' }} />
           <div className="columns">
             <div className="column ">
-            <div className="box">
+              <div className="box">
                 <div className="">
                   <img src="/static/img/use-prototype.png" alt="Use for prototyping" width="50" />
                 </div>
                 <h5 className="title is-5 m-b-sm">Prototyping</h5>
                 <p>Use a Google Sheet as a quick and dirty prototyping database.</p>
-            </div>
+              </div>
             </div>
             <div className="column ">
-            <div className="box">
+              <div className="box">
                 <div className="">
                   <img src="/static/img/use-crm.png" alt="Use as CRM" width="50" />
                 </div>
                 <h5 className="title is-5 m-b-sm">Custom forms</h5>
                 <p>Put a custom form on your website and collect leads and responses.</p>
-            </div>
+              </div>
             </div>
             <div className="column ">
-            <div className="box">
+              <div className="box">
                 <div className="">
                   <img src="/static/img/use-mobile.png" alt="Use for mobile" width="50" />
                 </div>
                 <h5 className="title is-5 m-b-sm">Mobile development</h5>
-                <p>Develop a mobile app without deploying any other infrastructure.</p>
-            </div>
+                <p>Deploy a mobile app without deploying any other background infrastructure.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -84,7 +87,8 @@ class Home extends PureComponent {
               <div className="title is-1">3.</div>
               <h5 className="title is-5 m-b-sm">Use your Sheet like a database</h5>
               <p>
-                SheetMetal gives you full access to interact with your spreadsheet via a RESTful API.
+                SheetMetal gives you full access to interact with your spreadsheet via a RESTful
+                API.
               </p>
             </div>
           </div>
@@ -94,7 +98,7 @@ class Home extends PureComponent {
         {/* <div className="section container">Code Demo</div> */}
 
         <div className="section container m-b-lg">
-          <a name="pricing" id="pricing"/>
+          <a name="pricing" id="pricing" />
           <h5 className="title is-3 ">Pricing</h5>
           <hr className="m-t-none" style={{ maxWidth: '100px' }} />
           <div className="columns has-text-centered">
@@ -136,7 +140,7 @@ class Home extends PureComponent {
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'end' }}
               >
                 <strong className="is-size-4 has-text-white m-r-md">Try SheetMetal for free</strong>
-                <button className="button is-medium is-primary">
+                <button className="button is-medium is-primary has-text-weight-bold is-rounded">
                   <span>Go</span>
                   <span className="icon">
                     <i className="fas fa-arrow-right" />

@@ -1,70 +1,6 @@
 @charset "utf-8";
-
-@import url(https://use.fontawesome.com/releases/v5.6.3/css/all.css);
-
-@font-face {
-  font-family: 'Circular Std Book';
-  src: url('/static/fonts/circular/CircularStd-BookItalic.woff2') format('woff2'),
-    url('/static/fonts/circular/CircularStd-BookItalic.woff') format('woff');
-  font-weight: 400;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Circular Std';
-  src: url('/static/fonts/circular/CircularStd-MediumItalic.woff2') format('woff2'),
-    url('/static/fonts/circular/CircularStd-MediumItalic.woff') format('woff');
-  font-weight: 500;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Circular Std Book';
-  src: url('/static/fonts/circular/CircularStd-Book.woff2') format('woff2'),
-    url('/static/fonts/circular/CircularStd-Book.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Circular Std';
-  src: url('/static/fonts/circular/CircularStd-Medium.woff2') format('woff2'),
-    url('/static/fonts/circular/CircularStd-Medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Circular Std';
-  src: url('/static/fonts/circular/CircularStd-BlackItalic.woff2') format('woff2'),
-    url('/static/fonts/circular/CircularStd-BlackItalic.woff') format('woff');
-  font-weight: 900;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Circular Std';
-  src: url('/static/fonts/circular/CircularStd-Bold.woff2') format('woff2'),
-    url('/static/fonts/circular/CircularStd-Bold.woff') format('woff');
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Circular Std';
-  src: url('/static/fonts/circular/CircularStd-Black.woff2') format('woff2'),
-    url('/static/fonts/circular/CircularStd-Black.woff') format('woff');
-  font-weight: 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Circular Std';
-  src: url('/static/fonts/circular/CircularStd-BoldItalic.woff2') format('woff2'),
-    url('/static/fonts/circular/CircularStd-BoldItalic.woff') format('woff');
-  font-weight: bold;
-  font-style: italic;
-}
+@import url('https://rsms.me/inter/inter.css');
+@import url('https://use.fontawesome.com/releases/v5.6.3/css/all.css');
 
 /// BULMA
 
@@ -89,6 +25,7 @@ $shadow: 0 0 5px 5px rgba(0, 0, 0, 0.3);
 $shadow-shallow: 0 0 3px 3px rgba(0, 0, 0, 0.2);
 
 // Typography
+// I'm leaving "Circular" in there, just in case the user has it installed on their computer :)
 $body-size: 14px;
 $text: $grey-100;
 $title-color: $text;
@@ -96,8 +33,8 @@ $subtitle-color: $text;
 $text-invert: $grey-900;
 $link-invert: $grey-100;
 $link-hover: $grey-100;
-$family-sans-serif: 'Circular', 'Circular Std', BlinkMacSystemFont, -apple-system, 'Segoe UI',
-  'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+$family-sans-serif: 'Inter', 'Circular', 'Circular Std', BlinkMacSystemFont, -apple-system,
+  'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   'Helvetica', 'Arial', sans-serif;
 
 // Navbar
