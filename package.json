@@ -5,7 +5,7 @@
   "main": "./server",
   "scripts": {
     "build": "NODE_ENV=production next build",
-    "deploy": "next build && gcloud app deploy --quiet --project=sheetmetal",
+    "deploy": "NODE_ENV=production next build && gcloud app deploy --quiet --project=sheetmetal",
     "dev": "node server",
     "migrate": "node-pg-migrate -m ./db/migrations -f ./db/config.js",
     "pretty": "prettier --write \"./**/*.{js,json,yml,md,vue,css,scss}\"",

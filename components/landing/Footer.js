@@ -19,18 +19,11 @@ export default class NavBar extends React.PureComponent {
               <p>
                 <a href="/static/humans.txt">Humans</a>
               </p>
-            </div>
-            <div className="column">
-              <h5 className="heading">Credits</h5>
-
               <p>
-                Various images from <a href="https://icons8.com">Icons8</a>
+                <a href="/static/privacy.txt">Privacy Policy</a>
               </p>
               <p>
-              Opensource <a href="https://rsms.me/inter/">Inter</a> font
-              </p>
-              <p>
-                Icons from <a href="#">Font Awesome</a>
+                <a href="/static/tos.txt">Terms of Service</a>
               </p>
             </div>
           </div>
