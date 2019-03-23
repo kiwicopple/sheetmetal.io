@@ -26,6 +26,9 @@ $shadow-shallow: 0 0 3px 3px rgba(0, 0, 0, 0.2);
 
 // Typography
 // I'm leaving "Circular" in there, just in case the user has it installed on their computer :)
+$family-sans-serif: 'Circular', 'Circular Std', 'Inter', BlinkMacSystemFont, -apple-system,
+'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+'Helvetica', 'Arial', sans-serif;
 $body-size: 14px;
 $text: $grey-100;
 $title-color: $text;
@@ -33,9 +36,6 @@ $subtitle-color: $text;
 $text-invert: $grey-900;
 $link-invert: $grey-100;
 $link-hover: $grey-100;
-$family-sans-serif: 'Inter', 'Circular', 'Circular Std', BlinkMacSystemFont, -apple-system,
-  'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  'Helvetica', 'Arial', sans-serif;
 
 // Navbar
 $navbar-background-color: $background;
