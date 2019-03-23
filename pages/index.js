@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
+import Link from 'next/link'
 import Page from '~/components/layouts/Landing'
+import { authUrl } from '~/lib/Auth'
 
 class Home extends PureComponent {
   render() {
@@ -23,8 +25,8 @@ class Home extends PureComponent {
         </div>
 
         <div className="has-text-centered section">
-          <a href="" className="button is-primary is-medium has-text-weight-bold is-rounded has-shadow">
-            <span>Start now</span>
+          <a href="" className="button is-primary is-medium has-text-weight-bold is-rounded has-shadow" href={authUrl()}>
+            <span>Get Started</span>
             <span className="icon">
               <i className="fas fa-arrow-right" />
             </span>
@@ -103,6 +105,8 @@ class Home extends PureComponent {
           <hr className="m-t-none" style={{ maxWidth: '100px' }} />
           <div className="columns has-text-centered">
             <div className="column">
+
+            <Link href="/docs/hosting">
               <a className="box">
                 <div className="title is-3">Self hosted</div>
                 <ul>
@@ -110,9 +114,10 @@ class Home extends PureComponent {
                   <li>Unlimited API keys</li>
                 </ul>
               </a>
+              </Link>
             </div>
             <div className="column">
-              <a className="box">
+              <a className="box" href={authUrl()}>
                 <div className="title is-3">Free</div>
                 <ul>
                   <li>One connected Sheet</li>
@@ -140,12 +145,12 @@ class Home extends PureComponent {
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'end' }}
               >
                 <strong className="is-size-4 has-text-white m-r-md">Try SheetMetal for free</strong>
-                <button className="button is-medium is-primary has-text-weight-bold is-rounded">
+                <a className="button is-medium is-primary has-text-weight-bold is-rounded" href={authUrl()}>
                   <span>Go</span>
                   <span className="icon">
                     <i className="fas fa-arrow-right" />
                   </span>
-                </button>
+                </a>
               </div>
             </div>
           </div>
