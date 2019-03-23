@@ -6,7 +6,8 @@ import { copyInputValue } from '~/lib/Helpers'
 import { profile, keys } from '~/lib/Auth'
 import { toast } from 'react-toastify'
 import NewSheetModal from '~/components/console/NewSheetModal'
-import * as Snippets from '~/components/docs/Snippets'
+import ApiDocs from '~/components/docs/Api'
+import LanguageSelector from '~/components/docs/LanguageSelector'
 
 export default class Console extends Component {
   static async getInitialProps({ req }) {
@@ -198,107 +199,30 @@ class DocsPanel extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      tabName: '',
+      selectedLanguage: 'CURL',
       range: '',
     }
     this.emitOnClose = this.props.onClose || (() => {})
   }
   render() {
-    let { tabName, range } = this.state
+    let { selectedLanguage } = this.state
     let { sheetKey } = this.props
     return (
-      <div id="quickviewDefault" className="quickview has-background-grey-darker is-active is-large">
+      <div
+        id="quickviewDefault"
+        className="quickview has-background-grey-darker is-active is-large"
+      >
         <header className="quickview-header">
           <p className="title">
-            <div className="dropdown is-hoverable">
-              <div className="dropdown-trigger">
-                <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                  <span>CURL</span>
-                  <span className="icon is-small">
-                    <i className="fas fa-angle-down" />
-                  </span>
-                </button>
-              </div>
-              <div className="dropdown-menu">
-                <div className="dropdown-content ">
-                  <a href="#" className="dropdown-item is-active">
-                    CURL
-                  </a>
-                  <hr className="dropdown-divider" />
-                  <a href="#" className="dropdown-item">
-                    Javascript
-                  </a>
-                </div>
-              </div>
-            </div>
+            <LanguageSelector
+              onLanguageUpdated={selectedLanguage => this.setState({ selectedLanguage })}
+            />
           </p>
           <span className="delete" onClick={() => this.emitOnClose()} />
         </header>
         <div className="has-overflow-scroll">
           <div className="p-md">
-            <div className="m-b-md">
-              <p>Use these fields to prefill the docs. Makes it easier to copy and paste!</p>
-            </div>
-            <div className="field">
-              <label className="label">Tab</label>
-              <p className="control is-expanded ">
-                <input
-                  className="input"
-                  placeholder="Enter the name of the tab within your sheet"
-                  value={tabName}
-                  onChange={e => this.setState({ tabName: e.target.value })}
-                />
-              </p>
-            </div>
-            <div className="field">
-              <label className="label">Range</label>
-              <p className="control is-expanded ">
-                <input
-                  className="input"
-                  placeholder="eg: A:Z or A0:Z100"
-                  value={range}
-                  onChange={e => this.setState({ range: e.target.value })}
-                />
-              </p>
-            </div>
-
-            <hr />
-            <div>
-              <h5 className="title is-5">Get Sheet info</h5>
-              <Snippets.getSheet language="CURL" sheetKey={sheetKey} tab={tabName} range={range} />
-
-              <h5 className="title is-5">Create new row</h5>
-              <Snippets.createRecord
-                language="CURL"
-                sheetKey={sheetKey}
-                tab={tabName}
-                range={range}
-              />
-
-              <h5 className="title is-5">Retrieve data</h5>
-              <Snippets.retrieveRecords
-                language="CURL"
-                sheetKey={sheetKey}
-                tab={tabName}
-                range={range}
-              />
-
-              <h5 className="title is-5">Update a row</h5>
-              <Snippets.updateRecord
-                language="CURL"
-                sheetKey={sheetKey}
-                tab={tabName}
-                range={range}
-              />
-
-              <h5 className="title is-5">Delete a row</h5>
-              <Snippets.deleteRecords
-                language="CURL"
-                sheetKey={sheetKey}
-                tab={tabName}
-                range={range}
-              />
-            </div>
+            <ApiDocs language={selectedLanguage} sheetKey={sheetKey.key} />
           </div>
         </div>
       </div>
