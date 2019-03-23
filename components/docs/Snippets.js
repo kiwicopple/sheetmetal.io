@@ -36,6 +36,24 @@ export const retrieveRecords = ({ language, sheetKey, tab, range }) => {
   }
 }
 
+export const retrieveRecordRange = ({ language, sheetKey, tab, range }) => {
+  switch (language) {
+    case 'CURL':
+      return wrapCode(Curl.retrieveRecordRange(sheetKey, tab, range))
+    default:
+      return <div />
+  }
+}
+
+export const retrieveFormattedRecordRange = ({ language, sheetKey, tab, range }) => {
+  switch (language) {
+    case 'CURL':
+      return wrapCode(Curl.retrieveFormattedRecordRange(sheetKey, tab, range))
+    default:
+      return <div />
+  }
+}
+
 export const updateRecord = ({ language, sheetKey, tab, range }) => {
   switch (language) {
     case 'CURL':

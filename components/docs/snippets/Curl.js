@@ -6,22 +6,35 @@ curl -i \
 -X GET ${BASE_URL}/${key || 'METAL_KEY'}
 `
 
-export const createRecord = (key, tab, payload) => String.raw`
+export const retrieveRecords = (key, tab, range) => String.raw`
 curl -i \
 -H "Accept: application/json" \
--X PUT ${BASE_URL}/${key || 'METAL_KEY'}/${tab || 'TAB'}
+-X GET ${BASE_URL}/${key || 'METAL_KEY'}/${tab || 'TAB'}/
 `
 
-export const retrieveRecords = (key, tab, range) => String.raw`
+export const retrieveRecordRange = (key, tab, range) => String.raw`
 curl -i \
 -H "Accept: application/json" \
 -X GET ${BASE_URL}/${key || 'METAL_KEY'}/${tab || 'TAB'}/${range || 'RANGE'}
 `
 
+export const retrieveFormattedRecordRange = (key, tab, range) => String.raw`
+curl -i \
+-H "Accept: application/json" \
+-X GET ${BASE_URL}/${key || 'METAL_KEY'}/${tab || 'TAB'}/${range || 'RANGE'}?formatted=true
+`
+
+export const createRecord = (key, tab, payload) => String.raw`
+curl -i \
+-H "Accept: application/json" \
+-X POST ${BASE_URL}/${key || 'METAL_KEY'}/${tab || 'TAB'}
+`
+
+
 export const updateRecord = (key, tab, range, payload) => String.raw`
 curl -i \
 -H "Accept: application/json" \
--X POST ${BASE_URL}/${key || 'METAL_KEY'}/${tab || 'TAB'}/${range || 'RANGE'}
+-X PUT ${BASE_URL}/${key || 'METAL_KEY'}/${tab || 'TAB'}/${range || 'RANGE'}
 `
 
 export const deleteRecords = (key, tab, range) =>  String.raw`

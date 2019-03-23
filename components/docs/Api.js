@@ -1,6 +1,6 @@
 import * as Snippets from '~/components/docs/Snippets'
 
-export default class ApiDocs extends React.Component{
+export default class ApiDocs extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -39,36 +39,63 @@ export default class ApiDocs extends React.Component{
             />
           </p>
         </div>
-        <hr />
-        <div>
-          <h5 className="title is-5">Get Sheet info</h5>
+        <div className="content m-t-xl">
+          <h5 className="title is-4">Get Sheet info</h5>
+          <hr className="is-title-accent" />
+          <p>Retrieve all the metadata for your sheet:</p>
           <Snippets.getSheet language={language} sheetKey={sheetKey} tab={tabName} range={range} />
-  
-          <h5 className="title is-5">Create new row</h5>
+
+          <h5 className="title is-4">Retrieve data</h5>
+          <hr className="is-title-accent" />
+          <p>Get all the values on a particular sheet:</p>
+          <Snippets.retrieveRecords
+            language={language}
+            sheetKey={sheetKey}
+            tab={tabName}
+          />
+
+          <p>
+            Or, if you only want to get a certain range of values then you can specify which cells
+            you want:
+          </p>
+          <Snippets.retrieveRecordRange
+            language={language}
+            sheetKey={sheetKey}
+            tab={tabName}
+            range={range}
+          />
+          <h6 className="title is-5">Formatting the response</h6>
+          <p>
+            The response from Google gives all the values in an Array. If your first row contains 
+            table headers, you can get SheetMetal to format the response by passing "formatted=true"
+          </p>
+          <Snippets.retrieveFormattedRecordRange
+            language={language}
+            sheetKey={sheetKey}
+            tab={tabName}
+            range={range}
+          />
+
+          <h5 className="title is-4">Create new row</h5>
+          <hr className="is-title-accent" />
           <Snippets.createRecord
             language={language}
             sheetKey={sheetKey}
             tab={tabName}
             range={range}
           />
-  
-          <h5 className="title is-5">Retrieve data</h5>
-          <Snippets.retrieveRecords
-            language={language}
-            sheetKey={sheetKey}
-            tab={tabName}
-            range={range}
-          />
-  
-          <h5 className="title is-5">Update a row</h5>
+
+          <h5 className="title is-4">Update a row</h5>
+          <hr className="is-title-accent" />
           <Snippets.updateRecord
             language={language}
             sheetKey={sheetKey}
             tab={tabName}
             range={range}
           />
-  
-          <h5 className="title is-5">Delete a row</h5>
+
+          <h5 className="title is-4">Delete a row</h5>
+          <hr className="is-title-accent" />
           <Snippets.deleteRecords
             language={language}
             sheetKey={sheetKey}
@@ -79,5 +106,4 @@ export default class ApiDocs extends React.Component{
       </div>
     )
   }
-  
 }

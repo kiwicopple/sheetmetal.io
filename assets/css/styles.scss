@@ -159,6 +159,10 @@ hr {
     color: $text;
   }
 }
+hr.is-title-accent {
+  margin-top: 5px;
+  max-width: 100px;
+}
 .has-shadow {
   box-shadow: $shadow;
 }

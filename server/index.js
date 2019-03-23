@@ -223,11 +223,12 @@ app
       }
     })
 
-    /* GET a range of values. */
-    server.get('/api/v1/sheets/:key/:range', async function (req, res) {
+    /* GET all values on a sheet. */
+    server.get('/api/v1/sheets/:key/:sheet/:range?', async function(req, res) {
       try {
-        const { key, range } = req.params
-        const { format } = req.query
+        const { key, sheet, range } = req.params
+        const { formatted } = req.query
+        let fullRangeString = range ? `${sheet}!${range}` : sheet
 
         let apiKey = await Database.getKey(key)
         if (!apiKey) return res.error(`Can't find a matching key.`)
@@ -235,17 +236,15 @@ app
         let user = await Database.getUser(apiKey.user_id)
         const sheets = GoogleHelpers.authorisedClient(user.oauth_token)
         sheets.spreadsheets.values.get(
-          { spreadsheetId: apiKey.sheet_id, range: range },
+          { spreadsheetId: apiKey.sheet_id, range: fullRangeString },
           (err, response) => {
             GoogleHelpers.handlePotentiallyNewOauth(user.oauth_token, sheets, user.id)
-            // console.log('possibly new credentials', sheets['_options'].auth.credentials)
             if (err) return GoogleHelpers.handleGoogleError(err, req, res)
-            else if (format && format.toUpperCase() === 'RAW') return res.send(response.data)
-            else {
+            else if (!!formatted) {
               let data = response.data
-              let formatted = GoogleHelpers.valuesToJson(data.values)
-              return res.send({ ...data, values: formatted })
-            }
+              let formattedValues = GoogleHelpers.valuesToJson(data.values)
+              return res.send({ ...data, values: formattedValues })
+            } else return res.send(response.data)
           }
         )
       } catch (err) {
