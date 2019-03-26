@@ -8,6 +8,7 @@
     "deploy": "NODE_ENV=production next build && gcloud app deploy --quiet --project=sheetmetal",
     "dev": "node server",
     "migrate": "node-pg-migrate -m ./db/migrations -f ./db/config.js",
+    "migrate:prod": "NODE_ENV=production node ./db/migrateProd.js",
     "pretty": "prettier --write \"./**/*.{js,json,yml,md,vue,css,scss}\"",
     "start": "NODE_ENV=production node server"
   },
