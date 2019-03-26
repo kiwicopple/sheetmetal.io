@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Page from '~/components/layouts/Landing'
 import Link from 'next/link'
 import { login, upsert } from '~/lib/Auth'
+import SentryWrapper from '~/lib/SentryWrapper'
+const { captureException } = SentryWrapper({ release: process.env.SENTRY_RELEASE })
 
 class Auth extends Component {
   static async getInitialProps({ req }) {
@@ -16,6 +18,7 @@ class Auth extends Component {
         return { metalToken: data.metalToken, isLoggedIn: true }
       }
     } catch (error) {
+      captureException(error, { req })
       // console.error('Auth: getInitialProps', error)
       return {
         isLoggedIn: false,
