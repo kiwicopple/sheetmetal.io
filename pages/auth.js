@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import Page from '~/components/layouts/Landing'
 import Link from 'next/link'
-import { login } from '~/lib/Auth'
-import { baseUrl } from '~/lib/Helpers'
+import { login, upsert } from '~/lib/Auth'
 
 class Auth extends Component {
   static async getInitialProps({ req }) {
@@ -14,11 +12,11 @@ class Auth extends Component {
         // or the app isn't set up correctly on Google console
         throw new Error(error)
       } else {
-        let { data } = await axios.post(`${baseUrl(req)}/api/auth/login`, { code })
+        let data = await upsert(req, { code })
         return { metalToken: data.metalToken, isLoggedIn: true }
       }
     } catch (error) {
-      console.error('Auth: getInitialProps', error.toString())
+      // console.error('Auth: getInitialProps', error)
       return {
         isLoggedIn: false,
         user: null,

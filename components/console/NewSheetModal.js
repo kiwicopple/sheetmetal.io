@@ -5,7 +5,7 @@ export default class NewSheetModal extends React.Component {
     super(props)
     this.state = {
       isMobileActive: false,
-      sheetId: '1S9CRnvvv81aamA0Ycyo9H2RwRuWqDjO9F1iJtizBxtQ',
+      sheetId: '',
       description: '',
       connected: null,
       loading: false,

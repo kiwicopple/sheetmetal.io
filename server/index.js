@@ -81,6 +81,7 @@ app
     server.post('/api/auth/login', async (req, res, next) => {
       try {
         const { code } = req.body
+        console.log('code', code)
         // Get a "refresh" token
         let { data: googleToken } = await axios.post(GOOGLE_TOKEN_URL, {
           code: code,
@@ -90,10 +91,13 @@ app
           grant_type: GOOGLE_GRANT_TYPE,
         })
 
+        console.log('googleToken', googleToken)
+
         // Also get the user info
         let { data: user } = await axios.get(GOOGLE_USER_URL, {
           headers: { Authorization: `Bearer ${googleToken.access_token}` },
         })
+        console.log('user', user)
 
         // Create a mutable token
         let token = {
@@ -105,7 +109,7 @@ app
         const metalToken = jwt.sign({ token, user }, JWT_SECRET)
         return res.json({ metalToken })
       } catch (error) {
-        console.log('error', error)
+        console.log('/api/auth/login', error)
         captureException(error, { req, res })
         return res.status(422).json({ message: 'Login error' })
       }
@@ -118,7 +122,7 @@ app
         let decoded = await verifyJWT(token)
         return res.json({ ...decoded.user })
       } catch (error) {
-        console.log('/api/auth/me', error.toString())
+        console.log('/api/auth/me', error)
         captureException(error, { req, res })
         return res.status(422).json({ message: 'Not logged in' })
       }
