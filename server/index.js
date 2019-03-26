@@ -117,8 +117,8 @@ app
         if (!token) throw new Error('No auth token')
         let decoded = await verifyJWT(token)
         return res.json({ ...decoded.user })
-      } catch (err) {
-        console.log('/api/auth/me', err.toString())
+      } catch (error) {
+        console.log('/api/auth/me', error.toString())
         captureException(error, { req, res })
         return res.status(422).json({ message: 'Not logged in' })
       }
@@ -207,10 +207,10 @@ app
             return res.send(data)
           }
         )
-      } catch (err) {
-        console.log('/api/auth/fetch-sheet', err.toString())
+      } catch (error) {
+        console.log('/api/auth/fetch-sheet', error.toString())
         captureException(error, { req, res })
-        return res.status(422).json({ message: err.toString() })
+        return res.status(422).json({ message: error.toString() })
       }
     })
 
@@ -235,10 +235,10 @@ app
             return res.send(data)
           }
         )
-      } catch (err) {
-        console.log('/api/auth/fetch-sheet', err.toString())
+      } catch (error) {
+        console.log('/api/auth/fetch-sheet', error.toString())
         captureException(error, { req, res })
-        return res.status(422).json({ message: err.toString() })
+        return res.status(422).json({ message: error.toString() })
       }
     })
 
@@ -266,10 +266,10 @@ app
             } else return res.send(response.data)
           }
         )
-      } catch (err) {
-        console.log('/api/auth/fetch-sheet', err.toString())
+      } catch (error) {
+        console.log('/api/auth/fetch-sheet', error.toString())
         captureException(error, { req, res })
-        return res.status(422).json({ message: err.toString() })
+        return res.status(422).json({ message: error.toString() })
       }
     })
 
