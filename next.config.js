@@ -6,23 +6,34 @@ const DOT_ENV_FILE =
     : path.join(__dirname, '.env')
 require('dotenv').config({ path: DOT_ENV_FILE })
 
+const nextSourceMaps = require('@zeit/next-source-maps')()
 const withSass = require('@zeit/next-sass')
 const Dotenv = require('dotenv-webpack')
+const webpack = require('webpack')
 
-module.exports = withSass({
-  webpack: config => {
-    config.plugins = config.plugins || []
+module.exports = withSass(
+  nextSourceMaps({
+    webpack: (config, { isServer, buildId }) => {
+      config.plugins = config.plugins || []
 
-    config.plugins = [
-      ...config.plugins,
+      config.plugins = [
+        ...config.plugins,
 
-      // Read the .env file
-      new Dotenv({
-        path: DOT_ENV_FILE,
-        systemvars: true,
-      }),
-    ]
+        // Read the .env file
+        new Dotenv({
+          path: DOT_ENV_FILE,
+          systemvars: true,
+        }),
+        new webpack.DefinePlugin({
+          'process.env.SENTRY_RELEASE': JSON.stringify(buildId),
+        }),
+      ]
 
-    return config
-  },
-})
+      if (!isServer) {
+        config.resolve.alias['@sentry/node'] = '@sentry/browser'
+      }
+
+      return config
+    },
+  })
+)

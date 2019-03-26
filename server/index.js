@@ -26,14 +26,16 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
 const OAUTH_REDIRECT_URL = process.env.OAUTH_REDIRECT_URL
 
-const TOKEN_ERROR = `
-  Missing or invalid metal-token. 
-  Make sure the you have 'metal-key' in your headers or 'key' in your query params. Also make sure the key is correct!
-`
-const USER_PARAM_ERROR = `
-  Missing user param. 
-  Make sure you pass your user ID as a header or query param 'user'.
-`
+const sourcemapsForSentryOnly = token => (req, res, next) => {
+  // In production we only want to serve source maps for sentry
+  if (!dev && !!token && req.headers['x-sentry-token'] !== token) {
+    res
+      .status(401)
+      .send('Authentication access token is required to access the source map.')
+    return
+  }
+  next()
+}
 
 const verifyJWT = token => {
   return new Promise(resolve => {
@@ -63,10 +65,14 @@ const verifyLoggedIn = async (req, res, next) => {
 app
   .prepare()
   .then(() => {
+    const { Sentry } = require('../lib/SentryWrapper')({ release: app.buildId })
     const server = express()
 
     server.use(cookieParser())
     server.use(bodyParser())
+
+    server.get(/\.map$/, sourcemapsForSentryOnly(process.env.SENTRY_TOKEN))
+    server.use(Sentry.Handlers.errorHandler())
 
     /**
      * Login
