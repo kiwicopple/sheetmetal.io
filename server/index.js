@@ -65,7 +65,7 @@ const verifyLoggedIn = async (req, res, next) => {
 app
   .prepare()
   .then(() => {
-    const { Sentry } = require('../lib/SentryWrapper')({ release: app.buildId })
+    const { Sentry, captureException } = require('../lib/SentryWrapper')({ release: app.buildId })
     const server = express()
 
     server.use(cookieParser())
@@ -106,6 +106,7 @@ app
         return res.json({ metalToken })
       } catch (error) {
         console.log('error', error)
+        captureException(error, { req, res })
         return res.status(422).json({ message: 'Login error' })
       }
     })
@@ -118,6 +119,7 @@ app
         return res.json({ ...decoded.user })
       } catch (err) {
         console.log('/api/auth/me', err.toString())
+        captureException(error, { req, res })
         return res.status(422).json({ message: 'Not logged in' })
       }
     })
@@ -131,6 +133,7 @@ app
         return res.json(keys)
       } catch (error) {
         console.log('Error: /api/auth/keys/', error)
+        captureException(error, { req, res })
         return res.error(error)
       }
     })
@@ -145,6 +148,7 @@ app
         return res.json(id)
       } catch (error) {
         console.log('error', error)
+        captureException(error, { req, res })
         return res.error(error)
       }
     })
@@ -162,6 +166,7 @@ app
         return res.json(response)
       } catch (error) {
         console.log('error', error)
+        captureException(error, { req, res })
         return res.error(error)
       }
     })
@@ -177,6 +182,7 @@ app
         return res.json(response)
       } catch (error) {
         console.log('error', error)
+        captureException(error, { req, res })
         return res.error(error)
       }
     })
@@ -203,6 +209,7 @@ app
         )
       } catch (err) {
         console.log('/api/auth/fetch-sheet', err.toString())
+        captureException(error, { req, res })
         return res.status(422).json({ message: err.toString() })
       }
     })
@@ -230,6 +237,7 @@ app
         )
       } catch (err) {
         console.log('/api/auth/fetch-sheet', err.toString())
+        captureException(error, { req, res })
         return res.status(422).json({ message: err.toString() })
       }
     })
@@ -260,6 +268,7 @@ app
         )
       } catch (err) {
         console.log('/api/auth/fetch-sheet', err.toString())
+        captureException(error, { req, res })
         return res.status(422).json({ message: err.toString() })
       }
     })
