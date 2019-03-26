@@ -81,3 +81,4 @@ typings/
 .dynamodb/
 
 now-secrets.json
+.DS_Store
