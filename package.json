@@ -1,6 +1,6 @@
 {
   "name": "sheetmetal.io",
-  "version": "00.00.01",
+  "version": "00.00.02",
   "description": "Turn a Google Sheet into an API",
   "main": "./server",
   "scripts": {
