@@ -10,30 +10,35 @@ const nextSourceMaps = require('@zeit/next-source-maps')()
 const withSass = require('@zeit/next-sass')
 const Dotenv = require('dotenv-webpack')
 const webpack = require('webpack')
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+})
 
-module.exports = withSass(
-  nextSourceMaps({
-    webpack: (config, { isServer, buildId }) => {
-      config.plugins = config.plugins || []
+module.exports = withMDX(
+  withSass(
+    nextSourceMaps({
+      pageExtensions: ['js', 'jsx', 'mdx'],
+      webpack: (config, { isServer, buildId }) => {
+        config.plugins = config.plugins || []
+        config.plugins = [
+          ...config.plugins,
 
-      config.plugins = [
-        ...config.plugins,
+          // Read the .env file
+          new Dotenv({
+            path: DOT_ENV_FILE,
+            systemvars: true,
+          }),
+          new webpack.DefinePlugin({
+            'process.env.SENTRY_RELEASE': JSON.stringify(buildId),
+          }),
+        ]
 
-        // Read the .env file
-        new Dotenv({
-          path: DOT_ENV_FILE,
-          systemvars: true,
-        }),
-        new webpack.DefinePlugin({
-          'process.env.SENTRY_RELEASE': JSON.stringify(buildId),
-        }),
-      ]
+        if (!isServer) {
+          config.resolve.alias['@sentry/node'] = '@sentry/browser'
+        }
 
-      if (!isServer) {
-        config.resolve.alias['@sentry/node'] = '@sentry/browser'
-      }
-
-      return config
-    },
-  })
+        return config
+      },
+    })
+  )
 )

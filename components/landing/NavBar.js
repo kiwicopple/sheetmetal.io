@@ -15,7 +15,7 @@ export default class NavBar extends React.Component {
       let loggedInUser = await profile()
       if (loggedInUser) this.setState({ loggedInUser })
     } catch (error) {
-      console.log('componentDidMount: error', error)
+      console.log('Not logged in')
     }
   }
 

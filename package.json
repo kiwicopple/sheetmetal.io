@@ -13,6 +13,8 @@
     "start": "NODE_ENV=production node server"
   },
   "dependencies": {
+    "@mdx-js/loader": "^0.20.3",
+    "@next/mdx": "^8.0.4",
     "@sentry/browser": "^4.6.5",
     "@sentry/node": "^4.6.5",
     "@zeit/next-sass": "^1.0.1",
@@ -29,13 +31,12 @@
     "install": "^0.12.2",
     "js-cookie": "^2.2.0",
     "jsonwebtoken": "^8.5.0",
-    "next": "^7.0.2",
+    "next": "^8.0.4",
     "node-sass": "^4.11.0",
     "npm": "^6.9.0",
     "pg": "^7.8.2",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-markdown": "^4.0.6",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-toastify": "^4.5.2",
     "sentry-testkit": "^2.1.0"
   },
