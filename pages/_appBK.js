@@ -1,6 +1,5 @@
 import App from 'next/app'
 import SentryWrapper from '~/lib/SentryWrapper'
-
 const { Sentry, captureException } = SentryWrapper({ release: process.env.SENTRY_RELEASE })
 
 export default class MyApp extends App {
