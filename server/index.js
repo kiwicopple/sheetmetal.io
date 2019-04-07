@@ -5,6 +5,8 @@ const DOT_ENV_FILE =
     : path.join(__dirname, '.env')
 require('dotenv').config({ path: DOT_ENV_FILE })
 
+const Debug = require('debug')('/server/index');
+
 const express = require('express')
 const next = require('next')
 const cookieParser = require('cookie-parser')
@@ -81,7 +83,7 @@ app
     server.post('/api/auth/login', async (req, res, next) => {
       try {
         const { code } = req.body
-        console.log('code', code)
+        Debug(code)
         // Get a "refresh" token
         let { data: googleToken } = await axios.post(GOOGLE_TOKEN_URL, {
           code: code,
@@ -122,8 +124,8 @@ app
         let decoded = await verifyJWT(token)
         return res.json({ ...decoded.user })
       } catch (error) {
-        console.log('/api/auth/me', error)
-        captureException(error, { req, res })
+        Debug(error)
+        // captureException(error, { req, res })
         return res.status(422).json({ message: 'Not logged in' })
       }
     })

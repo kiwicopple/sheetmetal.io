@@ -24,7 +24,7 @@ export default class NavBar extends React.Component {
     return (
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-          <a className="navbar-item" href="/">
+          <a className="navbar-item" href="/?src=nav">
             <img src="/static/img/sheet-metal-logo.png" alt="Sheet Metal" />
           </a>
           <a
