@@ -25,8 +25,11 @@ export default ({ id, children, classNames, title, activeLink }) => (
               <aside className="menu">
                 <p className="menu-label is-hidden-tablet">Menu</p>
                 <ul className="menu-list">
-                  <ActiveLink href="/docs">API</ActiveLink>
-                  <ActiveLink href="/docs?page=read">Reading data</ActiveLink>
+                  <ActiveLink href="/docs">Getting started</ActiveLink>
+                  <ActiveLink href="/docs?page=read">Read</ActiveLink>
+                  <ActiveLink href="/docs?page=create">Create</ActiveLink>
+                  <ActiveLink href="/docs?page=update">Update</ActiveLink>
+                  <ActiveLink href="/docs?page=del">Delete</ActiveLink>
                   <ActiveLink href="/docs?page=hosting">Self Hosting</ActiveLink>
                 </ul>
               </aside>

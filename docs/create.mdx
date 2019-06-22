@@ -1,5 +1,7 @@
+export const metadata = {
+  title: 'Create',
+}
 
-# Create 
 Add a row to Google Spreadsheet by sending a JSON object via `POST` request.
 
 ```sh
@@ -32,8 +34,9 @@ curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet2" \
 ```
 
 ### **Multiple rows**
+
 Send an array of objects wrapped in `{ "rows": YOUR_ARRAY_HERE }` JSON to add multiple rows in one request.
 
 ### **Returns**
-An array of created objects.
 
+An array of created objects.
