@@ -17,7 +17,7 @@ export default ({ id, children, classNames, title, activeLink }) => (
       <NavBar />
       <div id={id} className={classNames || ''}>
         <div className="section container">
-          <h1 className="title is-3">Documentation</h1>
+          <h1 className="title is-2">Documentation</h1>
           <hr className="m-t-none" style={{ maxWidth: '100px' }} />
 
           <div className="columns">

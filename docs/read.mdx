@@ -2,30 +2,45 @@ export const metadata = {
   title: 'Read',
 }
 
-## **Read all data**
+### Read all data
 
-API can return whole Google Spreadsheet via a `GET` method to `https://sheetmetal.io/apis/v1.0/{id}`.
+You can request all the data from a sheet.
+
+**Example**
 
 ```sh
-# Read whole spreadsheet
-curl "https://sheetsu.com/apis/v1.0db/020b2c0f"
-
 # Read first two rows from sheet "Sheet2"
 curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet2?limit=2"
 
 ```
 
-### **Request Parameters**
+**Returns**
+
+An array of objects. Each object is a row from the Google Spreadsheet.
+
+---
+
+### Request Parameters
 
 You can optionally limit results, or start with offset.
-
-### **Parameter**
 
 | Parameter | Description                                                |
 | --------- | :--------------------------------------------------------- |
 | limit     | Number of how many rows should be returned                 |
 | offset    | Number from which row response should start (default is 0) |
 
-### **Returns**
+**Example**
+
+```sh
+
+# Read first two rows from sheet "Sheet2"
+curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet2?limit=2"
+
+# Read the third row from sheet "Sheet2"
+curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet2?limit=1&offset=2"
+
+```
+
+**Returns**
 
 An array of objects. Each object is a row from the Google Spreadsheet.

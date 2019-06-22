@@ -159,7 +159,10 @@ hr {
   h3,
   h4,
   h5,
-  h6 {
+  h6,
+  table tr th,
+  p,
+  strong {
     color: $text;
   }
 }
@@ -226,6 +229,22 @@ hr.is-title-accent {
   border-radius: 5px;
   box-shadow: $shadow-shallow;
 }
+pre {
+  background: $grey-700;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  padding: 0px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+code {
+  margin-left: 0px;
+  margin-right: 0px;
+  white-space: pre;
+  background: $grey-700;
+  color: $text;
+  border-radius: 3px;
+}
 .code-snippet {
   .button {
     position: relative;
@@ -234,18 +253,6 @@ hr.is-title-accent {
     float: right;
     border: none;
     border-radius: 0 4px 0 4px;
-  }
-  pre {
-    background: $grey-800;
-    border-radius: 5px;
-    margin-bottom: 30px;
-    padding: 0px;
-    padding-left: 20px;
-    padding-bottom: 20px;
-  }
-  code {
-    margin-left: 20px;
-    margin-right: 20px;
   }
 }
 #DocsPanel {

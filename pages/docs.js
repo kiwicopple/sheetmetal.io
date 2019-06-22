@@ -8,8 +8,8 @@ export default ({ url }) => {
   let Content = doc.default
   return (
     <Page id="Deployment" activeLink="HOSTING">
-      <div>
-        <h3 className="title is-3">{metadata.title || 'Documentation'}</h3>
+      <div className="docs">
+        <h2 className="title is-3">{metadata.title || 'Documentation'}</h2>
         <hr className="m-t-none is-hidden-tablet" style={{ maxWidth: '100px' }} />
         <div className="content">
           <Content />

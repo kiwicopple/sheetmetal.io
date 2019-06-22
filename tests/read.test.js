@@ -6,17 +6,17 @@ const READ_ALL = `${URL}`
 const READ_WITH_LIMIT = `${URL}?limit=2`
 const READ_WITH_OFFSET = `${URL}?offset=1`
 
-test('Read data', async () => {
+test.skip('Read data', async () => {
   const { data } = await axios.get(READ_ALL)
-  expect(data.length).toBe(5)
+  expect(data.length).toBe(6)
 })
 
-test('Read data with limit', async () => {
+test.skip('Read data with limit', async () => {
   const { data } = await axios.get(READ_WITH_LIMIT)
   expect(data.length).toBe(2)
 })
 
-test('Read data with limit', async () => {
+test.skip('Read data with offset', async () => {
   const { data } = await axios.get(READ_WITH_OFFSET)
-  expect(data[0].NAME).toBe('Frank')
+  expect(data[0].name).toBe('Frank')
 })
