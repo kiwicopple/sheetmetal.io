@@ -1,1 +1,0 @@
-I get it, tests are important. But so is shipping, and i'm focusing on that first.

@@ -1,25 +1,28 @@
-export const metadata = {
-  authors: ['Copple']
-}
+# Getting set up
 
-Will update this later. Too busy shipping.
+## Database
+
+**Create the Database**
+
+```sh
+sudo -u postgres psql -c 'drop database sheet_metal;'
+sudo -u postgres psql -c 'create database sheet_metal;'
+sudo -u postgres psql -c 'grant all privileges on database sheet_metal to postgres;'
+```
+
+**Commands**
+
+```sh
+npm run migrate create file_name  # create migration file
+npm run migrate up                # run migrations
+```
 
 ## Step 1
+
+Will update this later. Too busy shipping.
 
 Deploy the app
 
 ## Step 2
 
 Profit
-
-## Database
-
-Create the Database
-
-sudo -u postgres psql -c 'drop database sheet_metal;'
-sudo -u postgres psql -c 'create database sheet_metal;'
-sudo -u postgres psql -c 'grant all privileges on database sheet_metal to postgres;' 
-
-Commands
-npm run migrate create file_name # create migration file
-npm run migrate up # run migrations
