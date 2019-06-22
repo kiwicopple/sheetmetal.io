@@ -11,9 +11,9 @@ class Home extends PureComponent {
           <div className="container">
             <div className="columns is-centered">
               <div className="column is-8 has-text-centered">
-                <h3 className="title is-3 m-b-sm">Use a Google Sheet as your database.</h3>
+                <h3 className="title is-3 m-b-sm">Turn Google Sheets into a database.</h3>
                 <p className="is-size-5 m-b-lg">
-                  SheetMetal lets you interact with any Google spreadsheet via a RESTful API.
+                  SheetMetal lets you update any Google spreadsheet via a RESTful API.
                 </p>
 
                 <div id="Video">
@@ -43,7 +43,7 @@ class Home extends PureComponent {
                   <img src="/static/img/use-prototype.png" alt="Use for prototyping" width="50" />
                 </div>
                 <h5 className="title is-5 m-b-sm">Prototyping</h5>
-                <p>Use a Google Sheet as a quick and dirty prototyping database.</p>
+                <p>Don't worry about setting up a database. Use a Google Sheets for rapid prototyping.</p>
               </div>
             </div>
             <div className="column ">
@@ -52,7 +52,7 @@ class Home extends PureComponent {
                   <img src="/static/img/use-crm.png" alt="Use as CRM" width="50" />
                 </div>
                 <h5 className="title is-5 m-b-sm">Custom forms</h5>
-                <p>Put a custom form on your website and collect leads and responses.</p>
+                <p>Put a custom form on your website and collect leads and responses in Google Sheets.</p>
               </div>
             </div>
             <div className="column ">
@@ -61,7 +61,7 @@ class Home extends PureComponent {
                   <img src="/static/img/use-mobile.png" alt="Use for mobile" width="50" />
                 </div>
                 <h5 className="title is-5 m-b-sm">Mobile development</h5>
-                <p>Deploy a mobile app without deploying any other background infrastructure.</p>
+                <p>Deploy a mobile app without deploying any other backend infrastructure.</p>
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@ class Home extends PureComponent {
               <div className="title is-1">3.</div>
               <h5 className="title is-5 m-b-sm">Use your Sheet like a database</h5>
               <p>
-                SheetMetal gives you full access to interact with your spreadsheet via a RESTful
+                SheetMetal gives you full access to update with your spreadsheet via a RESTful
                 API.
               </p>
             </div>

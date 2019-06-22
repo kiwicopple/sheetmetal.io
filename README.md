@@ -1,6 +1,6 @@
 # SheetMetal
 
-SheetMetal connects to any Google Sheet via OAuth and provides an easy-to-use Restful API. This is useful if you want to use google sheets as a drop-in replacement for a database, without having to deploy your own server to communicate with it. 
+SheetMetal is useful if you want to use google sheets as a drop-in replacement for a database, without having to deploy your own server to communicate with it. SheetMetal connects to any Google Sheet via OAuth and provides an easy-to-use Restful API. 
 
 * Landing page - https://sheetmetal.io
 * Documentation - https://sheetmetal.io/docs

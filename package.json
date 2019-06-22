@@ -13,7 +13,6 @@
     "start": "NODE_ENV=production node server"
   },
   "dependencies": {
-    "@mdx-js/loader": "^0.20.3",
     "@next/mdx": "^8.0.4",
     "@sentry/browser": "^4.6.5",
     "@sentry/node": "^4.6.5",
@@ -34,7 +33,6 @@
     "jsonwebtoken": "^8.5.0",
     "next": "^8.0.4",
     "node-sass": "^4.11.0",
-    "npm": "^6.9.0",
     "pg": "^7.8.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -42,6 +40,7 @@
     "sentry-testkit": "^2.1.0"
   },
   "devDependencies": {
+    "@mdx-js/loader": "^0.20.3",
     "@babel/plugin-proposal-class-properties": "^7.2.3",
     "@babel/plugin-proposal-decorators": "^7.2.3",
     "babel-plugin-module-resolver": "^3.1.1",
