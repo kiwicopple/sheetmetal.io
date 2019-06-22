@@ -1,0 +1,46 @@
+
+# Delete 
+
+
+
+## Clear
+
+Send DELETE request with a `/{column_name}/{value}` path added at the end of the URL to delete row(s). Clear row(s) where `{column_name}` match `{value}`. Clear doesn’t change the number of rows.
+
+
+```sh
+# Clear all rows where name is Lois
+curl "https://sheetsu.com/apis/v1.0db/020b2c0f/name/Lois" \
+-X DELETE
+
+
+# Clear all rows from sheet "Sheet2"
+# where value of column foo is bar
+curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet2/foo/bar" \
+-X DELETE
+
+```
+
+### **Returns**
+On success, returns `204 No Content` HTTP status code, without a body.
+
+----
+
+## Destroy
+Send DELETE request to destroy all matched rows, move up below rows and decrease number of rows. Pass params in a `column_name=value` as params to the request.
+
+### **Wildcard matching**
+You can match rows to destroy using wildcards (`*`). Asteriks (`*`) can represent any characters or empty string.
+
+### **Request Parameters**
+You can optionally ignore letter case sensitivity.
+
+### **Parameter**
+
+| Parameter     | Description                                                 |
+| ------------- |:------------------------------------------------------------|
+| ignore_case   | Ignore letter case sensitivity. Both column names and values|
+
+
+### **Returns**
+On success, returns `200 OK` HTTP status code, with all destroyed rows at body.
