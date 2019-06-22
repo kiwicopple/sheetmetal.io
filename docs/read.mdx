@@ -33,6 +33,31 @@ An array of objects. Each object is a row from the Google Spreadsheet.
 ## **Search spreadsheet**
 Search Google Spreadsheet for particular records. Pass params in a `column_name=value` as params to the `GET https://sheetsu.com/apis/v1.0/{id}/search` request.
 
+```sh
+
+# Get all rows where column 'score' is '42'
+curl "https://sheetsu.com/apis/v1.0db/020b2c0f/search?score=42"
+
+
+# Get all rows where column 'score' is '42'
+# and column 'name' is 'Peter'
+curl "https://sheetsu.com/apis/v1.0db/020b2c0f/search?score=42&name=Peter"
+
+
+# Get first two rows where column 'foo' is 'bar',
+# column 'another column' is '1' from sheet "Sheet2"
+curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet2/search?foo=bar&another%20column=1&limit=2"
+
+
+# Get all rows where column 'name' is starting with 'p'
+curl "https://sheetsu.com/apis/v1.0db/020b2c0f/search?name=p*&ignore_case=true"
+
+
+# Get all rows where column 'name' is contains string 'oi'
+curl "https://sheetsu.com/apis/v1.0db/020b2c0f/search?name=*oi*"
+
+```
+
 ### **Wildcard searching**
 You can search using wildcards (`*`). Asteriks (`*`) can represent any characters or empty string.
 
