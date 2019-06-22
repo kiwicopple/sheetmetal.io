@@ -1,0 +1,35 @@
+
+# Create 
+Add a row to Google Spreadsheet by sending a JSON object via POST request.
+
+```sh
+# Adds one row to spreadsheet
+curl "https://sheetsu.com/apis/v1.0db/020b2c0f" \
+-X POST \
+-H "Content-Type: application/json" \
+-d '{ "id": "6", "name": "Glenn", "score": "69" }'
+# Add multiple rows in one request
+curl "https://sheetsu.com/apis/v1.0db/020b2c0f" \
+-X POST \
+-H "Content-Type: application/json" \
+-d '
+{
+  "rows": [
+    { "id": "6", "name": "Glenn", "score": "69" },
+    { "id": "7", "name": "Joe", "score": "98" }
+  ]
+}'
+# Adds single row to sheet named "Sheet2"
+curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet2" \
+-X POST \
+-H "Content-Type: application/json" \
+-d '{ "foo": "6", "another column": "quux" }'
+
+```
+
+### Multiple rows
+Send an array of objects wrapped in { "rows": YOUR_ARRAY_HERE } JSON to add multiple rows in one request.
+
+### Returns
+An array of created objects.
+
