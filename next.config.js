@@ -1,15 +1,14 @@
 // next.config.js
+require('custom-env').env(true)
 const path = require('path')
 const DOT_ENV_FILE =
   process.env.NODE_ENV === 'production'
-    ? path.join(__dirname, '.env.prod')
+    ? path.join(__dirname, '.env.production')
     : path.join(__dirname, '.env')
-require('dotenv').config({ path: DOT_ENV_FILE })
 
 const nextSourceMaps = require('@zeit/next-source-maps')()
 const withSass = require('@zeit/next-sass')
 const Dotenv = require('dotenv-webpack')
-const webpack = require('webpack')
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
 })
@@ -28,14 +27,7 @@ module.exports = withMDX(
             path: DOT_ENV_FILE,
             systemvars: true,
           }),
-          new webpack.DefinePlugin({
-            'process.env.SENTRY_RELEASE': JSON.stringify(buildId),
-          }),
         ]
-
-        if (!isServer) {
-          config.resolve.alias['@sentry/node'] = '@sentry/browser'
-        }
 
         return config
       },

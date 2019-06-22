@@ -1,11 +1,4 @@
-const path = require('path')
-const DOT_ENV_FILE =
-  process.env.NODE_ENV === 'production'
-    ? path.join(__dirname, '.env.prod')
-    : path.join(__dirname, '.env')
-require('dotenv').config({ path: DOT_ENV_FILE })
-
-const Debug = require('debug')('/server/index');
+require('custom-env').env(true)
 
 const express = require('express')
 const next = require('next')
@@ -27,17 +20,6 @@ const GOOGLE_GRANT_TYPE = `authorization_code`
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
 const OAUTH_REDIRECT_URL = process.env.OAUTH_REDIRECT_URL
-
-const sourcemapsForSentryOnly = token => (req, res, next) => {
-  // In production we only want to serve source maps for sentry
-  if (!dev && !!token && req.headers['x-sentry-token'] !== token) {
-    res
-      .status(401)
-      .send('Authentication access token is required to access the source map.')
-    return
-  }
-  next()
-}
 
 const verifyJWT = token => {
   return new Promise(resolve => {
@@ -67,14 +49,10 @@ const verifyLoggedIn = async (req, res, next) => {
 app
   .prepare()
   .then(() => {
-    const { Sentry, captureException } = require('../lib/SentryWrapper')({ release: app.buildId })
     const server = express()
 
     server.use(cookieParser())
     server.use(bodyParser())
-
-    server.get(/\.map$/, sourcemapsForSentryOnly(process.env.SENTRY_TOKEN))
-    server.use(Sentry.Handlers.errorHandler())
 
     /**
      * Login
@@ -83,7 +61,6 @@ app
     server.post('/api/auth/login', async (req, res, next) => {
       try {
         const { code } = req.body
-        Debug(code)
         // Get a "refresh" token
         let { data: googleToken } = await axios.post(GOOGLE_TOKEN_URL, {
           code: code,
@@ -112,7 +89,6 @@ app
         return res.json({ metalToken })
       } catch (error) {
         console.log('/api/auth/login', error)
-        captureException(error, { req, res })
         return res.status(422).json({ message: 'Login error' })
       }
     })
@@ -124,8 +100,7 @@ app
         let decoded = await verifyJWT(token)
         return res.json({ ...decoded.user })
       } catch (error) {
-        Debug(error)
-        // captureException(error, { req, res })
+        console.log('error', error)
         return res.status(422).json({ message: 'Not logged in' })
       }
     })
@@ -139,7 +114,6 @@ app
         return res.json(keys)
       } catch (error) {
         console.log('Error: /api/auth/keys/', error)
-        captureException(error, { req, res })
         return res.error(error)
       }
     })
@@ -154,7 +128,6 @@ app
         return res.json(id)
       } catch (error) {
         console.log('error', error)
-        captureException(error, { req, res })
         return res.error(error)
       }
     })
@@ -172,7 +145,6 @@ app
         return res.json(response)
       } catch (error) {
         console.log('error', error)
-        captureException(error, { req, res })
         return res.error(error)
       }
     })
@@ -188,7 +160,6 @@ app
         return res.json(response)
       } catch (error) {
         console.log('error', error)
-        captureException(error, { req, res })
         return res.error(error)
       }
     })
@@ -215,7 +186,6 @@ app
         )
       } catch (error) {
         console.log('/api/auth/fetch-sheet', error.toString())
-        captureException(error, { req, res })
         return res.status(422).json({ message: error.toString() })
       }
     })
@@ -243,7 +213,6 @@ app
         )
       } catch (error) {
         console.log('/api/auth/fetch-sheet', error.toString())
-        captureException(error, { req, res })
         return res.status(422).json({ message: error.toString() })
       }
     })
@@ -274,7 +243,6 @@ app
         )
       } catch (error) {
         console.log('/api/auth/fetch-sheet', error.toString())
-        captureException(error, { req, res })
         return res.status(422).json({ message: error.toString() })
       }
     })

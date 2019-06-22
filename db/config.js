@@ -1,9 +1,4 @@
-const path = require('path')
-const DOT_ENV_FILE =
-  process.env.NODE_ENV === 'production'
-    ? path.join(__dirname, '../.env.prod')
-    : path.join(__dirname, '../.env')
-require('dotenv').config({ path: DOT_ENV_FILE })
+require('custom-env').env(true)
 
 module.exports = {
   host: process.env.PG_HOST || 'localhost',

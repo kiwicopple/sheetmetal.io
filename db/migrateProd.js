@@ -1,15 +1,10 @@
 /**
- * Because 'node-pg-migrate' loads 'dotenv' before we can specify the path to ".env.prod", 
+ * Because 'node-pg-migrate' loads 'dotenv' before we can specify the path to ".env.production",
  * we have to use the programatic API to run migrations
  */
 
-// Load prod config from .env.prod
-const path = require('path')
-const DOT_ENV_FILE =
-  process.env.NODE_ENV === 'production' || process.env.DB_ENV === 'production'
-    ? path.join(__dirname, '../.env.prod')
-    : path.join(__dirname, '../.env')
-require('dotenv').config({ path: DOT_ENV_FILE })
+// Load prod config from .env.production
+require('custom-env').env(true)
 
 /**
  * Set up the DB connection

@@ -1,10 +1,4 @@
 const pg = require('./index')
-const Sentry = require('@sentry/node')
-Sentry.init({
-  dsn: process.env.SENTRY_DSN,
-  environment: process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV
-})
-
 /**
  * Return a UUID - good for tokens. The database already handles this too, but *shrug*
  */
@@ -24,7 +18,6 @@ exports.getKeys = async userId => {
     const { rows } = await pg.query('SELECT * FROM keys WHERE user_id = $1', [userId])
     return rows
   } catch (error) {
-    Sentry.captureException(error)
     console.log('Error: Database.getKeys', error)
   }
 }
@@ -38,7 +31,6 @@ exports.getKey = async key => {
       const { rows } = await pg.query('SELECT * FROM keys WHERE key = $1', [key])
       return resolve(rows[0])
     } catch (error) {
-      Sentry.captureException(error)
       console.log('Error: Database.getKey', error)
       return reject(true)
     }
@@ -54,7 +46,6 @@ exports.getUser = async id => {
       const { rows } = await pg.query('SELECT * FROM users WHERE id = $1', [id])
       return resolve(rows[0])
     } catch (error) {
-      Sentry.captureException(error)
       console.log('error', error)
       return reject(true)
     }
@@ -73,7 +64,6 @@ exports.getUserForKey = (key, userId) => {
       ])
       return resolve(rows[0])
     } catch (error) {
-      Sentry.captureException(error)
       console.log('error', error)
       return reject(true)
     }
@@ -92,7 +82,6 @@ exports.saveKey = (key, userId, description, sheetId, data) => {
       const { rows } = await pg.query(text, values)
       return resolve(rows[0])
     } catch (error) {
-      Sentry.captureException(error)
       console.log('error', error)
       return reject(true)
     }
@@ -115,7 +104,6 @@ exports.updateTable = (table, id, userId, payload) => {
       const res = await pg.query(text, values)
       return resolve(res)
     } catch (error) {
-      Sentry.captureException(error)
       console.log('error', error)
       return reject(true)
     }
@@ -133,7 +121,6 @@ exports.deleteKey = (id, userId) => {
       const res = await pg.query(text, values)
       return resolve(res)
     } catch (error) {
-      Sentry.captureException(error)
       console.log('error', error)
       return reject(true)
     }
@@ -156,7 +143,6 @@ exports.upsertUser = (user, oauthToken) => {
       const { rows } = await pg.query(text, values)
       return resolve(rows[0])
     } catch (error) {
-      Sentry.captureException(error)
       console.log('error', error)
       return reject(true)
     }
@@ -171,10 +157,9 @@ exports.updateOathForUser = (userId, oauthToken) => {
     try {
       const text = 'UPDATE users SET oauth_token = $1 WHERE id = $2 RETURNING *'
       const values = [oauthToken, userId]
-      const res = await pg.query(text, values)
+      const { rows } = await pg.query(text, values)
       return resolve(rows[0])
     } catch (error) {
-      Sentry.captureException(error)
       console.log('error', error)
       return reject(true)
     }
