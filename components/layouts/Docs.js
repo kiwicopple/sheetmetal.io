@@ -3,6 +3,7 @@ import React from 'react'
 import Head from 'next/head'
 import NavBar from '~/components/landing/NavBar'
 import Footer from '~/components/landing/Footer'
+import ActiveLink from '~/components/common/ActiveLink'
 import Link from 'next/link'
 
 export default ({ id, children, classNames, title, activeLink }) => (
@@ -24,16 +25,9 @@ export default ({ id, children, classNames, title, activeLink }) => (
               <aside className="menu">
                 <p className="menu-label is-hidden-tablet">Menu</p>
                 <ul className="menu-list">
-                  <li>
-                    <Link href="/docs/">
-                      <a className={`${activeLink === 'API' && 'is-active'}`}>API</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/docs/hosting">
-                      <a className={`${activeLink === 'HOSTING' && 'is-active'}`}>Self Hosting</a>
-                    </Link>
-                  </li>
+                  <ActiveLink href="/docs">API</ActiveLink>
+                  <ActiveLink href="/docs?page=read">Reading data</ActiveLink>
+                  <ActiveLink href="/docs?page=hosting">Self Hosting</ActiveLink>
                 </ul>
               </aside>
             </div>
