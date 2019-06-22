@@ -1,7 +1,7 @@
 
 # Update 
 
-Send `PATCH` (or `PUT`) request to update value(s) of a row(s). To identify the row(s) you want to update you need to add `/{column_name}/{value}` to the API URL. Then you need to pass JSON object with new values. Updates only rows where `{column_name}` match `{value}`.`
+Send `PATCH` (or `PUT`) request to update value(s) of a row(s). To identify the row(s) you want to update you need to add `/{column_name}/{value}` to the API URL. Then you need to pass JSON object with new values. Updates only rows where `{column_name}` match `{value}`.
 
 ```sh
 # Update all rows where value of column name is Peter
@@ -10,12 +10,16 @@ curl "https://sheetsu.com/apis/v1.0db/020b2c0f/name/Peter" \
 -X PATCH \
 -H "Content-Type: application/json" \
 -d '{ "score": "1337" }'
+
+
 # Update all rows where value of column name is Lois
 # Update whole row
 curl "https://sheetsu.com/apis/v1.0db/020b2c0f/name/Lois" \
 -X PUT \
 -H "Content-Type: application/json" \
 -d '{ "id": "2", "name": "Loo1z", "score": "99999" }'
+
+
 # Update all rows from sheet "Sheet2"
 # where value of column foo is bar
 # Update only baz colum
@@ -31,4 +35,4 @@ curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet2/foo/bar" \
 + `PATCH` request updates only values passed in JSON. Returns only updated fields.
 
 ### **Returns**
-An array of updated objects. If a request is sent via PATCH method returns only updated values. If a request is sent via PUT method returns only updated values.
+An array of updated objects. If a request is sent via `PATCH` method returns only updated values. If a request is sent via `PUT` method returns only updated values.
