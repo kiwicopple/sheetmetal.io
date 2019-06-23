@@ -44,13 +44,10 @@ export default class NavBar extends React.Component {
             <Link href="/docs">
               <a className="navbar-item">Documentation</a>
             </Link>
-            <Link href="/app/console">
-              <a className="navbar-item">Account</a>
-            </Link>
 
-            {/* <a className="navbar-item" onClick={() => this.logoutAndRedirect()}>Logout</a> */}
-
-
+            <a className="navbar-item" onClick={() => this.logoutAndRedirect()}>
+              Logout
+            </a>
           </div>
         </div>
       </nav>

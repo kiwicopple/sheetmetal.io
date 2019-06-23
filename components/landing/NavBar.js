@@ -54,10 +54,13 @@ export default class NavBar extends React.Component {
             <Link href="/docs">
               <a className="navbar-item">Documentation</a>
             </Link>
+            <Link href="/docs?page=faq">
+              <a className="navbar-item">FAQ</a>
+            </Link>
 
             {!loggedInUser ? (
               <a className="navbar-item" href={authUrl()}>
-                Log in
+                Log in / Sign up
               </a>
             ) : (
               <Link href="/app/console">

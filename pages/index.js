@@ -116,7 +116,7 @@ class Home extends PureComponent {
           <hr className="m-t-none" style={{ maxWidth: '100px' }} />
           <div className="columns has-text-centered">
             <div className="column">
-              <Link href="/docs/hosting">
+              <Link href="/docs?page=hosting">
                 <a className="box">
                   <div className="title is-3">Self hosted</div>
                   <ul>

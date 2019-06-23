@@ -1,24 +1,31 @@
 export const metadata = {
   title: 'Read',
 }
+export const BASE_URL = process.env.BASE_URL || 'https://sheetmetal.io'
+export const API_URL = `${BASE_URL}/api/v1`
+export const METAL_KEY = 'YOUR_METAL_KEY'
+export const TAB_NAME = 'Employees'
+export const GET_ALL = `curl "${API_URL}/${METAL_KEY}/${TAB_NAME}"`
+export const GET_SOME = `curl "${API_URL}/${METAL_KEY}/${TAB_NAME}?limit=2"`
+export const GET_OFFSET = `curl "${API_URL}/${METAL_KEY}/${TAB_NAME}?limit=1&offset=2"`
+export const EXAMPLE_RESPONSE = `{
+  "range": "Sheet1!A1:Z1000",
+  "majorDimension": "ROWS",
+  "values": [
+    { "id": "1", "name": "Erlich Bachman", "gender": "male" },
+    { "id": "2", "name": "Richard Hendricks", "gender": "male" },
+    { "id": "3", "name": "Dinesh Chugtai", "gender": "male" },
+    { "id": "4", "name": "Bertram Gilfoyle", "gender": "male" },
+    { "id": "5", "name": "Jared Dunn", "gender": "male" },
+    { "id": "6", "name": "Jian Yang", "gender": "not hotdog" }
+  ]
+}`
 
-Get your sheet rows as JSON.
+To get data from your Google Sheet you just need to connect SheetMetal to your sheet. Each time you connect a sheet we generate a key.
 
-### Read all data
+Use the generated key to send a `GET` request. For example, if you had a tab in your Google Sheet called "Employees":
 
-You can request all the data from a sheet.
-
-**Example**
-
-```sh
-# Read first two rows from sheet "Sheet2"
-curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet2?limit=2"
-
-```
-
-**Returns**
-
-An array of objects. Each object is a row from the Google Spreadsheet.
+<code>{GET_ALL}</code>
 
 ### Request Parameters
 
@@ -29,18 +36,22 @@ You can optionally limit results, or start with offset.
 | limit     | Number of how many rows should be returned                 |
 | offset    | Number from which row response should start (default is 0) |
 
-**Example**
+### Returns
 
-```sh
+An array of objects. Each object is a row from the Google Spreadsheet. For example:
 
-# Read first two rows from sheet "Sheet2"
-curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet2?limit=2"
+<pre>{EXAMPLE_RESPONSE}</pre>
 
-# Read the third row from sheet "Sheet2"
-curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet2?limit=1&offset=2"
+### Examples
 
-```
+Get all rows from "Employees":
 
-**Returns**
+<pre>{GET_ALL}</pre>
 
-An array of objects. Each object is a row from the Google Spreadsheet.
+Read first two rows from sheet "Employees":
+
+<pre>{GET_SOME}</pre>
+
+Read the third row from sheet "Employees":
+
+<pre>{GET_OFFSET}</pre>

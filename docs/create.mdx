@@ -1,45 +1,42 @@
 export const metadata = {
   title: 'Create',
 }
-
 export const BASE_URL = process.env.BASE_URL || 'https://sheetmetal.io'
 export const API_URL = `${BASE_URL}/api/v1`
-export const SHEET_ID = 'YOUR_SHEET_ID'
-export const ADD_ONE = `curl "${API_URL}/${SHEET_ID}/sheets/Sheet1" \\
+export const METAL_KEY = 'YOUR_METAL_KEY'
+export const ADD_ONE = `curl "${API_URL}/${METAL_KEY}/Employees" \\
 -X POST \\
 -H "Content-Type: application/json" \\
--d '{ "foo": "6", "another column": "quux" }'
+-d '{ "id": "1", "name": "Erlich Bachman", "gender": "male" }'
 `
-export const ADD_MULTIPLE = `curl "${API_URL}/${SHEET_ID}/sheets/Sheet1" \\
+export const ADD_MULTIPLE = `curl "${API_URL}/${METAL_KEY}/Employees" \\
 -X POST \\
 -H "Content-Type: application/json" \\
 -d '
 {
   "rows": [
-    { "id": "6", "name": "Glenn", "score": "69" },
-    { "id": "7", "name": "Joe", "score": "98" }
+    { "id": "1", "name": "Erlich Bachman", "gender": "male" },
+    { "id": "2", "name": "Jian Yang", "gender": "not hotdog" }
   ]
 }'
 `
 
-Add data to Google Spreadsheet by sending a JSON object via `POST` request.
+To add data to your Google Sheet you just need to connect SheetMetal to your sheet. Each time you connect a sheet we generate a key.
 
-### Add a single row to sheet named "Sheet1"
-
-**Example**
+Use the generated key to send a `POST` request. For example, if you had a tab in your Google Sheet called "Employees":
 
 <pre>{ADD_ONE}</pre>
 
-**Returns**
-
-An array or object of created objects.
-
-### Add multiple rows to sheet named "Sheet1"
-
-**Example**
-
-<pre>{ADD_MULTIPLE}</pre>
-
-**Returns**
+### Returns
 
 An array of created objects.
+
+### Examples
+
+Add a single row to sheet named "Employees":
+
+<pre>{ADD_ONE}</pre>
+
+Add multiple rows to sheet named "Employees":
+
+<pre>{ADD_MULTIPLE}</pre>

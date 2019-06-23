@@ -9,13 +9,13 @@ Send `PATCH` or `PUT` request to update values of a row.
 
 To identify the row(s) you want to update you need to add `/{column_name}/{value}` to the API URL. Then you need to pass JSON object with new values. Updates only rows where `{column_name}` match `{value}`.
 
-### Update the value in one column
+### Returns
 
-The `PATCH` method returns only updated values.
+An array of updated objects.
 
-**Example**
+### Examples
 
-Update all rows from sheet "Sheet1" where value of column name is Peter
+Update all rows from sheet "Sheet1" where value of column name is Peter:
 
 ```sh
 curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1/name/Peter" \
@@ -25,17 +25,7 @@ curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1/name/Peter" \
 
 ```
 
-**Returns**
-
-An array of updated objects.
-
-### Update whole row
-
-The `PUT` method returns whole updated rows.
-
-**Example**
-
-Update all rows from sheet "Sheet1" where value of column name is Lois
+Update all rows from sheet "Sheet1" where value of column name is Lois:
 
 ```sh
 curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1/name/Lois" \
@@ -44,7 +34,3 @@ curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1/name/Lois" \
 -d '{ "id": "2", "name": "Loo1z", "score": "99999" }'
 
 ```
-
-**Returns**
-
-An array of updated objects.
