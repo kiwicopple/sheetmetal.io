@@ -2,6 +2,28 @@ export const metadata = {
   title: 'Updating',
 }
 
+export const BASE_URL = process.env.BASE_URL || 'https://sheetmetal.io'
+export const API_URL = `${BASE_URL}/api/v1`
+export const METAL_KEY = 'YOUR_METAL_KEY'
+export const TAB_NAME = 'Employees'
+export const UPDATE_VALUE = `curl "${API_URL}/${METAL_KEY}/Employees/id/6" \\
+-X PATCH \\
+-H "Content-Type: application/json" \\
+-d '{ "gender": "not hotdog" }'
+`
+export const UPDATE_ROWS = `curl "${API_URL}/${METAL_KEY}/Employees/id/1" \\
+-X POST \\
+-H "Content-Type: application/json" \\
+-d '{ "id": "1", "name": "Erlich Bachman", "gender": "male", "status": "terminated" }'
+`
+export const EXAMPLE_RESPONSE = `{
+  "values": [
+    { "id": "6", "name": "Jian Yang", "gender": "male" }
+  ]
+}`
+
+Before updating data from your Google Sheet you need login and connect SheetMetal to your Sheet. Each time you connect a Sheet we generate a private key.
+
 Send `PATCH` or `PUT` request to update values of a row.
 
 - `PUT` request updates whole row. If you do not provide all fields in the JSON object, some fields might get emptied. PUT returns whole updated rows.
@@ -11,26 +33,16 @@ To identify the row(s) you want to update you need to add `/{column_name}/{value
 
 ### Returns
 
-An array of updated objects.
+An array of updated objects. For example:
+
+<pre>{EXAMPLE_RESPONSE}</pre>
 
 ### Examples
 
-Update all rows from sheet "Sheet1" where value of column name is Peter:
+Update all rows from sheet "Employees" where value of "gender" is male":
 
-```sh
-curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1/name/Peter" \
--X PATCH \
--H "Content-Type: application/json" \
--d '{ "score": "1337" }'
+<pre>{UPDATE_VALUE}</pre>
 
-```
+Update the entire row from sheet "Employees" where value of "id" is "1":
 
-Update all rows from sheet "Sheet1" where value of column name is Lois:
-
-```sh
-curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1/name/Lois" \
--X PUT \
--H "Content-Type: application/json" \
--d '{ "id": "2", "name": "Loo1z", "score": "99999" }'
-
-```
+<pre>{UPDATE_ROWS}</pre>

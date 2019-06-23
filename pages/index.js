@@ -11,9 +11,9 @@ class Home extends PureComponent {
           <div className="container">
             <div className="columns is-centered">
               <div className="column is-8 has-text-centered">
-                <h3 className="title is-3 m-b-sm">Turn Google Sheets into a database.</h3>
+                <h3 className="title is-3 m-b-sm">Turn any Google Sheet into a database.</h3>
                 <p className="is-size-5 m-b-lg">
-                  SheetMetal lets you update any Google spreadsheet via a RESTful API.
+                  SheetMetal lets you read and update any Google spreadsheet via a RESTful API.
                 </p>
                 {/* <div id="Video">
                   <p>Video here</p>

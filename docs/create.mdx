@@ -20,8 +20,13 @@ export const ADD_MULTIPLE = `curl "${API_URL}/${METAL_KEY}/Employees" \\
   ]
 }'
 `
+export const EXAMPLE_RESPONSE = `{
+  "values": [
+    { "id": "1", "name": "Erlich Bachman", "gender": "male" }
+  ]
+}`
 
-To add data to your Google Sheet you just need to connect SheetMetal to your sheet. Each time you connect a sheet we generate a key.
+Before adding data from your Google Sheet you need login and connect SheetMetal to your Sheet. Each time you connect a Sheet we generate a private key.
 
 Use the generated key to send a `POST` request. For example, if you had a tab in your Google Sheet called "Employees":
 
@@ -29,7 +34,9 @@ Use the generated key to send a `POST` request. For example, if you had a tab in
 
 ### Returns
 
-An array of created objects.
+An array of created objects. For example:
+
+<pre>{EXAMPLE_RESPONSE}</pre>
 
 ### Examples
 

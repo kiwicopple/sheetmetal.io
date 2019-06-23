@@ -2,8 +2,23 @@ export const metadata = {
   title: 'Delete',
 }
 
-- To _CLEAR_ a row, send a `DELETE` request **with** a `/{column_name}/{value}` path
-- To _DESTROY_ a row, send a `DELETE` request **without** a `/{column_name}/{value}` path, but with a payload specifying the criteria
+export const BASE_URL = process.env.BASE_URL || 'https://sheetmetal.io'
+export const API_URL = `${BASE_URL}/api/v1`
+export const METAL_KEY = 'YOUR_METAL_KEY'
+export const TAB_NAME = 'Employees'
+export const CLEAR = `curl "${API_URL}/${METAL_KEY}/Employees/id/1" \\
+-X DELETE
+`
+export const DESTROY = `curl "${API_URL}/${METAL_KEY}/Employees" \\
+-X DELETE \\
+-H "Content-Type: application/json" \\
+-d '{ name": "Erlich Bachman", "status": "terminated" }'
+`
+
+Before deleting data from your Google Sheet you need login and connect SheetMetal to your Sheet. Each time you connect a Sheet we generate a private key.
+
+- To _CLEAR_ a row, send a `DELETE` request _with_ a `/{column_name}/{value}` path
+- To _DESTROY_ a row, send a `DELETE` request _without_ a `/{column_name}/{value}` path, but with a payload specifying the criteria
 
 ### Returns
 
@@ -11,19 +26,10 @@ On success, returns `204 No Content` HTTP status code, without a body.
 
 ### Examples
 
-Clear all rows from sheet "Sheet1" where name is Jim:
+Clear all rows from sheet "Employees" where "id" is "1":
 
-```sh
-curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1/name/Jim" \
--X DELETE
-```
+<pre>{CLEAR}</pre>
 
-Destroy all rows from sheet 'Sheet1' where column 'score' is '42' and column 'name' is 'Peter':
+Destroy all rows from sheet "Employees" where column "name" is "Erlich Bachman" and column "status" is "terminated":
 
-```sh
-curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet2" \
--X DELETE \
--H "Content-Type: application/json" \
--d '{ "score": "42", "name": "Peter" }'
-
-```
+<pre>{DESTROY}</pre>
