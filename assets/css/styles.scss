@@ -209,6 +209,11 @@ hr.is-title-accent {
     color: $grey-200 !important;
     border: 1px solid transparent;
   }
+  &.is-medium {
+    font-size: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.2rem;
+  }
 }
 .field.has-addons {
   .button {
