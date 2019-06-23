@@ -27,7 +27,6 @@
     "dotenv-webpack": "^1.7.0",
     "express": "^4.16.4",
     "googleapis": "^38.0.0",
-    "install": "^0.12.2",
     "js-cookie": "^2.2.0",
     "jsonwebtoken": "^8.5.0",
     "next": "^8.1.1-canary.55",
@@ -36,7 +35,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-toastify": "^4.5.2",
-    "sentry-testkit": "^2.1.0"
+    "webpack": "^4.35.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.2.3",
@@ -47,8 +46,7 @@
     "jest": "^24.8.0",
     "node-pg-migrate": "^3.18.0",
     "prettier": "^1.15.3",
-    "pretty-quick": "^1.8.0",
-    "webpack": "^4.35.0"
+    "pretty-quick": "^1.8.0"
   },
   "husky": {
     "hooks": {

@@ -6,7 +6,6 @@ const DOT_ENV_FILE =
     ? path.join(__dirname, '.env.production')
     : path.join(__dirname, '.env')
 
-const nextSourceMaps = require('@zeit/next-source-maps')()
 const withSass = require('@zeit/next-sass')
 const Dotenv = require('dotenv-webpack')
 const withMDX = require('@next/mdx')({
@@ -14,23 +13,21 @@ const withMDX = require('@next/mdx')({
 })
 
 module.exports = withMDX(
-  withSass(
-    nextSourceMaps({
-      pageExtensions: ['js', 'jsx', 'mdx'],
-      webpack: (config, { isServer, buildId }) => {
-        config.plugins = config.plugins || []
-        config.plugins = [
-          ...config.plugins,
+  withSass({
+    pageExtensions: ['js', 'jsx', 'mdx'],
+    webpack: (config, { isServer, buildId }) => {
+      config.plugins = config.plugins || []
+      config.plugins = [
+        ...config.plugins,
 
-          // Read the .env file
-          new Dotenv({
-            path: DOT_ENV_FILE,
-            systemvars: true,
-          }),
-        ]
+        // Read the .env file
+        new Dotenv({
+          path: DOT_ENV_FILE,
+          systemvars: true,
+        }),
+      ]
 
-        return config
-      },
-    })
-  )
+      return config
+    },
+  })
 )
