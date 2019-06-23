@@ -15,17 +15,23 @@ class Home extends PureComponent {
                 <p className="is-size-5 m-b-lg">
                   SheetMetal lets you update any Google spreadsheet via a RESTful API.
                 </p>
-
-                <div id="Video">
+                {/* <div id="Video">
                   <p>Video here</p>
-                </div>
+                </div> */}
+                <img src="/static/img/hero.png" alt="Sheet Metal" />
               </div>
             </div>
           </div>
         </div>
 
         <div className="has-text-centered section">
-          <a href="" className="button is-primary is-medium has-text-weight-bold is-rounded has-shadow" href={authUrl()}>
+          <Link href="/docs">
+            <a className="button is-medium has-text-weight-bold m-r-md">Learn more</a>
+          </Link>
+          <a
+            className="button is-primary is-medium has-text-weight-bold has-shadow"
+            href={authUrl()}
+          >
             <span>Get Started</span>
             <span className="icon">
               <i className="fas fa-arrow-right" />
@@ -43,7 +49,10 @@ class Home extends PureComponent {
                   <img src="/static/img/use-prototype.png" alt="Use for prototyping" width="50" />
                 </div>
                 <h5 className="title is-5 m-b-sm">Prototyping</h5>
-                <p>Don't worry about setting up a database. Use a Google Sheets for rapid prototyping.</p>
+                <p>
+                  Don't worry about setting up a database. Use a Google Sheets for rapid
+                  prototyping.
+                </p>
               </div>
             </div>
             <div className="column ">
@@ -52,7 +61,10 @@ class Home extends PureComponent {
                   <img src="/static/img/use-crm.png" alt="Use as CRM" width="50" />
                 </div>
                 <h5 className="title is-5 m-b-sm">Custom forms</h5>
-                <p>Put a custom form on your website and collect leads and responses in Google Sheets.</p>
+                <p>
+                  Put a custom form on your website and collect leads and responses in Google
+                  Sheets.
+                </p>
               </div>
             </div>
             <div className="column ">
@@ -89,8 +101,7 @@ class Home extends PureComponent {
               <div className="title is-1">3.</div>
               <h5 className="title is-5 m-b-sm">Use your Sheet like a database</h5>
               <p>
-                SheetMetal gives you full access to update with your spreadsheet via a RESTful
-                API.
+                SheetMetal gives you full access to update with your spreadsheet via a RESTful API.
               </p>
             </div>
           </div>
@@ -105,15 +116,14 @@ class Home extends PureComponent {
           <hr className="m-t-none" style={{ maxWidth: '100px' }} />
           <div className="columns has-text-centered">
             <div className="column">
-
-            <Link href="/docs/hosting">
-              <a className="box">
-                <div className="title is-3">Self hosted</div>
-                <ul>
-                  <li>Unlimited API calls</li>
-                  <li>Unlimited API keys</li>
-                </ul>
-              </a>
+              <Link href="/docs/hosting">
+                <a className="box">
+                  <div className="title is-3">Self hosted</div>
+                  <ul>
+                    <li>Unlimited API calls</li>
+                    <li>Unlimited API keys</li>
+                  </ul>
+                </a>
               </Link>
             </div>
             <div className="column">
@@ -142,10 +152,13 @@ class Home extends PureComponent {
             <div className="columns is-mobile">
               <div
                 className="column"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'end' }}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}
               >
                 <strong className="is-size-4 has-text-white m-r-md">Try SheetMetal for free</strong>
-                <a className="button is-medium is-primary has-text-weight-bold is-rounded" href={authUrl()}>
+                <a
+                  className="button is-medium is-primary has-text-weight-bold is-rounded"
+                  href={authUrl()}
+                >
                   <span>Go</span>
                   <span className="icon">
                     <i className="fas fa-arrow-right" />
