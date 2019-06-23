@@ -2,35 +2,17 @@ export const metadata = {
   title: 'Create',
 }
 
-Add data to Google Spreadsheet by sending a JSON object via `POST` request.
-
-### Add a single row to sheet named "Sheet1"
-
-**Example**
-
-```sh
-
-curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1" \
--X POST \
--H "Content-Type: application/json" \
+export const BASE_URL = process.env.BASE_URL || 'https://sheetmetal.io'
+export const API_URL = `${BASE_URL}/api/v1`
+export const SHEET_ID = 'YOUR_SHEET_ID'
+export const ADD_ONE = `curl "${API_URL}/${SHEET_ID}/sheets/Sheet1" \\
+-X POST \\
+-H "Content-Type: application/json" \\
 -d '{ "foo": "6", "another column": "quux" }'
-
-```
-
-**Returns**
-
-An array or object of created objects.
-
----
-
-### Add multiple rows to sheet named "Sheet1"
-
-**Example**
-
-```sh
-curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1" \
--X POST \
--H "Content-Type: application/json" \
+`
+export const ADD_MULTIPLE = `curl "${API_URL}/${SHEET_ID}/sheets/Sheet1" \\
+-X POST \\
+-H "Content-Type: application/json" \\
 -d '
 {
   "rows": [
@@ -38,7 +20,25 @@ curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1" \
     { "id": "7", "name": "Joe", "score": "98" }
   ]
 }'
-```
+`
+
+Add data to Google Spreadsheet by sending a JSON object via `POST` request.
+
+### Add a single row to sheet named "Sheet1"
+
+**Example**
+
+<pre>{ADD_ONE}</pre>
+
+**Returns**
+
+An array or object of created objects.
+
+### Add multiple rows to sheet named "Sheet1"
+
+**Example**
+
+<pre>{ADD_MULTIPLE}</pre>
 
 **Returns**
 

@@ -4,19 +4,20 @@ export const metadata = {
 
 Send `PATCH` or `PUT` request to update values of a row.
 
-### Difference between `PUT` and `PATCH`
-
 - `PUT` request updates whole row. If you do not provide all fields in the JSON object, some fields might get emptied. PUT returns whole updated rows.
 - `PATCH` request updates only values passed in JSON. Returns only updated fields.
 
 To identify the row(s) you want to update you need to add `/{column_name}/{value}` to the API URL. Then you need to pass JSON object with new values. Updates only rows where `{column_name}` match `{value}`.
 
----
-
 ### Update the value in one column
 
+The `PATCH` method returns only updated values.
+
+**Example**
+
+Update all rows from sheet "Sheet1" where value of column name is Peter
+
 ```sh
-# Update all rows from sheet "Sheet1" where value of column name is Peter
 curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1/name/Peter" \
 -X PATCH \
 -H "Content-Type: application/json" \
@@ -24,17 +25,19 @@ curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1/name/Peter" \
 
 ```
 
-### **Returns**
+**Returns**
 
-An array of updated objects. The `PATCH` method returns only updated values.
-
----
+An array of updated objects.
 
 ### Update whole row
 
-```sh
+The `PUT` method returns whole updated rows.
 
-# Update all rows from sheet "Sheet1" where value of column name is Lois
+**Example**
+
+Update all rows from sheet "Sheet1" where value of column name is Lois
+
+```sh
 curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1/name/Lois" \
 -X PUT \
 -H "Content-Type: application/json" \
@@ -42,6 +45,6 @@ curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1/name/Lois" \
 
 ```
 
-### **Returns**
+**Returns**
 
-An array of updated objects. The `PUT` method returns whole updated rows.
+An array of updated objects.

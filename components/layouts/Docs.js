@@ -31,6 +31,7 @@ export default ({ id, children, classNames, title, activeLink }) => (
                   <ActiveLink href="/docs?page=update">Update</ActiveLink>
                   <ActiveLink href="/docs?page=del">Delete</ActiveLink>
                   <ActiveLink href="/docs?page=hosting">Self Hosting</ActiveLink>
+                  <ActiveLink href="/docs?page=faq">FAQ</ActiveLink>
                 </ul>
               </aside>
             </div>

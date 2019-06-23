@@ -29,7 +29,7 @@ class Home extends PureComponent {
             <a className="button is-medium has-text-weight-bold m-r-md">Learn more</a>
           </Link>
           <a
-            className="button is-primary is-medium has-text-weight-bold has-shadow"
+            className="button is-primary is-medium has-text-weight-bold has-shadow is-outlined"
             href={authUrl()}
           >
             <span>Get Started</span>
@@ -131,7 +131,7 @@ class Home extends PureComponent {
                 <div className="title is-3">Free</div>
                 <ul>
                   <li>One connected Sheet</li>
-                  <li>30 API calls per day</li>
+                  <li>Unlimited API calls</li>
                 </ul>
               </a>
             </div>

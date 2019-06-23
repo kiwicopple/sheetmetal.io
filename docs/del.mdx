@@ -2,25 +2,35 @@ export const metadata = {
   title: 'Delete',
 }
 
-## Clear data without removing the row
+- To _CLEAR_ a row, send a `DELETE` request **with** a `/{column_name}/{value}` path
+- To _DESTROY_ a row, send a `DELETE` request **without** a `/{column_name}/{value}` path, but with a payload specifying the criteria
 
-Send `DELETE` request with a `/{column_name}/{value}` path added at the end of the URL to delete rows. Clear row(s) where `{column_name}` match `{value}`. Clear doesn’t change the number of rows.
+### Clear data without removing the row
+
+Send `DELETE` request with a `/{column_name}/{value}` path added at the end of the URL to delete rows. Clear doesn’t change the number of rows.
+
+**Example**
+
+Clear all rows from sheet "Sheet1" where name is Jim
 
 ```sh
-# Clear all rows from sheet "Sheet1" where name is Jim
 curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet1/name/Jim" \
 -X DELETE
 ```
 
----
+**Returns**
 
-## Destroy a row
+On success, returns `204 No Content` HTTP status code, without a body.
+
+### Destroy a row
 
 Send `DELETE` request to destroy all matched rows, move up below rows and decrease number of rows.
 
+**Example**
+
+Destroy all rows from sheet 'Sheet1' where column 'score' is '42' and column 'name' is 'Peter'
+
 ```sh
-# Destroy all rows from sheet 'Sheet2'
-# where column 'score' is '42' and column 'name' is 'Peter'
 curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet2" \
 -X DELETE \
 -H "Content-Type: application/json" \
@@ -28,6 +38,6 @@ curl "https://sheetsu.com/apis/v1.0db/020b2c0f/sheets/Sheet2" \
 
 ```
 
-### **Returns**
+**Returns**
 
 On success, returns `204 No Content` HTTP status code, without a body.
