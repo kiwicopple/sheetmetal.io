@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 const axios = require('axios')
 const Database = require('../db/database')
 const GoogleHelpers = require('./Google')
+// const { join } = require('path')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -20,6 +21,7 @@ const GOOGLE_GRANT_TYPE = `authorization_code`
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
 const OAUTH_REDIRECT_URL = process.env.OAUTH_REDIRECT_URL
+// const ROOT_STATIC_FILES = ['/robots.txt', '/sitemap.xml', '/favicon.ico']
 
 const verifyJWT = token => {
   return new Promise(resolve => {

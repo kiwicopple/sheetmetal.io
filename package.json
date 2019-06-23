@@ -30,7 +30,7 @@
     "install": "^0.12.2",
     "js-cookie": "^2.2.0",
     "jsonwebtoken": "^8.5.0",
-    "next": "^8.0.4",
+    "next": "^8.1.1-canary.55",
     "node-sass": "^4.11.0",
     "pg": "^7.8.2",
     "react": "^16.8.6",
@@ -47,7 +47,8 @@
     "jest": "^24.8.0",
     "node-pg-migrate": "^3.18.0",
     "prettier": "^1.15.3",
-    "pretty-quick": "^1.8.0"
+    "pretty-quick": "^1.8.0",
+    "webpack": "^4.35.0"
   },
   "husky": {
     "hooks": {
