@@ -14,27 +14,16 @@ exports.uuidv4 = () => {
  * Get API keys for a user
  */
 exports.getKeys = async userId => {
-  try {
-    const { rows } = await pg.query('SELECT * FROM keys WHERE user_id = $1', [userId])
-    return rows
-  } catch (error) {
-    console.log('Error: Database.getKeys', error)
-  }
+  const { rows } = await pg.query('SELECT * FROM keys WHERE user_id = $1', [userId])
+  return rows
 }
 
 /**
  * Get a single API key
  */
 exports.getKey = async key => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const { rows } = await pg.query('SELECT * FROM keys WHERE key = $1', [key])
-      return resolve(rows[0])
-    } catch (error) {
-      console.log('Error: Database.getKey', error)
-      return reject(true)
-    }
-  })
+  const { rows } = await pg.query('SELECT * FROM keys WHERE key = $1', [key])
+  return rows[0]
 }
 
 /**

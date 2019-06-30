@@ -8,6 +8,8 @@ const bodyParser = require('body-parser')
 const axios = require('axios')
 const Database = require('../db/database')
 const GoogleHelpers = require('./Google')
+const V1 = require('./V1')
+
 // const { join } = require('path')
 
 const dev = process.env.NODE_ENV !== 'production'
@@ -55,6 +57,8 @@ app
 
     server.use(cookieParser())
     server.use(bodyParser())
+
+    server.use('/api/v1', V1)
 
     /**
      * Login
@@ -192,33 +196,6 @@ app
       }
     })
 
-    /**
-     * Sheets API
-     */
-
-    server.get('/api/v1/sheets/:key', async function(req, res) {
-      try {
-        const { key } = req.params
-        let apiKey = await Database.getKey(key)
-        if (!apiKey) return res.error(`Can't find a matching key.`)
-        let user = await Database.getUser(apiKey.user_id)
-        const sheets = GoogleHelpers.authorisedClient(user.oauth_token)
-        sheets.spreadsheets.get(
-          {
-            spreadsheetId: apiKey.sheet_id,
-          },
-          (err, response) => {
-            if (err) return GoogleHelpers.handleGoogleError(err, req, res)
-            let data = response.data
-            return res.send(data)
-          }
-        )
-      } catch (error) {
-        console.log('/api/auth/fetch-sheet', error.toString())
-        return res.status(422).json({ message: error.toString() })
-      }
-    })
-
     /* GET all values on a sheet. */
     server.get('/api/v1/sheets/:key/:sheet/:range?', async function(req, res) {
       try {
@@ -248,36 +225,6 @@ app
         return res.status(422).json({ message: error.toString() })
       }
     })
-
-    // /* POST create new values. */
-    // server.post('/api/v1/sheets/:key/:sheet/', async function(req, res) {
-    //   try {
-    //     const { key, sheet, range } = req.params
-    //     const { formatted } = req.query
-    //     let fullRangeString = range ? `${sheet}!${range}` : sheet
-
-    //     let apiKey = await Database.getKey(key)
-    //     if (!apiKey) return res.error(`Can't find a matching key.`)
-
-    //     let user = await Database.getUser(apiKey.user_id)
-    //     const sheets = GoogleHelpers.authorisedClient(user.oauth_token)
-    //     sheets.spreadsheets.values.get(
-    //       { spreadsheetId: apiKey.sheet_id, range: fullRangeString },
-    //       (err, response) => {
-    //         GoogleHelpers.handlePotentiallyNewOauth(user.oauth_token, sheets, user.id)
-    //         if (err) return GoogleHelpers.handleGoogleError(err, req, res)
-    //         else if (!!formatted) {
-    //           let data = response.data
-    //           let formattedValues = GoogleHelpers.valuesToJson(data.values)
-    //           return res.send({ ...data, values: formattedValues })
-    //         } else return res.send(response.data)
-    //       }
-    //     )
-    //   } catch (err) {
-    //     console.log('/api/auth/fetch-sheet', err.toString())
-    //     return res.status(422).json({ message: err.toString() })
-    //   }
-    // })
 
     /**
      * Secured
