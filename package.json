@@ -13,7 +13,7 @@
     "migrate:prod": "NODE_ENV=production node ./db/migrateProd.js",
     "pretty": "prettier --write \"./**/*.{js,json,yml,md,vue,css,scss}\"",
     "start": "NODE_ENV=production node server",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "dependencies": {
     "@next/mdx": "^8.0.4",

@@ -36,7 +36,7 @@ const getSheetsValues = (userId, oauth_token, config) => {
 }
 
 /**
- * GET /sheets/:key
+ * READ SHEET
  */
 routes.get('/sheets/:key', verifyMetalKey, async function(req, res) {
   try {
@@ -59,7 +59,7 @@ routes.get('/sheets/:key', verifyMetalKey, async function(req, res) {
 })
 
 /**
- * GET /sheets/:key
+ * READ TAB
  */
 routes.get('/sheets/:key/:sheet/:range?', verifyMetalKey, async function(req, res) {
   try {
@@ -77,8 +77,57 @@ routes.get('/sheets/:key/:sheet/:range?', verifyMetalKey, async function(req, re
   }
 })
 
-/* POST create new values. */
+/**
+ * CREATE ROW
+ */
 routes.post('/api/v1/sheets/:key/:sheet/', verifyMetalKey, async function(req, res) {
+  try {
+    return res.status(NOT_IMPLEMENTED).json({ message: 'Not yet implemented' })
+  } catch (err) {
+    handleError(req, err)
+  }
+})
+
+/**
+ * UPDATE WHOLE ROW
+ */
+routes.put('/api/v1/sheets/:key/:sheet/', verifyMetalKey, async function(req, res) {
+  try {
+    return res.status(NOT_IMPLEMENTED).json({ message: 'Not yet implemented' })
+  } catch (err) {
+    handleError(req, err)
+  }
+})
+
+/**
+ * UPDATE SOME VALUES ONLY
+ */
+routes.patch('/api/v1/sheets/:key/:sheet/', verifyMetalKey, async function(req, res) {
+  try {
+    return res.status(NOT_IMPLEMENTED).json({ message: 'Not yet implemented' })
+  } catch (err) {
+    handleError(req, err)
+  }
+})
+
+/**
+ * CLEAR A ROW
+ */
+routes.delete('/api/v1/sheets/:key/:sheet/:column_name/:value/', verifyMetalKey, async function(
+  req,
+  res
+) {
+  try {
+    return res.status(NOT_IMPLEMENTED).json({ message: 'Not yet implemented' })
+  } catch (err) {
+    handleError(req, err)
+  }
+})
+
+/**
+ * DESTROY A ROW
+ */
+routes.delete('/api/v1/sheets/:key/:sheet/', verifyMetalKey, async function(req, res) {
   try {
     return res.status(NOT_IMPLEMENTED).json({ message: 'Not yet implemented' })
   } catch (err) {
