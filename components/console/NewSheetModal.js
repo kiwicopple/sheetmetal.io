@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios'
 import { fetchSheet } from '~/lib/Auth'
 export default class NewSheetModal extends React.Component {
   constructor(props) {
@@ -24,7 +24,7 @@ export default class NewSheetModal extends React.Component {
         this.setState({
           loading: false,
           connected,
-          description: connected.properties.title
+          description: connected.properties.title,
         })
       }
     } catch (error) {
@@ -51,7 +51,7 @@ export default class NewSheetModal extends React.Component {
               <button className="delete" onClick={() => emitOnCancel()} />
             </header>
             <section className="modal-card-body">
-              <img className={`${!connected && 'is-visible'}`} src="/static/img/connection.png" />
+              <img className={`${!connected && 'is-visible'}`} src="/img/connection.png" />
               <label>Sheet ID</label>
               <div className="field has-addons has-addons-right">
                 <p className="control is-expanded has-icons-left">
@@ -120,7 +120,7 @@ export default class NewSheetModal extends React.Component {
                       emitOnCreate({
                         sheetId,
                         description,
-                        data: connected
+                        data: connected,
                       })
                     }
                   >

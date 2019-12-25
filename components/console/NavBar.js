@@ -22,7 +22,7 @@ export default class NavBar extends React.Component {
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
-            <img src="/static/img/sheet-metal-logo.png" alt="Sheet Metal" />
+            <img src="/img/sheet-metal-logo.png" alt="Sheet Metal" />
           </a>
           <a
             onClick={() => this.setState({ isMobileActive: !isMobileActive })}
@@ -41,8 +41,8 @@ export default class NavBar extends React.Component {
         <div className={`navbar-menu ${isMobileActive ? 'is-active' : ''}`}>
           <div className="navbar-start" />
           <div className="navbar-end p-r-sm">
-            <Link href="/docs">
-              <a className="navbar-item">Documentation</a>
+            <Link href="https://sheetmetal.io/docs">
+              <a className="navbar-item">Docs</a>
             </Link>
 
             <a className="navbar-item" onClick={() => this.logoutAndRedirect()}>

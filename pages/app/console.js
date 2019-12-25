@@ -112,7 +112,7 @@ export default class Console extends Component {
                       </a>
                     </div>
                   </nav>
-                  <img src="/static/img/empty-list.png" />
+                  <img src="/img/empty-list.png" />
                 </div>
               ) : (
                 <React.Fragment>
@@ -185,52 +185,8 @@ export default class Console extends Component {
               )}
             </div>
           </div>
-
-          {!!selectedKey && (
-            <DocsPanel
-              sheetKey={selectedKey.key}
-              onClose={() => this.setState({ selectedKey: null })}
-            />
-          )}
         </div>
       </Page>
-    )
-  }
-}
-
-class DocsPanel extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      selectedLanguage: 'CURL',
-      range: '',
-    }
-    this.emitOnClose = this.props.onClose || (() => {})
-  }
-  render() {
-    let { selectedLanguage } = this.state
-    let { sheetKey } = this.props
-    
-    return (
-      <div
-        id="quickviewDefault"
-        className="quickview has-background-grey-darker is-active is-large"
-      >
-        <header className="quickview-header">
-          <p className="title">
-            <LanguageSelector
-              selectedLanguage={selectedLanguage}
-              onLanguageUpdated={selectedLanguage => this.setState({ selectedLanguage })}
-            />
-          </p>
-          <span className="delete" onClick={() => this.emitOnClose()} />
-        </header>
-        <div className="has-overflow-scroll">
-          <div className="p-md">
-            <ApiDocs language={selectedLanguage} sheetKey={sheetKey} />
-          </div>
-        </div>
-      </div>
     )
   }
 }

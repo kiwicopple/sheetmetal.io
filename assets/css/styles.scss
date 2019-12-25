@@ -166,16 +166,6 @@ hr {
     color: $text;
   }
 }
-.docs {
-  h3 {
-    margin-top: 70px !important;
-    &:after {
-      content: '━━━━';
-      display: block;
-      color: $primary;
-    }
-  }
-}
 hr.is-title-accent {
   margin-top: 5px;
   max-width: 100px;
@@ -268,13 +258,6 @@ code {
     float: right;
     border: none;
     border-radius: 0 4px 0 4px;
-  }
-}
-#DocsPanel {
-  .delete {
-    position: absolute;
-    top: 60px;
-    right: 20px;
   }
 }
 #NewSheetModal {

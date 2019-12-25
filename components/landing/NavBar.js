@@ -25,7 +25,7 @@ export default class NavBar extends React.Component {
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item" href="/?src=nav">
-            <img src="/static/img/sheet-metal-logo.png" alt="Sheet Metal" />
+            <img src="/img/sheet-metal-logo.png" alt="Sheet Metal" />
           </a>
           <a
             onClick={() =>
@@ -48,19 +48,13 @@ export default class NavBar extends React.Component {
         <div className={`navbar-menu ${isMobileActive ? 'is-active' : ''}`}>
           <div className="navbar-start" />
           <div className="navbar-end p-r-sm">
-            <Link href="/#pricing">
-              <a className="navbar-item">Pricing</a>
-            </Link>
-            <Link href="/docs">
-              <a className="navbar-item">Documentation</a>
-            </Link>
-            <Link href="/docs?page=faq">
-              <a className="navbar-item">FAQ</a>
+            <Link href="https://sheetmetal.io/docs">
+              <a className="navbar-item">Docs</a>
             </Link>
 
             {!loggedInUser ? (
               <a className="navbar-item" href={authUrl()}>
-                Log in / Sign up
+                Account
               </a>
             ) : (
               <Link href="/app/console">

@@ -11,7 +11,7 @@ export default class ErrorPage extends React.Component {
               <h3 className="title is-3">Hmmm..</h3>
               <p>Something went wrong. Something always goes wrong ¯\_(ツ)_/¯</p>
               <p>
-                <img src="/static/img/fatal-error.png" />
+                <img src="/img/fatal-error.png" />
               </p>
             </div>
           </div>

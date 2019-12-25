@@ -42,7 +42,7 @@ class Auth extends Component {
                 <h3 className="title is-3">ERROR</h3>
                 <p>Something went wrong. Something always goes wrong ¯\_(ツ)_/¯</p>
                 <p>
-                  <img src="/static/img/fatal-error.png" />
+                  <img src="/img/fatal-error.png" />
                 </p>
               </div>
             </div>
@@ -56,7 +56,7 @@ class Auth extends Component {
                   </Link>
                 </p>
                 <p>
-                  <img src="/static/img/sign-in.png" />
+                  <img src="/img/sign-in.png" />
                 </p>
               </div>
             </div>
