@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@zeit/next-sass": "^1.0.1",
-    "acorn": "^6.1.1",
+    "acorn": "^6.4.1",
     "axios": "^0.21.1",
     "body-parser": "^1.18.3",
     "bulma": "^0.7.1",
