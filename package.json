@@ -27,7 +27,7 @@
     "express": "^4.16.4",
     "googleapis": "^38.0.0",
     "js-cookie": "^2.2.0",
-    "jsonwebtoken": "^8.5.0",
+    "jsonwebtoken": "^9.0.0",
     "next": "^9.3.2",
     "next-compose-plugins": "^2.2.0",
     "node-sass": "^4.11.0",
